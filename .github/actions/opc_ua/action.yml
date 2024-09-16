@@ -1,0 +1,64 @@
+name: Clone and compile open62541
+author: Jose Cabral
+Description: "Clone open62541 and build a release static library with discovery multicast and events"
+
+inputs:
+  git_version:
+    type: string
+    Decription: Version of open62541 to clone
+    required: True
+  
+  cpp_compiler:
+    type: string
+    Description: C++ compiler to use, passed as CMAKE_CXX_COMPILER to CMake
+    required: True
+    
+  c_compiler:
+    type: string
+    Description: C compiler to use, passed as CMAKE_C_COMPILER to CMake
+    required: True
+
+outputs:
+  opc_ua-include:
+    value: ${{ steps.vars.outputs.opc_ua-include }}
+    description: The include directory
+  opc_ua-lib-dir:
+    value: ${{ steps.vars.outputs.opc_ua-lib-dir }}
+    description: The library directory
+
+runs:
+  using: "composite"
+  steps:
+    - name: Clone open62541
+      shell: bash
+      run: |
+        git clone https://github.com/open62541/open62541 -b ${{ inputs.git_version }}
+        
+        cd open62541
+        git submodule update --recursive --init
+      
+    - name: Build open62541
+      shell: bash
+      run: |
+        cd open62541
+
+        cmake \
+          -B static \
+          -DCMAKE_CXX_COMPILER=${{ inputs.cpp_compiler }} \
+          -DCMAKE_C_COMPILER=${{ inputs.c_compiler }} \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DUA_ENABLE_AMALGAMATION=ON \
+          -DUA_ENABLE_DISCOVERY=ON \
+          -DUA_ENABLE_DISCOVERY_MULTICAST=ON \
+          -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
+          -DUA_FORCE_WERROR=OFF \
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF
+
+        cmake --build static
+
+    - name: Output variables
+      id: vars
+      shell: bash
+      run: |
+        echo "opc_ua-include=${{ github.workspace }}/open62541/static" >> "$GITHUB_OUTPUT"
+        echo "opc_ua-lib-dir=${{ github.workspace }}/open62541/static/bin" >> "$GITHUB_OUTPUT"

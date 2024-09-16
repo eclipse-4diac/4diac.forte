@@ -65,6 +65,14 @@ jobs:
       if: ${{ matrix.os == 'windows-latest' }}
       run: nuget install boost -Version 1.84.0
 
+    - name: clone and build open62541
+      id: open62541
+      uses: ./.github/actions/opc_ua
+      with:
+        git_version: v1.3.9
+        cpp_compiler: ${{ matrix.cpp_compiler }}
+        c_compiler: ${{ matrix.c_compiler }}
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -80,6 +88,10 @@ jobs:
         -DFORTE_COM_FBDK=ON
         -DFORTE_COM_HTTP=ON
         -DFORTE_COM_LOCAL=ON
+        -DFORTE_COM_OPC_UA=ON
+        -DFORTE_COM_OPC_UA_INCLUDE_DIR=${{ steps.open62541.outputs.opc_ua-include }}
+        -DFORTE_COM_OPC_UA_LIB_DIR=${{ steps.open62541.outputs.opc_ua-lib-dir }}/${{ matrix.os == 'windows-latest' && matrix.build_type || '' }}
+        -DFORTE_COM_OPC_UA_MULTICAST=ON
         -DFORTE_COM_RAW=ON
         -DFORTE_COM_SER=ON
         -DFORTE_COM_STRUCT_MEMBER=ON
