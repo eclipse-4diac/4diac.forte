@@ -1,0 +1,52 @@
+name: Clone and compile paho-mqtt
+author: Jose Cabral
+Description: "Clone paho-mqtt and build a release static library with SSL disabled"
+
+inputs:
+  git_version:
+    type: string
+    Decription: Version of paho-mqtt to clone
+    required: True
+  
+  c_compiler:
+    type: string
+    Description: C compiler to use, passed as CMAKE_C_COMPILER to CMake
+    required: True
+
+outputs:
+  mqtt-include:
+    value: ${{ steps.vars.outputs.mqtt-include }}
+    description: The include directory
+  mqtt-lib-dir:
+    value: ${{ steps.vars.outputs.mqtt-lib-dir }}
+    description: The library directory
+
+runs:
+  using: "composite"
+  steps:
+    - name: Clone paho-mqtt
+      shell: bash
+      run: |
+        git clone https://github.com/eclipse/paho.mqtt.c.git -b ${{ inputs.git_version }}
+      
+    - name: Build paho-mqtt
+      shell: bash
+      run: |
+        cd paho.mqtt.c
+
+        cmake \
+        -B static \
+        -DCMAKE_C_COMPILER=${{ inputs.c_compiler }} \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DPAHO_BUILD_STATIC=ON \
+        -DPAHO_BUILD_SHARED=OFF \
+        -DPAHO_WITH_SSL=OFF
+        
+        cmake --build static --config Release
+
+    - name: Output variables
+      id: vars
+      shell: bash
+      run: |
+        echo "mqtt-include=${{ github.workspace }}/paho.mqtt.c/src" >> "$GITHUB_OUTPUT"
+        echo "mqtt-lib-dir=${{ github.workspace }}/paho.mqtt.c/static/src" >> "$GITHUB_OUTPUT"
