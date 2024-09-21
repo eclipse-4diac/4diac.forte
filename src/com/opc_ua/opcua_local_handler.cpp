@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2023 Florian Froschermeier <florian.froschermeier@tum.de>,
+ * Copyright (c) 2015, 2024 Florian Froschermeier <florian.froschermeier@tum.de>,
  *                          fortiss GmbH, Primetals Technologies Austria GmbH
  *
  * This program and the accompanying materials are made available under the
@@ -57,12 +57,6 @@ COPC_UA_Local_Handler::~COPC_UA_Local_Handler() {
     UA_NodeId_delete(const_cast<UA_NodeId*>(iter->mNodeId));
   }
   mNodesReferences.clear();
-
-#ifdef FORTE_COM_OPC_UA_MULTICAST
-  for(CSinglyLinkedList<UA_String*>::Iterator iter = mRegisteredWithLds.begin(); iter != mRegisteredWithLds.end(); ++iter) {
-    UA_String_delete(*iter);
-  }
-#endif //FORTE_COM_OPC_UA_MULTICAST
 }
 
 void COPC_UA_Local_Handler::enableHandler() {
@@ -91,11 +85,10 @@ void COPC_UA_Local_Handler::run() {
     configureUAServer(serverStrings, *uaServerConfig);
 
     if(initializeNodesets(*mUaServer)) {
-#ifdef FORTE_COM_OPC_UA_MULTICAST
-      UA_Server_setServerOnNetworkCallback(mUaServer, serverOnNetworkCallback, this);
-#endif //FORTE_COM_OPC_UA_MULTICAST
-
       UA_StatusCode retVal = UA_Server_run_startup(mUaServer);
+#ifdef FORTE_COM_OPC_UA_MULTICAST
+      mLdsMeHandler = std::make_unique<forte::com::opc_ua::detail::LdsMeHandler>(*mUaServer);
+#endif //FORTE_COM_OPC_UA_MULTICAST
       if(UA_STATUSCODE_GOOD == retVal) {
         mServerStarted.inc();
         while(isAlive()) {
@@ -166,10 +159,7 @@ void COPC_UA_Local_Handler::generateServerStrings(TForteUInt16 paUAServerPort, U
 
 void COPC_UA_Local_Handler::configureUAServer(UA_ServerStrings &paServerStrings, UA_ServerConfig &paUaServerConfig) const {
 #ifdef FORTE_COM_OPC_UA_MULTICAST
-  paUaServerConfig.applicationDescription.applicationType = UA_APPLICATIONTYPE_DISCOVERYSERVER;
-  // hostname will be added by mdns library
-  UA_String_clear(&paUaServerConfig.mdnsConfig.mdnsServerName);
-  paUaServerConfig.mdnsConfig.mdnsServerName = UA_String_fromChars(paServerStrings.mMdnsServerName.c_str());
+  forte::com::opc_ua::detail::LdsMeHandler::configureServer(paUaServerConfig, paServerStrings.mMdnsServerName);
 #endif //FORTE_COM_OPC_UA_MULTICAST
 
   UA_Array_delete(paUaServerConfig.serverUrls, paUaServerConfig.serverUrlsSize, &UA_TYPES[UA_TYPES_STRING]);
@@ -280,85 +270,7 @@ void COPC_UA_Local_Handler::getNodesReferencedByAction(const CActionInfo &paActi
   }
 }
 
-#ifdef FORTE_COM_OPC_UA_MULTICAST
 
-const UA_String* COPC_UA_Local_Handler::getDiscoveryUrl() const {
-
-  UA_ServerConfig *mServerConfig = UA_Server_getConfig(mUaServer); //change mServerConfig to serverConfig when only master branch is present
-  if(0 == mServerConfig->networkLayersSize) {
-    return 0;
-  }
-  return &mServerConfig->networkLayers[0].discoveryUrl;
-}
-
-void COPC_UA_Local_Handler::serverOnNetworkCallback(const UA_ServerOnNetwork *paServerOnNetwork, UA_Boolean paIsServerAnnounce, UA_Boolean paIsTxtReceived,
-    void *paData) { //NOSONAR
-  COPC_UA_Local_Handler *handler = static_cast<COPC_UA_Local_Handler*>(paData);
-
-  const UA_String *ownDiscoverUrl = handler->getDiscoveryUrl();
-
-  if(!ownDiscoverUrl || UA_String_equal(&paServerOnNetwork->discoveryUrl, ownDiscoverUrl)) {
-    // skip self
-    return;
-  }
-
-  if(!paIsTxtReceived) {
-    return; // we wait until the corresponding TXT record is announced.
-  }
-
-  DEVLOG_DEBUG("[OPC UA LOCAL]: mDNS %s '%.*s' with url '%.*s'\n", paIsServerAnnounce ? "announce" : "remove", paServerOnNetwork->serverName.length,
-      paServerOnNetwork->serverName.data, paServerOnNetwork->discoveryUrl.length, paServerOnNetwork->discoveryUrl.data);
-
-  // check if server is LDS, and then register
-  UA_String ldsStr = UA_String_fromChars("LDS");
-  for(unsigned int i = 0; i < paServerOnNetwork->serverCapabilitiesSize; i++) {
-    if(UA_String_equal(&paServerOnNetwork->serverCapabilities[i], &ldsStr)) {
-      if(paIsServerAnnounce) {
-        handler->registerWithLds(&paServerOnNetwork->discoveryUrl);
-      } else {
-        handler->removeLdsRegister(&paServerOnNetwork->discoveryUrl);
-      }
-      break;
-    }
-  }
-  UA_String_clear(&ldsStr);
-}
-
-void COPC_UA_Local_Handler::registerWithLds(const UA_String *paDiscoveryUrl) {
-  // check if already registered with the given LDS
-  for(CSinglyLinkedList<UA_String*>::Iterator iter = mRegisteredWithLds.begin(); iter != mRegisteredWithLds.end(); ++iter) {
-    if(UA_String_equal(paDiscoveryUrl, *iter)) {
-      return;
-    }
-  }
-
-  // will be freed when removed from list
-  UA_String *discoveryUrlChar = 0;
-  UA_String_copy(paDiscoveryUrl, discoveryUrlChar);
-
-  mRegisteredWithLds.pushFront(discoveryUrlChar);
-  DEVLOG_INFO("[OPC UA LOCAL]: Registering with LDS '%.*s'\n", paDiscoveryUrl->length, paDiscoveryUrl->data);
-  UA_StatusCode retVal = UA_Server_addPeriodicServerRegisterCallback(mUaServer, 0, reinterpret_cast<const char*>(discoveryUrlChar->data), 10 * 60 * 1000, 500, 0);
-  if( UA_STATUSCODE_GOOD != retVal) {
-    DEVLOG_ERROR("[OPC UA LOCAL]: Could not register with LDS. Error: %s\n", UA_StatusCode_name(retVal));
-  }
-}
-
-void COPC_UA_Local_Handler::removeLdsRegister(const UA_String *paDiscoveryUrl) {
-  UA_String *toDelete = 0;
-  for(CSinglyLinkedList<UA_String*>::Iterator iter = mRegisteredWithLds.begin(); iter != mRegisteredWithLds.end(); ++iter) {
-    if(UA_String_equal(paDiscoveryUrl, *iter)) {
-      toDelete = *iter;
-      break;
-    }
-  }
-  if(toDelete) {
-    mRegisteredWithLds.erase(toDelete);
-    UA_String_delete(toDelete);
-  }
-}
-
-#endif //FORTE_COM_OPC_UA_MULTICAST
 
 UA_StatusCode COPC_UA_Local_Handler::initializeAction(CActionInfo &paActionInfo) {
   enableHandler();

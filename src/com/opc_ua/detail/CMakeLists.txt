@@ -1,0 +1,4 @@
+
+if(FORTE_COM_OPC_UA_MULTICAST)
+  forte_add_sourcefile_hcpp(lds_me_handler)
+endif(FORTE_COM_OPC_UA_MULTICAST)

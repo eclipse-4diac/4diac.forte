@@ -31,6 +31,9 @@
 #include "../../core/fortelist.h"
 #include "opcua_handler_abstract.h"
 #include "opcua_helper.h"
+#ifdef FORTE_COM_OPC_UA_MULTICAST
+#include "detail/lds_me_handler.h"
+#endif //FORTE_COM_OPC_UA_MULTICAST
 #include <string>
 
 /**
@@ -696,19 +699,8 @@ class COPC_UA_Local_Handler : public COPC_UA_HandlerAbstract, public CThread {
     static const char *const mDefaultDescriptionForVariableNodes;
 
 #ifdef FORTE_COM_OPC_UA_MULTICAST
-# ifndef UA_ENABLE_DISCOVERY_MULTICAST
-#  error open62541 needs to be built with UA_ENABLE_DISCOVERY=ON and UA_ENABLE_DISCOVERY_MULTICAST=ON
-# else // UA_ENABLE_DISCOVERY_MULTICAST
-    /**
-     * List of LDS servers where this instance is already registered.
-     */
-    CSinglyLinkedList<UA_String*> mRegisteredWithLds;
-
-    const UA_String* getDiscoveryUrl() const;
-    void registerWithLds(const UA_String *paDiscoveryUrl);
-    void removeLdsRegister(const UA_String *paDiscoveryUrl);
-    static void serverOnNetworkCallback(const UA_ServerOnNetwork *paServerOnNetwork, UA_Boolean paIsServerAnnounce, UA_Boolean paIsTxtReceived, void *paData);
-# endif //UA_ENABLE_DISCOVERY_MULTICAST
+    // pointer because the class has not default constructor
+    std::unique_ptr<forte::com::opc_ua::detail::LdsMeHandler> mLdsMeHandler; 
 #endif //FORTE_COM_OPC_UA_MULTICAST
 
 };

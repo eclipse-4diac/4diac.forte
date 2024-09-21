@@ -91,6 +91,8 @@ if (FORTE_COM_OPC_UA)
 
     add_subdirectory(FBs)    
     add_subdirectory(types)
+    add_subdirectory(detail)
+
     
     if(FORTE_COM_OPC_UA_ENCRYPTION)
       SET(FORTE_COM_OPC_UA_ENCRYPTION_INCLUDE_DIR "" CACHE STRING "ABSOLUTE path to encryption headers")
