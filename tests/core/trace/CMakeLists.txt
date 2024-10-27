@@ -1,5 +1,5 @@
 #*******************************************************************************
-# Copyright (c) 2024 Jose Cabral
+# Copyright (c) 2024
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # http://www.eclipse.org/legal/epl-2.0.
@@ -19,10 +19,10 @@ if(FORTE_TRACE_CTF_TEST)
 
   SET(SOURCE_GROUP ${SOURCE_GROUP}\\trace)
 
-
   forte_test_add_sourcefile_cpp(ctfTracerTest.cpp)
   forte_test_add_sourcefile_cpp(TraceReaderSink.cpp)
-  forte_test_add_sourcefile_cpp(EventMessage.cpp)
+  forte_test_add_sourcefile_cpp(bt2MessageFactory.cpp)
+
 
   forte_test_add_link_library(babeltrace2)
 

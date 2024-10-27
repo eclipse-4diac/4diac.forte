@@ -49,7 +49,7 @@ CResource::CResource(forte::core::CFBContainer &paDevice, const SFBInterfaceSpec
 , mMonitoringHandler(*this)
 #endif
 #ifdef FORTE_TRACE_CTF
-, tracePlatformContext(paInstanceNameId, FORTE_TRACE_CTF_BUFFER_SIZE)
+, mTracer(paInstanceNameId, FORTE_TRACE_CTF_BUFFER_SIZE)
 #endif
 {}
 
@@ -60,7 +60,7 @@ CResource::CResource(const SFBInterfaceSpec& paInterfaceSpec, const CStringDicti
 , mMonitoringHandler(*this)
 #endif
 #ifdef FORTE_TRACE_CTF
-, tracePlatformContext(paInstanceNameId, FORTE_TRACE_CTF_BUFFER_SIZE)
+, mTracer(paInstanceNameId, FORTE_TRACE_CTF_BUFFER_SIZE)
 #endif
 {}
 

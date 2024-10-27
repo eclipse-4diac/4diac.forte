@@ -14,8 +14,10 @@
  *******************************************************************************/
 
 #include "barectf_platform_forte.h"
+
 #include <iomanip>
 #include <chrono>
+
 #include "forte_architecture_time.h"
 
 std::filesystem::path BarectfPlatformFORTE::traceDirectory = std::filesystem::path();
@@ -67,6 +69,7 @@ void BarectfPlatformFORTE::closePacket(void *data) {
     barectf_default_close_packet(&platform->context);
     platform->output.write(reinterpret_cast<const char *>(barectf_packet_buf(&platform->context)),
                            barectf_packet_buf_size(&platform->context));
+
   }
 }
 
@@ -92,7 +95,7 @@ BarectfPlatformFORTE::BarectfPlatformFORTE(std::filesystem::path filename, size_
 
 BarectfPlatformFORTE::BarectfPlatformFORTE(CStringDictionary::TStringId instanceName, size_t bufferSize)
         : BarectfPlatformFORTE(
-        traceDirectory / (std::string("trace_") + (CStringDictionary::getInstance().get(instanceName) ?: "null") + dateCapture() + ".ctf"),
+        traceDirectory / (std::string("trace_") + (CStringDictionary::getInstance().get(instanceName) ?: "null") + "_" + dateCapture() + ".ctf"),
         bufferSize) {
 }
 
@@ -112,7 +115,7 @@ std::string BarectfPlatformFORTE::dateCapture() {
   struct tm ptm;
   forte_localtime(&time, &ptm);
   std::ostringstream stream;
-  stream << std::put_time(&ptm, "_%Y%m%d_%H%M%S");
+  stream << std::put_time(&ptm, "%Y%m%d_%H%M%S");
   stream << std::setfill('0') << std::setw(3) << millisecondsPart;
   return stream.str();
 }

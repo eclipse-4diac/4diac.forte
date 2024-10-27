@@ -34,5 +34,21 @@ target_include_directories(forte_trace
 
 forte_add_link_library(forte_trace)
 forte_add_include_directories(${CMAKE_CURRENT_BINARY_DIR})
+forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 forte_add_sourcefile_hcpp(barectf_platform_forte)
+
+if(FORTE_TRACE_CTF_TEST)
+  forte_add_sourcefile_hcpp(EventMessage)
+  forte_add_sourcefile_hcpp(internalTracer)
+  forte_add_sourcefile_hcpp(flexibleTracer)
+
+  set(FORTE_TRACER_INCLUDE flexibleTracer.h)
+  set(FORTE_TRACER CFlexibelTracer)
+
+else(FORTE_TRACE_CTF_TEST)
+  set(FORTE_TRACER_INCLUDE barectf_platform_forte.h)
+  set(FORTE_TRACER BarectfPlatformFORTE)
+endif(FORTE_TRACE_CTF_TEST)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tracerConfig.h.in ${CMAKE_BINARY_DIR}/tracerConfig.h)

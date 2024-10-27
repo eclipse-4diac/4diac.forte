@@ -53,8 +53,8 @@ namespace forte::core::util {
   private:
     constexpr static std::size_t cmIndexMask = size - 1;
 
-    std::size_t mPopIndex;
-    std::size_t mPushIndex;
+    std::size_t mPopIndex{0};
+    std::size_t mPushIndex{0};
     std::array<T, size> mData;
   };
 }

@@ -6,7 +6,7 @@
 
 #include <babeltrace2/babeltrace.h>
 
-#include "EventMessage.h"
+#include "trace/EventMessage.h"
 
 namespace forte {
   /**

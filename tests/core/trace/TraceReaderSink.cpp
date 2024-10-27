@@ -1,10 +1,11 @@
 #include "TraceReaderSink.h"
-#include "EventMessage.h"
 
 #include <inttypes.h> // for printing 
 #include <sstream>
 #include <iostream>
 #include <cstring>
+
+#include "bt2MessageFactory.h"
 
 namespace forte{
   
@@ -74,8 +75,8 @@ bt_component_class_sink_consume_method_status EventsReader::consume()
     if (bt_message_get_type(message) != BT_MESSAGE_TYPE_EVENT) {
         continue;
     }
-
-    mOutput.emplace_back(message);  
+    auto m = Bt2MessageFactory::createMessage(message);
+    mOutput.emplace_back(m);  
 
     // Put this message's reference
     bt_message_put_ref(message);

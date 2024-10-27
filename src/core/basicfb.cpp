@@ -149,8 +149,7 @@ void CBasicFB::traceInstanceData() {
     ++i;
   }
 
-  barectf_default_trace_instanceData(getResource()->getTracePlatformContext().getContext(),
-                                     getFBTypeName() ?: "null",
+  getResource()->getTracer().traceInstanceData(getFBTypeName() ?: "null",
                                      getFullQualifiedApplicationInstanceName('.').c_str() ?: "null",
                                      static_cast<uint32_t >(inputs.size()), inputs_c_str.data(),
                                      static_cast<uint32_t >(outputs.size()), outputs_c_str.data(),

@@ -30,7 +30,7 @@ class CLuaEngine;
 #endif
 
 #ifdef FORTE_TRACE_CTF
-#include "trace/barectf_platform_forte.h"
+#include "tracerConfig.h"
 #endif
 
 class CInterface2InternalDataConnection;
@@ -115,8 +115,8 @@ class CResource : public CFunctionBlock{
 #endif
 
 #ifdef FORTE_TRACE_CTF
-    BarectfPlatformFORTE &getTracePlatformContext() {
-      return tracePlatformContext;
+    CForteTracer &getTracer() {
+      return mTracer;
     }
 #endif
 
@@ -306,7 +306,7 @@ class CResource : public CFunctionBlock{
 #endif //#ifdef FORTE_SUPPORT_MONITORING
 
 #ifdef FORTE_TRACE_CTF
-    BarectfPlatformFORTE tracePlatformContext;
+    CForteTracer mTracer;
 #endif // FORTE_TRACE_CTF
 
 };
