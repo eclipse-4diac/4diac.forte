@@ -53,8 +53,8 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "NetOs 7.4")
 #######################################################################################
   forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-  forte_add_timerhandler(CTXTimerHandler txtimeha )
-  forte_add_sourcefile_cpp(../forte_architecture_time.cpp ../txtimeha)
+  forte_add_timerhandler(CTXTimerHandler ../txtimeha)
+  forte_add_sourcefile_cpp(../forte_architecture_time.cpp ../txtimeha.cpp)
 
   forte_add_sourcefile_cpp(../../common/forte_specific_architecture.cpp)
   forte_add_sourcefile_hcpp(../forte_thread ../forte_sync ../forte_sem)

@@ -19,8 +19,8 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "PLCnext")
 
   forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-  forte_add_timerhandler(CPCTimerHandler pctimeha )
-  forte_add_sourcefile_cpp(../posix/forte_architecture_time.cpp ../forte_standard_time.cpp ../posix/pctimeha)
+  forte_add_timerhandler(CPCTimerHandler ../posix/pctimeha)
+  forte_add_sourcefile_cpp(../posix/forte_architecture_time.cpp ../forte_standard_time.cpp ../posix/pctimeha.cpp)
 
   forte_add_sourcefile_cpp(../common/forte_specific_architecture.cpp)
   forte_add_sourcefile_hcpp(../posix/forte_thread ../posix/forte_sync ../posix/forte_sem)

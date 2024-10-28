@@ -19,7 +19,7 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "VxWorks")
   message(STATUS "VXWORKS: Set an environment variable WIND_BASE to any value")
   forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-  forte_add_timerhandler(CPCTimerHandler pctimeha )
+  forte_add_timerhandler(CPCTimerHandler ../posix/pctimeha)
   forte_add_sourcefile_hcpp(../posix/pctimeha)
 
   forte_add_sourcefile_cpp(forte_architecture_time.cpp)

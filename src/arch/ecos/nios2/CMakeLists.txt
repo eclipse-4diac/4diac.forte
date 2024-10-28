@@ -28,7 +28,7 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "Nios2")
 
   forte_add_sourcefile_hcpp(../forte_thread ../forte_sync ../forte_sem ../forte_instance ../ecostiha)
 
-  forte_add_timerhandler(CECOSTimerHandler ecostiha )
+  forte_add_timerhandler(CECOSTimerHandler ../ecostiha)
   forte_add_sourcefile_cpp(../../posix/forte_architecture_time.cpp ../../forte_standard_time.cpp)
 
   forte_add_sourcefile_cpp(../ecoscppinit.cpp ../../genforte_printer.cpp ../../common/forte_specific_architecture.cpp)

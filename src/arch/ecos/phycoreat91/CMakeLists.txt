@@ -21,7 +21,7 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "Phycore AT91")
   
   forte_add_sourcefile_hcpp(../forte_thread ../forte_sync ../forte_sem ../ecostiha)
 
-  forte_add_timerhandler(CECOSTimerHandler ecostiha )
+  forte_add_timerhandler(CECOSTimerHandler ../ecostiha)
 
   forte_add_sourcefile_cpp(../ecoscppinit.cpp ../../posix/forte_architecture_time.cpp ../../forte_standard_time.cpp ../../common/forte_specific_architecture.cpp)
 

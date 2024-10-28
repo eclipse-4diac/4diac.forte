@@ -22,8 +22,8 @@ if("${FORTE_ARCHITECTURE}" STREQUAL "MacOs")
   # on MacOs linked string dict is currently not working, turn it off per default
   SET(FORTE_LINKED_STRINGDICT OFF CACHE BOOL "" FORCE)
 
-  forte_add_timerhandler(CPCTimerHandler pctimeha )
-  forte_add_sourcefile_cpp(../posix/forte_architecture_time.cpp ../forte_standard_time.cpp ../posix/pctimeha)
+  forte_add_timerhandler(CPCTimerHandler ../posix/pctimeha)
+  forte_add_sourcefile_cpp(../posix/forte_architecture_time.cpp ../forte_standard_time.cpp ../posix/pctimeha.cpp)
 
   forte_add_sourcefile_cpp(../common/forte_specific_architecture.cpp)
   forte_add_sourcefile_hcpp(../posix/forte_thread forte_sync forte_sem)
