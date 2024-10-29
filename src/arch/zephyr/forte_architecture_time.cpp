@@ -18,15 +18,13 @@
 #include "forte_constants.h"
 #include <zephyr/kernel.h>
 
-#ifndef FORTE_FAKE_TIME
-uint_fast64_t getNanoSecondsMonotonic() {
+uint_fast64_t getNanoSecondsMonotonicArch() {
   return static_cast<uint_fast64_t>(k_uptime_ticks() * (forte::core::constants::cNanosecondsPerSecond / static_cast<uint_fast64_t>(CONFIG_SYS_CLOCK_TICKS_PER_SEC)));
 }
 
-uint_fast64_t getNanoSecondsRealtime() {
+uint_fast64_t getNanoSecondsRealtimeArch() {
   return static_cast<uint_fast64_t>(k_uptime_ticks() * (forte::core::constants::cNanosecondsPerSecond / static_cast<uint_fast64_t>(CONFIG_SYS_CLOCK_TICKS_PER_SEC)));
 }
-#endif
 
 time_t forte_timegm(struct tm *pa_tm) {
   time_t tm = mktime(pa_tm);

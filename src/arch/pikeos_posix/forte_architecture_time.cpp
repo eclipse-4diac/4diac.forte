@@ -17,7 +17,7 @@
 #include "forte_architecture_time.h"
 #include "forte_constants.h"
 
-uint_fast64_t getNanoSecondsMonotonic() {
+uint_fast64_t getNanoSecondsMonotonicArch() {
   struct timespec now;
   clock_gettime(CLOCK_REALTIME, &now);
   return now.tv_nsec + now.tv_sec * forte::core::constants::cNanosecondsPerSecond;

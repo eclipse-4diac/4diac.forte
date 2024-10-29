@@ -13,6 +13,7 @@
 
 #include <timerHandlerFactory.h>
 #include <devexec.h>
+#include <timerha.h>
 
 ${HANDLERMANAGER_INCLUDE}
 
@@ -21,6 +22,6 @@ ${HANDLERMANAGER_VARIABLES}
 
 void CDeviceExecution::createHandlers(CDeviceExecution& paDeviceExecution){
 
-  paDeviceExecution.mRegisteredEventHandlers[0].mHandler = CTimerHandlerFactory::createTimerHandler(paDeviceExecution);
+  paDeviceExecution.mRegisteredEventHandlers[0].mHandler = TimerHandlerFactory::createTimerHandler(paDeviceExecution);
 ${HANDLERMANAGER_INSTANCE}
 }

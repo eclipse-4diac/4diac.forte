@@ -10,24 +10,21 @@
  *    Jose Cabral - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#include "timerha.h"
-
 #include <string>
 
-class CTimerHandlerFactory {
-  public:
+class CTimerHandler;
+class CDeviceExecution;
+
+namespace TimerHandlerFactory {
 
     /*!\brief create the timer handler
       *
       * The selection of the timer to be created depends on the value set using the method setTimeHandlerNameToCreate
       * and it is usually set to default to the one from the selected architecture.
       */
-    static CTimerHandler* createTimerHandler(CDeviceExecution &paDeviceExecution);
+    CTimerHandler* createTimerHandler(CDeviceExecution &paDeviceExecution);
 
-    static void setTimeHandlerNameToCreate(std::string paName);
-  
-  private:
+    void setTimeHandlerNameToCreate(std::string paName);
 
-    static std::string smTimeHandlerToCreate;
-
+    const std::string& getTImerHandlerName();
 };

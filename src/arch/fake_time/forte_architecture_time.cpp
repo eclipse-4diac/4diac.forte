@@ -15,6 +15,8 @@
 #include "forte_architecture_time.h"
 #include "forte_constants.h"
 
+#include "timerHandlerFactory.h"
+
 uint_fast64_t fakeForteTime=0;
 
 uint_fast64_t trackFakeForteTime(){
@@ -27,18 +29,24 @@ uint_fast64_t jumpFakeForteTime(uint_fast64_t destination) {
     return fakeForteTime;
 }
 
-#ifdef FORTE_FAKE_TIME
-uint_fast64_t getNanoSecondsMonotonic() {
+uint_fast64_t getNanoSecondsMonotonicFake() {
+  if(TimerHandlerFactory::getTImerHandlerName() == "fakeTimer"){
     return fakeForteTime * ( forte::core::constants::cNanosecondsPerSecond / forte::core::constants::cMillisecondsPerSecond );  //ms to ns
+  }
+  return getNanoSecondsMonotonicArch();
 }
 
-uint_fast64_t getNanoSecondsRealtime() {
-    return static_cast<uint_fast64_t>(time(0)) * forte::core::constants::cNanosecondsPerSecond + fakeForteTime * ( forte::core::constants::cNanosecondsPerSecond / forte::core::constants::cMillisecondsPerSecond );
+uint_fast64_t getNanoSecondsRealtimeFake() {
+  if(TimerHandlerFactory::getTImerHandlerName() == "fakeTimer"){
+    return static_cast<uint_fast64_t>(time(0)) * forte::core::constants::cNanosecondsPerSecond + fakeForteTime * (  forte::core::constants::cNanosecondsPerSecond / forte::core::constants::cMillisecondsPerSecond );
+  }
+  return getNanoSecondsRealtimeArch();
 }
 
-time_t forte_time(){
-    return time(0) + fakeForteTime / forte::core::constants::cMillisecondsPerSecond;  //time() in s
+time_t forte_time_fake(){
+  if(TimerHandlerFactory::getTImerHandlerName() == "fakeTimer"){
+    return time(nullptr) + fakeForteTime / forte::core::constants::cMillisecondsPerSecond;  //time() in s
+  }
+  return forte_time_arch();
 }
-#endif
-
 

@@ -145,7 +145,7 @@ FOREACH(POS RANGE ${TIMERHANDLER_CLASS_LEN})
 
   SET(TIMERHANDLER_INCLUDE  "${TIMERHANDLER_INCLUDE}#include \"${FILENAME}\"\n")
   
-  SET(TIMERHANDLER_CREATE "${TIMERHANDLER_CREATE}  if(smTimeHandlerToCreate == \"${NAME_}\") return new ${CLASS}(paDeviceExecution);\n")
+  SET(TIMERHANDLER_CREATE "${TIMERHANDLER_CREATE}  if(timerHandlerToCreate == \"${NAME_}\") return new ${CLASS}(paDeviceExecution);\n")
   math(EXPR TIMERHANDLER_ID           ${TIMERHANDLER_ID}+1)
 ENDFOREACH(POS)
 

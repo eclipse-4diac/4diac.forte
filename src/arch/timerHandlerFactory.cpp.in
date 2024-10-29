@@ -12,15 +12,25 @@
 
 #include "timerHandlerFactory.h"
 
+#include "timerha.h"
+
 ${TIMERHANDLER_INCLUDE}
 
-std::string CTimerHandlerFactory::smTimeHandlerToCreate{"${TIMERHANDLER_DEFAULT}"};
+namespace TimerHandlerFactory {
 
-void CTimerHandlerFactory::setTimeHandlerNameToCreate(std::string paName){
-  smTimeHandlerToCreate = std::move(paName);
+std::string timerHandlerToCreate{"${TIMERHANDLER_DEFAULT}"};
+
+const std::string& getTImerHandlerName() {
+  return timerHandlerToCreate;
 }
 
-CTimerHandler* CTimerHandlerFactory::createTimerHandler(CDeviceExecution &paDeviceExecution){
+void setTimeHandlerNameToCreate(std::string paName){
+  timerHandlerToCreate = std::move(paName);
+}
+
+CTimerHandler* createTimerHandler(CDeviceExecution &paDeviceExecution){
 ${TIMERHANDLER_CREATE}
   return nullptr;
 }
+
+} // TimerHandlerFactory

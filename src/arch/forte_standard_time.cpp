@@ -16,12 +16,10 @@ using namespace std::chrono;
 
 #include "forte_architecture_time.h"
 
-#ifndef FORTE_FAKE_TIME
-uint_fast64_t getNanoSecondsMonotonic() {
+uint_fast64_t getNanoSecondsMonotonicArch() {
   return static_cast<uint_fast64_t>(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count());
 }
 
-uint_fast64_t getNanoSecondsRealtime() {
+uint_fast64_t getNanoSecondsRealtimeArch() {
   return static_cast<uint_fast64_t>(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
 }
-#endif

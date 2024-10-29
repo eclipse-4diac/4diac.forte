@@ -18,17 +18,15 @@
 
 #include "forte_constants.h"
 
-#ifndef FORTE_FAKE_TIME
-uint_fast64_t getNanoSecondsMonotonic() {
+uint_fast64_t getNanoSecondsMonotonicArch() {
   return forte::core::constants::cNanosecondsPerSecond < BSP_TICKS_PER_SECOND ?
       tx_time_get() / (BSP_TICKS_PER_SECOND / forte::core::constants::cNanosecondsPerSecond) :
       (tx_time_get() / BSP_TICKS_PER_SECOND) * forte::core::constants::cNanosecondsPerSecond;
 }
 
-uint_fast64_t getNanoSecondsRealtime() {
+uint_fast64_t getNanoSecondsRealtimeArch() {
   return static_cast<uint_fast64_t>(forte_time())*1000000000LL;
 }
-#endif
 
 time_t forte_timegm(struct tm *pa_tm) {
   return timegm(pa_tm);

@@ -21,7 +21,26 @@
 
 #include "forte_constants.h"
 
-time_t forte_time();
+time_t forte_time_arch();
+uint_fast64_t getNanoSecondsMonotonicArch();
+uint_fast64_t getNanoSecondsRealtimeArch();
+
+#ifdef FORTE_FAKE_TIME
+
+  time_t forte_time_fake();
+  uint_fast64_t getNanoSecondsMonotonicFake();
+  uint_fast64_t getNanoSecondsRealtimeFake();
+
+  constexpr auto forte_time = forte_time_fake;
+  constexpr auto getNanoSecondsMonotonic = getNanoSecondsMonotonicFake;
+  constexpr auto  getNanoSecondsRealtime = getNanoSecondsRealtimeFake;
+
+#else // FORTE_FAKE_TIME
+
+  constexpr auto forte_time = forte_time_arch;
+  constexpr auto getNanoSecondsMonotonic = getNanoSecondsMonotonicArch;
+  constexpr auto  getNanoSecondsRealtime = getNanoSecondsRealtimeArch;
+#endif // FORTE_FAKE_TIME
 
 #if defined(WINCE)
 #include <wce_time.h>
@@ -41,14 +60,12 @@ struct tm* forte_gmtime(const time_t* pa_time){
   return wceex_gmtime(pa_time);
 }
 
-#ifndef FORTE_FAKE_TIME
 inline
-time_t forte_time(){
+time_t forte_time_arch(){
   return wceex_time(0);
 }
-#endif
 
-#else
+#else // defined(WINCE)
 
 struct tm* forte_localtime(const time_t* paTime, struct tm* const paResult);
 
@@ -61,17 +78,11 @@ time_t forte_timegm(struct tm* pa_tm);
 
 struct tm* forte_gmtime(const time_t* const paTime, struct tm* const paResult);
 
-#ifndef FORTE_FAKE_TIME
 inline
-time_t forte_time(){
+time_t forte_time_arch(){
   return time(nullptr);
 }
-#endif
 
-#endif
-
-uint_fast64_t getNanoSecondsMonotonic();
-
-uint_fast64_t getNanoSecondsRealtime();
+#endif // defined(WINCE)
 
 #endif /* SRC_ARCH_FORTE_ARCHITECTURE_TIME_H_ */
