@@ -194,7 +194,7 @@ EventMessage Bt2MessageFactory::createMessage(const bt_message* paMessage){
         &timestamp)){
     std::cout << "Could not retrieve clock for message" << std::endl;
     std::abort();
-  }	
+  }  
 
   return EventMessage(eventType, std::move(payload), timestamp);
 }

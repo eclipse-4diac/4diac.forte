@@ -71,7 +71,7 @@ public:
     }
 
     void traceInputData( const char * const paTypeName, const char * const paInstanceName,
-	    const uint64_t paDataId, const char * const paValue) {
+      const uint64_t paDataId, const char * const paValue) {
         barectf_default_trace_inputData(&context,
                           paTypeName,
                           paInstanceName,
