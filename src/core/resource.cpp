@@ -29,7 +29,7 @@
 #include "if2indco.h"
 #include "utils/criticalregion.h"
 #include "utils/fixedcapvector.h"
-#include "ecet.h"
+#include "core/ecetFactory.h"
 
 #ifdef FORTE_DYNAMIC_TYPE_LOAD
 #include "lua/luaengine.h"
@@ -44,7 +44,7 @@ using namespace std::string_literals;
 
 CResource::CResource(forte::core::CFBContainer &paDevice, const SFBInterfaceSpec& paInterfaceSpec, const CStringDictionary::TStringId paInstanceNameId) :
     CFunctionBlock(paDevice, paInterfaceSpec, paInstanceNameId),
-    mResourceEventExecution(CEventChainExecutionThread::createEcet()), mResIf2InConnections(nullptr)
+    mResourceEventExecution(EcetFactory::createEcet()), mResIf2InConnections(nullptr)
 #ifdef FORTE_SUPPORT_MONITORING
 , mMonitoringHandler(*this)
 #endif

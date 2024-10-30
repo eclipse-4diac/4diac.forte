@@ -35,15 +35,14 @@ if(FORTE_ENABLE_FMU)
 
   forte_add_subdirectory(comm)
 
-  forte_add_timerhandler(fmiTimerHandler fmiTimerHandler )
+  forte_add_timerhandler(fmiTimerHandler fmiTimerHandler "fmi")
+
+  forte_add_ecet(CFMUEventChainExecutionThread fmuEcet "fmi")
 
   forte_add_sourcefile_cpp(fmiInterface.cpp)
   forte_add_sourcefile_hcpp(fmuValueContainer fmuInstance processinterface fmuEcet fmiTimerHandler)
   forte_set_process_interface("FORTE FMU" IX QX IW QW)
-  forte_add_sourcefile_cpp(fmuEcetFactory.cpp)
   forte_add_sourcefile_hcpp(../../arch/utils/timespec_utils)
-
-else(FORTE_ENABLE_FMU)
-  forte_add_sourcefile_cpp(../ecetFactory.cpp)
+   
 endif(FORTE_ENABLE_FMU)
 

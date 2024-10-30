@@ -160,6 +160,42 @@ forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/arch/timerHandlerFactory_new.cp
 file(REMOVE ${CMAKE_BINARY_DIR}/arch/timerHandlerFactory_new.cpp)
 
 #############################################################################
+# Configure ECETs
+#############################################################################
+
+GET_PROPERTY(ECET_CLASS GLOBAL PROPERTY FORTE_ECET_CLASS)
+GET_PROPERTY(ECET_FILENAME GLOBAL PROPERTY FORTE_ECET_FILENAME)
+GET_PROPERTY(ECET_NAME GLOBAL PROPERTY FORTE_ECET_NAME)
+
+LIST(LENGTH ECET_CLASS ECET_CLASS_LEN)
+math(EXPR ECET_CLASS_LEN  ${ECET_CLASS_LEN}-1)
+
+SET(ECET_INCLUDE "")
+SET(ECET_CREATE "")
+SET(ECET_ENUM "")
+
+
+FOREACH(POS RANGE ${ECET_CLASS_LEN})
+  LIST(GET ECET_CLASS      ${POS} CLASS) 
+  LIST(GET ECET_FILENAME   ${POS} FILENAME)
+  LIST(GET ECET_NAME   ${POS} NAME_)
+
+  SET(ECET_INCLUDE  "${ECET_INCLUDE}#include \"${FILENAME}\"\n")
+
+  SET(ECET_ENUM  "${ECET_ENUM}\n    ${NAME_},")
+
+  SET(ECET_CREATE "${ECET_CREATE}  if(ecetToCreate == AvailableEcets::${NAME_}) return new ${CLASS}();\n")
+  math(EXPR ECET_ID           ${ECET_ID}+1)
+ENDFOREACH(POS)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/core/ecetFactory.cpp.in ${CMAKE_BINARY_DIR}/core/ecetFactory_new.cpp)
+forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/core/ecetFactory_new.cpp ${CMAKE_BINARY_DIR}/core/ecetFactory.cpp)
+file(REMOVE ${CMAKE_BINARY_DIR}/core/ecetFactory_new.cpp)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/core/ecetFactory.h.in ${CMAKE_BINARY_DIR}/core/ecetFactory_new.h)
+forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/core/ecetFactory_new.h ${CMAKE_BINARY_DIR}/core/ecetFactory.h)
+file(REMOVE ${CMAKE_BINARY_DIR}/core/ecetFactory_new.h)
+#############################################################################
 # Configure startuphook
 #############################################################################
 GET_PROPERTY(STARTUP_HOOK_FUNCTIONS GLOBAL PROPERTY FORTE_STARTUP_HOOK_FUNCTIONS)

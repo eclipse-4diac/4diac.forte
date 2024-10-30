@@ -10,8 +10,21 @@
  *    Jose Cabral - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#include "ecet.h"
+#include "ecetFactory.h"
 
-CEventChainExecutionThread* CEventChainExecutionThread::createEcet(){
-  return new CEventChainExecutionThread();
+${ECET_INCLUDE}
+
+namespace EcetFactory {
+
+AvailableEcets ecetToCreate{AvailableEcets::standard};
+
+void setEcetToCreate(AvailableEcets paEcet){
+  ecetToCreate = paEcet;
+}
+
+CEventChainExecutionThread* createEcet(){
+${ECET_CREATE}
+  return nullptr;
+}
+
 }

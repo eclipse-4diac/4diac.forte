@@ -34,7 +34,7 @@ class CEventChainExecutionThread : public CThread{
      *
      * \param paEventToAdd event of the EC to start
      */
-    void startEventChain(TEventEntry paEventToAdd);
+    virtual void startEventChain(TEventEntry paEventToAdd);
 
     /*!\brief Add an new event entry to the event chain
      *
@@ -64,14 +64,16 @@ class CEventChainExecutionThread : public CThread{
       mSuspendSemaphore.inc();
     }
 
-    static CEventChainExecutionThread* createEcet();
-
   protected:
     /*! \brief List of input events to deliver.
      *
      * This list stores the necessary information for all events to deliver that occurred within this event chain.
      */
     forte::core::util::CRingBuffer<TEventEntry, cgEventChainEventListSize> mEventList;
+
+    void selfSuspend(){
+      mSuspendSemaphore.waitIndefinitely();
+    }
 
     void mainRun();
 
@@ -104,10 +106,6 @@ class CEventChainExecutionThread : public CThread{
     //! Transfer elements stored in the external event list to the main event list
     void transferExternalEvents();
 
-    void selfSuspend(){
-      mSuspendSemaphore.waitIndefinitely();
-    }
-
     /*! \brief List of external events that occurred during one FB's execution
      *
      * This list stores external events that may have occurred during the execution of a FB or during when the
@@ -129,7 +127,7 @@ class CEventChainExecutionThread : public CThread{
      * Currently this flag is only needed for the FB tester.
      * TODO consider surrounding the usage points of this flag with #defines such that it is only used for testing.
      */
-    bool mProcessingEvents;
+    bool mProcessingEvents{false};
 };
 
 #endif /*ECET_H_*/

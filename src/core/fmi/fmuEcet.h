@@ -29,7 +29,7 @@ class CFMUEventChainExecutionThread : public CEventChainExecutionThread{
     }
 
     bool hasMoreEvents(){
-      return (mEventListEnd != mEventListStart);
+      return !mEventList.isEmpty();
     }
 
     bool isInWaitingStepState(){

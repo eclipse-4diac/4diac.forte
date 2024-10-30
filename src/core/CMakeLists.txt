@@ -37,7 +37,18 @@ forte_add_sourcefile_hcpp(adapterconn adapter anyadapter iec61131_functions)
 forte_add_sourcefile_h(forte_st_iterator.h)
 forte_add_sourcefile_h(forte_st_util.h)
 
+forte_add_ecet(CEventChainExecutionThread ecet "standard")
+
+forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/core/ecetFactory.cpp) # created file
+
 forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/core/deviceExecutionHandlers.cpp) # created file
+
+set(FORTE_USE_FAKE_ECET FALSE CACHE BOOL "Compile the fake ecet used for testing")
+mark_as_advanced(FORTE_USE_FAKE_ECET)
+if(FORTE_USE_FAKE_ECET)
+  forte_add_sourcefile_hcpp(ecetFake)
+  forte_add_ecet(CFakeEventExecutionThread "core/ecetFake" "fake")
+endif(FORTE_USE_FAKE_ECET)
 
 if(FORTE_DYNAMIC_TYPE_LOAD)
   forte_add_subdirectory(lua)
