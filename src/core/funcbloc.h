@@ -84,10 +84,12 @@ struct SCFB_FBInstanceData {
 struct SFBInterfaceSpec {
     TEventID mNumEIs; //!< Number of event inputs
     const CStringDictionary::TStringId *mEINames; //!< List of the event input names
+    const CStringDictionary::TStringId *mEITypeNames; //!< List of the event input types
     const TDataIOID *mEIWith; //!< Input WITH reference list. This list contains an array of input data ids. For each input event the associated data inputs are listed. The start for each input event is specified in the mEIWithIndexes field. The end is defined by the value scmWithListDelimiter.
     const TForteInt16 *mEIWithIndexes; //!< Index list for each input event. This list gives for each input event an entry in the mEIWith. Input events are numbered starting from 0. if the input event has no assciated data inputs -1 is the entry at this event inputs postion.
     TEventID mNumEOs; //!< Number of event outputs
     const CStringDictionary::TStringId *mEONames; //!< List of the event output names
+    const CStringDictionary::TStringId *mEOTypeNames; //!< List of the event output types
     const TDataIOID *mEOWith; //!< Output WITH reference list. This list contains an array of output data ids. For each output event the associated data outputs are listed. The start for each output event is specified in the mEOWithIndexes field. The end is defined by the value scmWithListDelimiter.
     const TForteInt16 *mEOWithIndexes; //!< Index list for each output event. This list gives for each output event an entry in the mEOWith. Output events are numbered starting from 0. If the output event has no assciated data outputs -1 is the entry at this event outputs postion. Additionally at the postion mNumEOs in this list an index to an own list in the mEOWith list is stored specifying all output data port that are not associated with any output event. That values will be updated on every FB invocation.
     TPortId mNumDIs; //!< Number of data inputs
@@ -162,6 +164,22 @@ class CFunctionBlock : public forte::core::CFBContainer {
      */
     TEventID getEOID(CStringDictionary::TStringId paEONameId) const {
       return static_cast<TEventID>(getPortId(paEONameId, getFBInterfaceSpec().mNumEOs, getFBInterfaceSpec().mEONames));
+    }
+
+    /*! \brief Gets the EventTypeID of a specific input event
+     * \param paEIID  StringId of the event name.
+     * \return Returns the EventTypeID of a specific input event
+     */
+    CStringDictionary::TStringId getEIType(TEventID paEIID) const {
+      return getFBInterfaceSpec().mEITypeNames[paEIID];
+    }
+
+    /*! \brief Gets the EventTypeID of a specific output event
+     * \param paEOID  StringId of the event name.
+     * \return Returns the EventTypeID of a specific output event
+    */
+    CStringDictionary::TStringId getEOType(TEventID paEOID) const {
+      return getFBInterfaceSpec().mEOTypeNames[paEOID];
     }
 
     CEventConnection* getEOConnection(CStringDictionary::TStringId paEONameId);
