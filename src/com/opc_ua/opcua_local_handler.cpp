@@ -30,6 +30,9 @@
 #include "forte_printer.h"
 #include "../../arch/utils/mainparam_utils.h"
 #include "opcua_local_handler.h"
+#ifdef FORTE_COM_OPC_UA_MULTICAST
+#include "detail/lds_me_handler.h"
+#endif //FORTE_COM_OPC_UA_MULTICAST
 #include <string>
 
 #ifndef FORTE_COM_OPC_UA_CUSTOM_HOSTNAME
@@ -86,10 +89,14 @@ void COPC_UA_Local_Handler::run() {
 
     if(initializeNodesets(*mUaServer)) {
       UA_StatusCode retVal = UA_Server_run_startup(mUaServer);
-#ifdef FORTE_COM_OPC_UA_MULTICAST
-      mLdsMeHandler = std::make_unique<forte::com::opc_ua::detail::LdsMeHandler>(*mUaServer);
-#endif //FORTE_COM_OPC_UA_MULTICAST
       if(UA_STATUSCODE_GOOD == retVal) {
+        {
+#ifdef FORTE_COM_OPC_UA_MULTICAST
+          // the extra curly brace on top is to limit the lifetime of this object. 
+          // it was avoided to have inside this ifdef to also avoid the closing brace
+          // with the exta ifdef making it cleaner this way
+          auto mLdsMeHandler = forte::com::opc_ua::detail::LdsMeHandler(*mUaServer);
+#endif //FORTE_COM_OPC_UA_MULTICAST
         mServerStarted.inc();
         while(isAlive()) {
           UA_UInt16 timeToSleepMs;
@@ -102,6 +109,7 @@ void COPC_UA_Local_Handler::run() {
           }
 
           mServerNeedsIteration.timedWait(static_cast<TForteUInt64>(timeToSleepMs) * 1000000ULL);
+        }
         }
         retVal = UA_Server_run_shutdown(mUaServer);
         if(UA_STATUSCODE_GOOD == retVal) {

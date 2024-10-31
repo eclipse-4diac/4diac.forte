@@ -19,6 +19,7 @@
 
 #include <string>
 #include <vector>
+#include <optional>
 
 namespace forte::com::opc_ua::detail {
 
@@ -31,11 +32,18 @@ class LdsMeHandler {
   public:
 
     /**
-     * @brief Constructor
+     * @brief Register this instance as handler for incoming discovery message
      * 
      * @param paUaServer OpcUa server to handle
      */
     LdsMeHandler(UA_Server& paUaServer);
+
+    /**
+     * @brief Un-register this instance as handler incoming discovery message
+     * 
+     */
+    ~LdsMeHandler();
+
 
     /**
      * @brief Sets the proper values to the server configuration so it accepts LDS-ME messages
@@ -46,35 +54,48 @@ class LdsMeHandler {
     static void configureServer(UA_ServerConfig& paUaServerConfig, const std::string& paServerName);
   
   private:
-    void registerWithLds(const UA_String& paDiscoveryUrl);
-    void removeLdsRegister(const UA_String& paDiscoveryUrl);
+
+    bool registerDiscoveryServer(const UA_String& paDiscoveryUrl);
+    void deregisterDiscoveryServer(const UA_String& paDiscoveryUrl);
 
     static void serverOnNetworkCallback(const UA_ServerOnNetwork* paServerOnNetwork, UA_Boolean paIsServerAnnounce, UA_Boolean paIsTxtReceived, void* paData);
 
     UA_Server& mUaServer;
 
-    /**
-     * @brief For each discovery server, this class handles the opcua client connectig to it
-     * and the memory for the string holding the discovery url.
-     * 
-     */
-    class ClientWithLds {
+    // Handle the lifetime of a UA_String nicely
+    class UA_StringRAII {
       public:
-        ClientWithLds(const UA_String& paDiscoveryUrl);
-        ~ClientWithLds();
+        UA_StringRAII(const UA_String& paString) {
+          UA_String_copy(&paString, &mString);
+        }
 
-        ClientWithLds(ClientWithLds&& other);
-        ClientWithLds& operator=(ClientWithLds&& other);
+        UA_StringRAII(const char* paString) {
+          mString = UA_String_fromChars(paString);
+        }
 
-        ClientWithLds(ClientWithLds&) = delete;
-        ClientWithLds& operator=(ClientWithLds&) = delete;
+        ~UA_StringRAII() {
+          UA_String_clear(&mString);
+        }
 
-        UA_String mDiscoveryUrl;
-        UA_Client *mClient;
+        UA_StringRAII(UA_StringRAII&& paOther) {
+          *this = std::move(paOther);
+        }
+        
+        UA_StringRAII& operator=(UA_StringRAII&& paOther) {
+          mString = paOther.mString;
+          UA_String_init(&paOther.mString);  
+          return *this; 
+        };
+
+
+        UA_StringRAII(const UA_StringRAII&) = delete;
+        UA_StringRAII& operator=(const UA_StringRAII&) = delete;
+      
+        UA_String mString;
     };
 
     /// List of discovery servers where this instance is already registered
-    std::vector<ClientWithLds> mRegisteredWithLds;
+    std::vector<UA_StringRAII> mRegisteredServers;
 };
 }
 

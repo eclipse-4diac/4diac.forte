@@ -31,9 +31,6 @@
 #include "../../core/fortelist.h"
 #include "opcua_handler_abstract.h"
 #include "opcua_helper.h"
-#ifdef FORTE_COM_OPC_UA_MULTICAST
-#include "detail/lds_me_handler.h"
-#endif //FORTE_COM_OPC_UA_MULTICAST
 #include <string>
 
 /**
@@ -697,12 +694,6 @@ class COPC_UA_Local_Handler : public COPC_UA_HandlerAbstract, public CThread {
      * Default description for variable nodes
      */
     static const char *const mDefaultDescriptionForVariableNodes;
-
-#ifdef FORTE_COM_OPC_UA_MULTICAST
-    // pointer because the class has not default constructor
-    std::unique_ptr<forte::com::opc_ua::detail::LdsMeHandler> mLdsMeHandler; 
-#endif //FORTE_COM_OPC_UA_MULTICAST
-
 };
 
 #endif /* SRC_MODULES_OPC_UA_OPCUALOCALHANDLER_H_ */
