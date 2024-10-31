@@ -13,6 +13,11 @@ inputs:
     Description: C compiler to use, passed as CMAKE_C_COMPILER to CMake
     required: True
 
+  platform:
+    type: string
+    Description: The platform where this job is running. "windows-latest" or anything else are valid values
+    required: True
+
 outputs:
   mqtt-include:
     value: ${{ steps.vars.outputs.mqtt-include }}
@@ -20,6 +25,9 @@ outputs:
   mqtt-lib-dir:
     value: ${{ steps.vars.outputs.mqtt-lib-dir }}
     description: The library directory
+  mqtt-lib:
+    value: ${{ steps.vars.outputs.mqtt-lib }}
+    description: The library to link to
 
 runs:
   using: "composite"
@@ -49,4 +57,5 @@ runs:
       shell: bash
       run: |
         echo "mqtt-include=${{ github.workspace }}/paho.mqtt.c/src" >> "$GITHUB_OUTPUT"
-        echo "mqtt-lib-dir=${{ github.workspace }}/paho.mqtt.c/static/src" >> "$GITHUB_OUTPUT"
+        echo "mqtt-lib-dir=${{ github.workspace }}/paho.mqtt.c/static/src/${{ inputs.platform == 'windows-latest' && 'Release' || '' }}" >> "$GITHUB_OUTPUT"
+        echo "mqtt-lib=${{ inputs.platform == 'windows-latest' && 'paho-mqtt3a-static.lib' || 'libpaho-mqtt3a.a' }}" >> "$GITHUB_OUTPUT"

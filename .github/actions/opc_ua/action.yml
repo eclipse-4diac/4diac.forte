@@ -8,14 +8,14 @@ inputs:
     Decription: Version of open62541 to clone
     required: True
   
-  cpp_compiler:
-    type: string
-    Description: C++ compiler to use, passed as CMAKE_CXX_COMPILER to CMake
-    required: True
-    
   c_compiler:
     type: string
     Description: C compiler to use, passed as CMAKE_C_COMPILER to CMake
+    required: True
+
+  platform:
+    type: string
+    Description: The platform where this job is running. "windows-latest" or anything else are valid values
     required: True
 
 outputs:
@@ -25,6 +25,9 @@ outputs:
   opc_ua-lib-dir:
     value: ${{ steps.vars.outputs.opc_ua-lib-dir }}
     description: The library directory
+  opc_ua-lib:
+    value: ${{ steps.vars.outputs.opc_ua-lib }}
+    description: The library to link to
 
 runs:
   using: "composite"
@@ -36,15 +39,14 @@ runs:
         
         cd open62541
         git submodule update --recursive --init
-      
+    
     - name: Build open62541
       shell: bash
       run: |
         cd open62541
 
         cmake \
-          -B static \
-          -DCMAKE_CXX_COMPILER=${{ inputs.cpp_compiler }} \
+          -B amalgamated \
           -DCMAKE_C_COMPILER=${{ inputs.c_compiler }} \
           -DCMAKE_BUILD_TYPE=Release \
           -DUA_ENABLE_AMALGAMATION=ON \
@@ -52,13 +54,16 @@ runs:
           -DUA_ENABLE_DISCOVERY_MULTICAST=ON \
           -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
           -DUA_FORCE_WERROR=OFF \
-          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF
+          -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF \
+          -DBUILD_SHARED_LIBS=ON
 
-        cmake --build static
+        cmake --build amalgamated
 
+      # When AMALGAMATED=ON open62541 builds only a shared library for some reason 
     - name: Output variables
       id: vars
       shell: bash
       run: |
-        echo "opc_ua-include=${{ github.workspace }}/open62541/static" >> "$GITHUB_OUTPUT"
-        echo "opc_ua-lib-dir=${{ github.workspace }}/open62541/static/bin" >> "$GITHUB_OUTPUT"
+        echo "opc_ua-include=${{ github.workspace }}/open62541/amalgamated" >> "$GITHUB_OUTPUT"
+        echo "opc_ua-lib-dir=${{ github.workspace }}/open62541/amalgamated/bin/${{ inputs.platform == 'windows-latest' && matrix.build_type || '' }}" >> "$GITHUB_OUTPUT"
+        echo "opc_ua-lib=${{ inputs.platform == 'windows-latest' && 'open62541.dll' || 'libopen62541.so' }}" >> "$GITHUB_OUTPUT"
