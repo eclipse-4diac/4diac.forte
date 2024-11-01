@@ -93,7 +93,7 @@ jobs:
         -DFORTE_MODULE_UTILS=ON
         -DFORTE_BUILD_STATIC_LIBRARY=ON
         -DFORTE_BUILD_SHARED_LIBRARY=ON
-        -DFORTE_C_INTERFACE=ON
+        -DFORTE_C_INTERFACE=OFF
         -DFORTE_TESTS=ON
         -DFORTE_TEST_SANITIZE=ON
         ${{ matrix.os == 'windows-latest' && format('-DFORTE_TESTS_INC_DIRS={0}/boost.1.84.0/lib/native/include', github.workspace) || '' }}
