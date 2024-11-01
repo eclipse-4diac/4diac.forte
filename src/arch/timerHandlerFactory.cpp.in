@@ -18,14 +18,14 @@ ${TIMERHANDLER_INCLUDE}
 
 namespace TimerHandlerFactory {
 
-std::string timerHandlerToCreate{"${TIMERHANDLER_DEFAULT}"};
+AvailableTimers timerHandlerToCreate{AvailableTimers::${TIMERHANDLER_DEFAULT}};
 
-const std::string& getTImerHandlerName() {
+AvailableTimers getTImerHandlerName() {
   return timerHandlerToCreate;
 }
 
-void setTimeHandlerNameToCreate(std::string paName){
-  timerHandlerToCreate = std::move(paName);
+void setTimeHandlerNameToCreate(AvailableTimers paName){
+  timerHandlerToCreate = paName;
 }
 
 CTimerHandler* createTimerHandler(CDeviceExecution &paDeviceExecution){

@@ -159,7 +159,7 @@ FUNCTION(forte_add_timerhandler CLASSNAME FILENAME)
     if(DEFINED ARGV2)
       set(TIMERHANDLER_NAME ${ARGV2})
     else()
-      set(TIMERHANDLER_NAME "\"\"") # default to empty string
+      set(TIMERHANDLER_NAME "standard") # default value
     endif()
     set_property(GLOBAL APPEND PROPERTY FORTE_TIMERHANDLER_NAME "${TIMERHANDLER_NAME}")
 ENDFUNCTION(forte_add_timerhandler)

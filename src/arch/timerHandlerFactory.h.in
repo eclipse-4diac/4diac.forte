@@ -10,12 +10,15 @@
  *    Jose Cabral - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-#include <string>
-
 class CTimerHandler;
 class CDeviceExecution;
 
 namespace TimerHandlerFactory {
+
+  enum class AvailableTimers {
+${TIMERHANDLER_ENUM}
+  };
+
 
     /*!\brief create the timer handler
       *
@@ -24,7 +27,7 @@ namespace TimerHandlerFactory {
       */
     CTimerHandler* createTimerHandler(CDeviceExecution &paDeviceExecution);
 
-    void setTimeHandlerNameToCreate(std::string paName);
+    void setTimeHandlerNameToCreate(AvailableTimers paTimer);
 
-    const std::string& getTImerHandlerName();
+    AvailableTimers getTImerHandlerName();
 };

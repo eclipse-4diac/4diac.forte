@@ -11,7 +11,8 @@
  *    Jose Cabral - initial implementation and rework handler infrastructure
  *******************************************************************************/
 
-#include <timerHandlerFactory.h>
+#include "arch/timerHandlerFactory.h"
+
 #include <devexec.h>
 #include <timerha.h>
 
