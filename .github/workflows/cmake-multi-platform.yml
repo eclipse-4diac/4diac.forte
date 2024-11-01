@@ -100,7 +100,6 @@ jobs:
         -DFORTE_COM_OPC_UA_INCLUDE_DIR=${{ steps.open62541.outputs.opc_ua-include }}
         -DFORTE_COM_OPC_UA_LIB_DIR=${{ steps.open62541.outputs.opc_ua-lib-dir }}
         -DFORTE_COM_OPC_UA_LIB=${{ steps.open62541.outputs.opc_ua-lib }}
-        -DFORTE_COM_OPC_UA_MULTICAST=ON
         -DFORTE_COM_PAHOMQTT=ON
         -DFORTE_COM_PAHOMQTT_INCLUDE_DIR=${{ steps.paho-mqtt.outputs.mqtt-include }}
         -DFORTE_COM_PAHOMQTT_LIB_DIR=${{ steps.paho-mqtt.outputs.mqtt-lib-dir }}

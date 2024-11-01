@@ -50,8 +50,6 @@ runs:
           -DCMAKE_C_COMPILER=${{ inputs.c_compiler }} \
           -DCMAKE_BUILD_TYPE=Release \
           -DUA_ENABLE_AMALGAMATION=ON \
-          -DUA_ENABLE_DISCOVERY=ON \
-          -DUA_ENABLE_DISCOVERY_MULTICAST=ON \
           -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
           -DUA_FORCE_WERROR=OFF \
           -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF \
@@ -66,4 +64,4 @@ runs:
       run: |
         echo "opc_ua-include=${{ github.workspace }}/open62541/amalgamated" >> "$GITHUB_OUTPUT"
         echo "opc_ua-lib-dir=${{ github.workspace }}/open62541/amalgamated/bin/${{ inputs.platform == 'windows-latest' && matrix.build_type || '' }}" >> "$GITHUB_OUTPUT"
-        echo "opc_ua-lib=${{ inputs.platform == 'windows-latest' && 'open62541.dll' || 'libopen62541.so' }}" >> "$GITHUB_OUTPUT"
+        echo "opc_ua-lib=${{ github.workspace }}/open62541/amalgamated/bin/${{ inputs.platform == 'windows-latest' && matrix.build_type/'open62541.lib' || 'libopen62541.so' }}" >> "$GITHUB_OUTPUT"
