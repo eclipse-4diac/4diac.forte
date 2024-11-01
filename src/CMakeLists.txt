@@ -359,10 +359,6 @@ if(FORTE_BUILD_STATIC_LIBRARY)
 if(FORTE_BUILD_SHARED_LIBRARY)
   message("Building shared library")
 
-  if(WIN32)
-    message(WARNING "Shared library in windows might not be linkable.")
-  endif(WIN32)
-  
   ADD_LIBRARY (${FORTE_SHARED_LIBRARY_NAME} SHARED)
   TARGET_LINK_LIBRARIES (${FORTE_SHARED_LIBRARY_NAME} PUBLIC ${FORTE_BASE_TARGET_NAME})
   set_target_properties(${FORTE_BASE_TARGET_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
