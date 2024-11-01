@@ -28,18 +28,18 @@
  * @brief A tracer that can be changed to use the existing tracers: BarectfPlatformFORTE and CInternalTracer
  * 
  */
-class CFlexibelTracer final {
+class CFlexibleTracer final {
 public: 
 
-    CFlexibelTracer(CStringDictionary::TStringId instanceName, size_t bufferSize);
+    CFlexibleTracer(CStringDictionary::TStringId instanceName, size_t bufferSize);
 
-    ~CFlexibelTracer() = default;
+    ~CFlexibleTracer() = default;
 
-    CFlexibelTracer(const CFlexibelTracer&) = delete;
-    CFlexibelTracer& operator=(const CFlexibelTracer&) = delete;
+    CFlexibleTracer(const CFlexibleTracer&) = delete;
+    CFlexibleTracer& operator=(const CFlexibleTracer&) = delete;
 
-    CFlexibelTracer(CFlexibelTracer&&) = delete;
-    CFlexibelTracer& operator=(CFlexibelTracer&&) = delete;
+    CFlexibleTracer(CFlexibleTracer&&) = delete;
+    CFlexibleTracer& operator=(CFlexibleTracer&&) = delete;
 
     void traceInstanceData(const char * const paTypeName, const char * const paInstanceName,
       const uint32_t paInputsLength, const char * const * const paInputs,

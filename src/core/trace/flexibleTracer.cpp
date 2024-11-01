@@ -16,11 +16,11 @@
 
 #include "flexibleTracer.h"
 
-void CFlexibelTracer::setTracer(std::string paTracerName) {
-  CFlexibelTracer::mCurrentTracer = std::move(paTracerName);
+void CFlexibleTracer::setTracer(std::string paTracerName) {
+  CFlexibleTracer::mCurrentTracer = std::move(paTracerName);
 }
 
-CFlexibelTracer::CFlexibelTracer(CStringDictionary::TStringId instanceName, size_t bufferSize) {
+CFlexibleTracer::CFlexibleTracer(CStringDictionary::TStringId instanceName, size_t bufferSize) {
   if(mCurrentTracer == ""){
     mTracer.emplace<BarectfPlatformFORTE>(instanceName, bufferSize);
   } else {
@@ -28,7 +28,7 @@ CFlexibelTracer::CFlexibelTracer(CStringDictionary::TStringId instanceName, size
   }
 }
 
-void CFlexibelTracer::traceInstanceData(const char * const paTypeName, const char * const paInstanceName,
+void CFlexibleTracer::traceInstanceData(const char * const paTypeName, const char * const paInstanceName,
   const uint32_t paInputsLength, const char * const * const paInputs,
   const uint32_t paOutputsLength, const char * const * const paOutputs,
   const uint32_t paInternalLength, const char * const * const paInternal,
@@ -50,7 +50,7 @@ void CFlexibelTracer::traceInstanceData(const char * const paTypeName, const cha
 }
 
 
-void CFlexibelTracer::traceReceiveInputEvent(const char * const paTypeName, const char * const paInstanceName, const uint64_t paEventId){
+void CFlexibleTracer::traceReceiveInputEvent(const char * const paTypeName, const char * const paInstanceName, const uint64_t paEventId){
   std::visit(
     [&](auto &&paTracer){
       using T = std::decay_t<decltype(paTracer)>;
@@ -63,7 +63,7 @@ void CFlexibelTracer::traceReceiveInputEvent(const char * const paTypeName, cons
 }
 
 
-void CFlexibelTracer::traceSendOutputEvent(const char * const paTypeName, const char * const paInstanceName, const uint64_t paEventId){
+void CFlexibleTracer::traceSendOutputEvent(const char * const paTypeName, const char * const paInstanceName, const uint64_t paEventId){
     std::visit(
       [&](auto &&paTracer){
         using T = std::decay_t<decltype(paTracer)>;
@@ -76,7 +76,7 @@ void CFlexibelTracer::traceSendOutputEvent(const char * const paTypeName, const 
 }
 
 
-void CFlexibelTracer::traceInputData( const char * const paTypeName, const char * const paInstanceName,
+void CFlexibleTracer::traceInputData( const char * const paTypeName, const char * const paInstanceName,
   const uint64_t paDataId, const char * const paValue){
   
    std::visit(
@@ -91,7 +91,7 @@ void CFlexibelTracer::traceInputData( const char * const paTypeName, const char 
 }
 
 
-void CFlexibelTracer::traceOutputData(const char * const paTypeName, const char * const paInstanceName, 
+void CFlexibleTracer::traceOutputData(const char * const paTypeName, const char * const paInstanceName, 
   const uint64_t paDataId, const char * const paValue){
 
    std::visit(
@@ -105,7 +105,7 @@ void CFlexibelTracer::traceOutputData(const char * const paTypeName, const char 
     );
 }
 
-bool CFlexibelTracer::isEnabled() {
+bool CFlexibleTracer::isEnabled() {
 
   return std::visit(
       [](auto &&paTracer) -> bool {

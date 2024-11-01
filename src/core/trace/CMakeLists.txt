@@ -44,7 +44,7 @@ if(FORTE_TRACE_CTF_TEST)
   forte_add_sourcefile_hcpp(flexibleTracer)
 
   set(FORTE_TRACER_INCLUDE flexibleTracer.h)
-  set(FORTE_TRACER CFlexibelTracer)
+  set(FORTE_TRACER CFlexibleTracer)
 
 else(FORTE_TRACE_CTF_TEST)
   set(FORTE_TRACER_INCLUDE barectf_platform_forte.h)
