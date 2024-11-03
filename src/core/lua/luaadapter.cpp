@@ -24,7 +24,6 @@ CLuaAdapter::~CLuaAdapter() = default;
 
 bool CLuaAdapter::initialize() {
   //before calling super we need to configure the interface of the FB
-  setupFBInterface(getFBInterfaceSpec());
   return CAdapter::initialize();
 }
 

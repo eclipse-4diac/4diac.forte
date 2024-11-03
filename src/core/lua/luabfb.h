@@ -62,7 +62,7 @@ class CLuaBFB : public CGenFunctionBlock<CBasicFB> {
     bool initialize() override;
 
     bool createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec &paInterfaceSpec) override {
-      paInterfaceSpec = *mInterfaceSpec;
+      paInterfaceSpec = mInterfaceSpec;
       return true;
     }
 

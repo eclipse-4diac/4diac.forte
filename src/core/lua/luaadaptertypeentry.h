@@ -42,12 +42,12 @@ public:
 
   CAdapter* createAdapterInstance(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer, bool paIsPlug) override;
 
-  const SFBInterfaceSpec* getSocketInterfaceSpec() const {
-    return &mSocketInterfaceSpec;
+  const SFBInterfaceSpec & getSocketInterfaceSpec() const {
+    return mSocketInterfaceSpec;
   }
 
-  const SFBInterfaceSpec* getPlugInterfaceSpec() const {
-      return &mPlugInterfaceSpec;
+  const SFBInterfaceSpec & getPlugInterfaceSpec() const {
+      return mPlugInterfaceSpec;
   }
 };
 

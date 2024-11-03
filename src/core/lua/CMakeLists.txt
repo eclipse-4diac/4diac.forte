@@ -33,7 +33,7 @@ elseif("${FORTE_USE_LUATYPES}" STREQUAL "Lua")
     find_package(Lua REQUIRED)
   endif(NOT DEFINED LUA_FOUND)
 
-  forte_add_include_directories(${LUA_INCLUDE_DIR})
+  forte_add_include_directories(${LUA_INCLUDE_DIRS})
   forte_add_link_library(${LUA_LIBRARIES})
 
 endif("${FORTE_USE_LUATYPES}" STREQUAL "LuaJIT")
