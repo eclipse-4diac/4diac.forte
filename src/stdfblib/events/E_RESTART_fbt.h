@@ -27,6 +27,7 @@ class FORTE_E_RESTART final : public CEventSourceFB {
     static const TEventID scmEventSTOPID = 2;
     static const TForteInt16 scmEOWithIndexes[];
     static const CStringDictionary::TStringId scmEventOutputNames[];
+    static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     static const SFBInterfaceSpec scmFBInterfaceSpec;
 

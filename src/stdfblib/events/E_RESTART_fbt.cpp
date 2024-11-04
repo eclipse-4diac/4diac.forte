@@ -21,9 +21,10 @@ DEFINE_FIRMWARE_FB(FORTE_E_RESTART, g_nStringIdE_RESTART)
 
 const TForteInt16 FORTE_E_RESTART::scmEOWithIndexes[] = {-1, -1, -1};
 const CStringDictionary::TStringId FORTE_E_RESTART::scmEventOutputNames[] = {g_nStringIdCOLD, g_nStringIdWARM, g_nStringIdSTOP};
+const CStringDictionary::TStringId FORTE_E_RESTART::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_RESTART::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  3, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  0, nullptr, nullptr, nullptr, nullptr,
+  3, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

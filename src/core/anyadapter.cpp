@@ -21,8 +21,8 @@
 DEFINE_GENERIC_ADAPTER_TYPE(CAnyAdapter, g_nStringIdANY_ADAPTER)
 
 const SFBInterfaceSpec CAnyAdapter::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

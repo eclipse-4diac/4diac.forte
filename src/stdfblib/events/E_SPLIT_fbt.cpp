@@ -29,11 +29,13 @@ DEFINE_FIRMWARE_FB(FORTE_E_SPLIT, g_nStringIdE_SPLIT)
 
 const TForteInt16 FORTE_E_SPLIT::scmEIWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_E_SPLIT::scmEventInputNames[] = {g_nStringIdEI};
+const CStringDictionary::TStringId FORTE_E_SPLIT::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TForteInt16 FORTE_E_SPLIT::scmEOWithIndexes[] = {-1, -1};
 const CStringDictionary::TStringId FORTE_E_SPLIT::scmEventOutputNames[] = {g_nStringIdEO1, g_nStringIdEO2};
+const CStringDictionary::TStringId FORTE_E_SPLIT::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_SPLIT::scmFBInterfaceSpec = {
-  1, scmEventInputNames, nullptr, scmEIWithIndexes,
-  2, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, nullptr, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

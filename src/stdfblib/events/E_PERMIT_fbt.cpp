@@ -32,11 +32,13 @@ const CStringDictionary::TStringId FORTE_E_PERMIT::scmDataInputTypeIds[] = {g_nS
 const TDataIOID FORTE_E_PERMIT::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_E_PERMIT::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_E_PERMIT::scmEventInputNames[] = {g_nStringIdEI};
+const CStringDictionary::TStringId FORTE_E_PERMIT::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TForteInt16 FORTE_E_PERMIT::scmEOWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_E_PERMIT::scmEventOutputNames[] = {g_nStringIdEO};
+const CStringDictionary::TStringId FORTE_E_PERMIT::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_PERMIT::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   1, scmDataInputNames, scmDataInputTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

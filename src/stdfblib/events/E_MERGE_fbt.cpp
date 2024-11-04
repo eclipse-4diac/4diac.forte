@@ -29,11 +29,13 @@ DEFINE_FIRMWARE_FB(FORTE_E_MERGE, g_nStringIdE_MERGE)
 
 const TForteInt16 FORTE_E_MERGE::scmEIWithIndexes[] = {-1, -1};
 const CStringDictionary::TStringId FORTE_E_MERGE::scmEventInputNames[] = {g_nStringIdEI1, g_nStringIdEI2};
+const CStringDictionary::TStringId FORTE_E_MERGE::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const TForteInt16 FORTE_E_MERGE::scmEOWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_E_MERGE::scmEventOutputNames[] = {g_nStringIdEO};
+const CStringDictionary::TStringId FORTE_E_MERGE::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_MERGE::scmFBInterfaceSpec = {
-  2, scmEventInputNames, nullptr, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  2, scmEventInputNames, scmEventInputTypeIds, nullptr, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

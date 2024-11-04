@@ -26,11 +26,13 @@ const CStringDictionary::TStringId FORTE_E_R_TRIG::scmDataInputTypeIds[] = {g_nS
 const TDataIOID FORTE_E_R_TRIG::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_E_R_TRIG::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_E_R_TRIG::scmEventInputNames[] = {g_nStringIdEI};
+const CStringDictionary::TStringId FORTE_E_R_TRIG::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TForteInt16 FORTE_E_R_TRIG::scmEOWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_E_R_TRIG::scmEventOutputNames[] = {g_nStringIdEO};
+const CStringDictionary::TStringId FORTE_E_R_TRIG::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_R_TRIG::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   1, scmDataInputNames, scmDataInputTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

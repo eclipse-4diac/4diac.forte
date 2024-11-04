@@ -22,8 +22,8 @@ const CStringDictionary::TStringId Config_EMB_RES::scmVarInputNameIds[] = {g_nSt
 const CStringDictionary::TStringId Config_EMB_RES::scmDIDataTypeIds[] = {g_nStringIdWSTRING};
 
 const SFBInterfaceSpec Config_EMB_RES::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   1, scmVarInputNameIds, scmDIDataTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

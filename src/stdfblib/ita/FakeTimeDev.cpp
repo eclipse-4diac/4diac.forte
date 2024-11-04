@@ -24,8 +24,8 @@ const CStringDictionary::TStringId FakeTimeDev::scmDINameIds[] = { g_nStringIdMG
 const CStringDictionary::TStringId FakeTimeDev::scmDIDataTypeIds[] = {g_nStringIdWSTRING, g_nStringIdTIME};
 
 const SFBInterfaceSpec FakeTimeDev::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   2, scmDINameIds, scmDIDataTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

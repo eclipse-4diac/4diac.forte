@@ -33,6 +33,7 @@ private:
   private:
   static const TForteInt16 scmEIWithIndexes[];
   static const CStringDictionary::TStringId scmEventInputNames[];
+  static const CStringDictionary::TStringId scmEventInputTypeIds[];
   public:
     static const TEventID scmEventSTARTID = 0;
     static const TEventID scmEventSTOPID = 1;
@@ -40,6 +41,7 @@ private:
   static const TDataIOID scmEOWith[];
   static const TForteInt16 scmEOWithIndexes[];
   static const CStringDictionary::TStringId scmEventOutputNames[];
+  static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
   static const SFBInterfaceSpec scmFBInterfaceSpecSocket;
 

@@ -25,8 +25,8 @@ const CStringDictionary::TStringId RMT_RES::scmDIDataTypeIds[] = {g_nStringIdWST
 
 
 const SFBInterfaceSpec RMT_RES::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   1, scmVarInputNameIds, scmDIDataTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

@@ -24,8 +24,8 @@ const SAdapterInstanceDef FORTE_E_RTimeOut::scmAdapterInstances[] = {
   {g_nStringIdARTimeOut, g_nStringIdTimeOutSocket, false}
 };
 const SFBInterfaceSpec FORTE_E_RTimeOut::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

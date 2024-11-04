@@ -24,13 +24,15 @@ const CStringDictionary::TStringId FORTE_ATimeOut::scmDataOutputNames[] = {g_nSt
 const CStringDictionary::TStringId FORTE_ATimeOut::scmDataOutputTypeIds[] = {g_nStringIdTIME};
 const TForteInt16 FORTE_ATimeOut::scmEIWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_ATimeOut::scmEventInputNames[] = {g_nStringIdTimeOut};
+const CStringDictionary::TStringId FORTE_ATimeOut::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TDataIOID FORTE_ATimeOut::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_ATimeOut::scmEOWithIndexes[] = {0, -1};
 const CStringDictionary::TStringId FORTE_ATimeOut::scmEventOutputNames[] = {g_nStringIdSTART, g_nStringIdSTOP};
+const CStringDictionary::TStringId FORTE_ATimeOut::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_ATimeOut::scmFBInterfaceSpecSocket = {
-  1, scmEventInputNames, nullptr, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames,scmEventInputTypeIds,nullptr, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds,scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
@@ -38,8 +40,8 @@ const SFBInterfaceSpec FORTE_ATimeOut::scmFBInterfaceSpecSocket = {
 };
 
 const SFBInterfaceSpec FORTE_ATimeOut::scmFBInterfaceSpecPlug = {
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
-  1, scmEventInputNames, nullptr, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds,scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds,nullptr, scmEIWithIndexes,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

@@ -20,8 +20,8 @@
 DEFINE_FIRMWARE_FB(EMB_RES, g_nStringIdEMB_RES);
 
 const SFBInterfaceSpec EMB_RES::scmFBInterfaceSpec = {
-  0, nullptr, nullptr, nullptr,
-  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,
