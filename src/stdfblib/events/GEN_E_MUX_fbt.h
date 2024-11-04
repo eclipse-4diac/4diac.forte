@@ -28,8 +28,10 @@ class GEN_E_MUX : public CGenFunctionBlock<CFunctionBlock>{
 
     static const TEventID scmEventEOID = 0;
     static const CStringDictionary::TStringId scmEventOutputNames[];
+    static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     CStringDictionary::TStringId *mEventInputNames;
+    CStringDictionary::TStringId *mEventInputTypeIds;
 
     void executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) override;
 

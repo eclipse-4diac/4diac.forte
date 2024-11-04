@@ -22,14 +22,16 @@
 #include "criticalregion.h"
 
 const CStringDictionary::TStringId CTimedFB::scmEINameIds[] = {g_nStringIdSTART, g_nStringIdSTOP};
+const CStringDictionary::TStringId CTimedFB::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const CStringDictionary::TStringId CTimedFB::scmEONameIds[] = {g_nStringIdEO};
+const CStringDictionary::TStringId CTimedFB::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const CStringDictionary::TStringId CTimedFB::scmDINameIds[] = {g_nStringIdDT};
 const CStringDictionary::TStringId CTimedFB::scmDIDataTypeNameIds[] = {g_nStringIdTIME};
 
 const SFBInterfaceSpec CTimedFB::scmFBInterfaceSpec = {
-  2, scmEINameIds, nullptr, nullptr,
-  1, scmEONameIds, nullptr, nullptr,
+  2, scmEINameIds, scmEventInputTypeIds,nullptr, nullptr,
+  1, scmEONameIds, scmEventOutputTypeIds,nullptr, nullptr,
   1, scmDINameIds, scmDIDataTypeNameIds,
   0, nullptr, nullptr,
   0, nullptr,
