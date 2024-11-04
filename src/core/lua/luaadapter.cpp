@@ -22,12 +22,6 @@ CLuaAdapter::CLuaAdapter(CStringDictionary::TStringId paInstanceNameId, const CL
 
 CLuaAdapter::~CLuaAdapter() = default;
 
-bool CLuaAdapter::initialize() {
-  //before calling super we need to configure the interface of the FB
-  return CAdapter::initialize();
-}
-
-
 void CLuaAdapter::readInputData(TEventID paEIID) {
   if(nullptr != getFBInterfaceSpec().mEIWithIndexes && scmNoDataAssociated != getFBInterfaceSpec().mEIWithIndexes[paEIID]) {
     const TDataIOID *eiWithStart = &(getFBInterfaceSpec().mEIWith[getFBInterfaceSpec().mEIWithIndexes[paEIID]]);

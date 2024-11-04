@@ -30,10 +30,7 @@ class CLuaCFB : public CGenFunctionBlock<CCompositeFB> {
       return mTypeEntry->getTypeNameId();
     }
 
-    bool initialize() override;
-
-    bool createInterfaceSpec(const char *, SFBInterfaceSpec &paInterfaceSpec) override {
-      paInterfaceSpec = mInterfaceSpec;
+    bool createInterfaceSpec(const char *, SFBInterfaceSpec &) override {
       return true;
     }
 

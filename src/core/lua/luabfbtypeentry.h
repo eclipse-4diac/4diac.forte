@@ -40,8 +40,8 @@ public:
 
   CFunctionBlock* createFBInstance(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) override;
 
-  const SFBInterfaceSpec* getInterfaceSpec() const {
-    return &m_interfaceSpec;
+  const SFBInterfaceSpec& getInterfaceSpec() const {
+    return m_interfaceSpec;
   }
 
   const SInternalVarsInformation* getInternalVarsInformation() const {

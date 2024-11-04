@@ -22,9 +22,6 @@ class CLuaAdapter : public CAdapter {
     CLuaAdapter(CStringDictionary::TStringId paInstanceNameId, const CLuaAdapterTypeEntry* paTypeEntry, bool paIsPlug, forte::core::CFBContainer &paContainer);
     ~CLuaAdapter() override;
 
-
-    bool initialize() override;
-
     CStringDictionary::TStringId getFBTypeId() const override {
       return mTypeEntry->getTypeNameId();
     }

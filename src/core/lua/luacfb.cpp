@@ -19,16 +19,10 @@
 #include "criticalregion.h"
 
 CLuaCFB::CLuaCFB(CStringDictionary::TStringId paInstanceNameId, const CLuaCFBTypeEntry* paTypeEntry, SCFB_FBNData &paFbnData, forte::core::CFBContainer &paContainer) :
-    CGenFunctionBlock<CCompositeFB>(paContainer, paInstanceNameId, paFbnData), mTypeEntry(paTypeEntry) {
+    CGenFunctionBlock<CCompositeFB>(paContainer, paTypeEntry->getInterfaceSpec(), paInstanceNameId, paFbnData), mTypeEntry(paTypeEntry) {
 }
 
 CLuaCFB::~CLuaCFB() = default;
-
-
-bool CLuaCFB::initialize() {
-  //before calling super we need to configure the interface of the FB
-  return CGenFunctionBlock<CCompositeFB>::initialize();
-}
 
 bool CLuaCFB::createInternalFBs(){
   const SCFB_FBNData &fbnData = getFBNData();
