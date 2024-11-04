@@ -62,6 +62,9 @@ namespace forte {
       static const CStringDictionary::TStringId scmResponderEventInputNameIds[];
       static const CStringDictionary::TStringId scmResponderEventOutputNameIds[];
 
+      static const CStringDictionary::TStringId scmEventInputTypeIds[];
+      static const CStringDictionary::TStringId scmEventOutputTypeIds[];
+
         bool createInterfaceSpec(const char* paConfigString, SFBInterfaceSpec& paInterfaceSpec) override;
 
         void configureDIs(const char* paDIConfigString, SFBInterfaceSpec& paInterfaceSpec) const;

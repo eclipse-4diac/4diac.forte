@@ -37,6 +37,9 @@ const CStringDictionary::TStringId CCommFB::scmRequesterEventOutputNameIds[2] = 
 const CStringDictionary::TStringId CCommFB::scmResponderEventInputNameIds[2] = { g_nStringIdINIT, g_nStringIdRSP };
 const CStringDictionary::TStringId CCommFB::scmResponderEventOutputNameIds[2] = { g_nStringIdINITO, g_nStringIdIND };
 
+const CStringDictionary::TStringId CCommFB::scmEventInputTypeIds[2] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId CCommFB::scmEventOutputTypeIds[2] = {g_nStringIdEvent, g_nStringIdEvent};
+
 CCommFB::CCommFB(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer, forte::com_infra::EComServiceType paCommServiceType) :
   CBaseCommFB(paInstanceNameId, paContainer, paCommServiceType) {
 }
@@ -203,6 +206,8 @@ bool CCommFB::createInterfaceSpec(const char* paConfigString, SFBInterfaceSpec& 
       paInterfaceSpec.mEONames = scmResponderEventOutputNameIds;
     }
   }
+  paInterfaceSpec.mEITypeNames = scmEventInputTypeIds;
+  paInterfaceSpec.mEOTypeNames = scmEventOutputTypeIds;
 
   return true;
 }
