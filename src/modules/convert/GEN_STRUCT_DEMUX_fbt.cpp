@@ -97,8 +97,10 @@ bool GEN_STRUCT_DEMUX::createInterfaceSpec(const char *paConfigString, SFBInterf
 
         paInterfaceSpec.mNumEIs = 1;
         paInterfaceSpec.mEINames = scmEventInputNames;
+        paInterfaceSpec.mEITypeNames = scmEventInputTypeIds;
         paInterfaceSpec.mNumEOs = 1;
         paInterfaceSpec.mEONames = scmEventOutputNames;
+        paInterfaceSpec.mEOTypeNames = scmEventOutputTypeIds;
         paInterfaceSpec.mNumDIs = 1;
         paInterfaceSpec.mDINames = scmDataInputNames;
         paInterfaceSpec.mDIDataTypeNames = diDataTypeNames;

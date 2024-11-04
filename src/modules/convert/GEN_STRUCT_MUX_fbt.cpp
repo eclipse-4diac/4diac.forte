@@ -111,8 +111,10 @@ bool GEN_STRUCT_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfac
 
   paInterfaceSpec.mNumEIs = 1;
   paInterfaceSpec.mEINames = scmEventInputNames;
+  paInterfaceSpec.mEITypeNames = scmEventInputTypeIds;
   paInterfaceSpec.mNumEOs = 1;
   paInterfaceSpec.mEONames = scmEventOutputNames;
+  paInterfaceSpec.mEOTypeNames = scmEventOutputTypeIds;
   paInterfaceSpec.mNumDIs = structSize;
   paInterfaceSpec.mDINames = diNames;
   paInterfaceSpec.mDIDataTypeNames = diDataTypeNames;
