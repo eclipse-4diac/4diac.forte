@@ -34,11 +34,13 @@ const CStringDictionary::TStringId FORTE_TEST_CONDITION::scmDataInputTypeIds[] =
 const TDataIOID FORTE_TEST_CONDITION::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_TEST_CONDITION::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_TEST_CONDITION::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_TEST_CONDITION::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TForteInt16 FORTE_TEST_CONDITION::scmEOWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_TEST_CONDITION::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_TEST_CONDITION::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_TEST_CONDITION::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, nullptr, scmEOWithIndexes,
   1, scmDataInputNames, scmDataInputTypeIds,
   0, nullptr, nullptr,
   0, nullptr,

@@ -23,9 +23,10 @@ DEFINE_FIRMWARE_FB(FORTE_STEST_END, g_nStringIdSTEST_END)
 
 const TForteInt16 FORTE_STEST_END::scmEIWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_STEST_END::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_STEST_END::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_STEST_END::scmFBInterfaceSpec = {
-  1, scmEventInputNames, nullptr, scmEIWithIndexes,
-  0, nullptr, nullptr, nullptr,
+  1, scmEventInputNames, scmEventInputTypeIds, nullptr, scmEIWithIndexes,
+  0, nullptr, nullptr, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr, nullptr,
   0, nullptr,

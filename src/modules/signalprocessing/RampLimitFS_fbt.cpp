@@ -38,12 +38,14 @@ const CStringDictionary::TStringId FORTE_signalprocessing__RampLimitFS::scmDataO
 const TDataIOID FORTE_signalprocessing__RampLimitFS::scmEIWith[] = {1, scmWithListDelimiter, 2, scmWithListDelimiter, 3, scmWithListDelimiter, 2, scmWithListDelimiter, 3, scmWithListDelimiter, 4, scmWithListDelimiter, 0, scmWithListDelimiter};
 const TForteInt16 FORTE_signalprocessing__RampLimitFS::scmEIWithIndexes[] = {0, 2, 4, 6, 8, 10, 12};
 const CStringDictionary::TStringId FORTE_signalprocessing__RampLimitFS::scmEventInputNames[] = {g_nStringIdZERO, g_nStringIdUP_SLOW, g_nStringIdUP_FAST, g_nStringIdDOWN_SLOW, g_nStringIdDOWN_FAST, g_nStringIdFULL, g_nStringIdLOAD};
+const CStringDictionary::TStringId FORTE_signalprocessing__RampLimitFS::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const TDataIOID FORTE_signalprocessing__RampLimitFS::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_signalprocessing__RampLimitFS::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_signalprocessing__RampLimitFS::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_signalprocessing__RampLimitFS::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_signalprocessing__RampLimitFS::scmFBInterfaceSpec = {
-  7, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  7, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   5, scmDataInputNames, scmDataInputTypeIds,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

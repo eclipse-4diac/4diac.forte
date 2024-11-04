@@ -28,15 +28,17 @@ const CStringDictionary::TStringId FORTE_EBMaster::scmDataOutputTypeIds[] = {g_n
 const TDataIOID FORTE_EBMaster::scmEIWith[] = {0, 3, 5, 4, 1, 2, scmWithListDelimiter};
 const TForteInt16 FORTE_EBMaster::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_EBMaster::scmEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId FORTE_EBMaster::scmEventInputTypeIds[] = {g_nStringIdEInit};
 const TDataIOID FORTE_EBMaster::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_EBMaster::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_EBMaster::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
+const CStringDictionary::TStringId FORTE_EBMaster::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_EBMaster::scmAdapterInstances[] = {
   {g_nStringIdEBBusAdapter, g_nStringIdBusAdapterOut, true}
 };
 const SFBInterfaceSpec FORTE_EBMaster::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   6, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

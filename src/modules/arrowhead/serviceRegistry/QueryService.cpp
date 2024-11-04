@@ -28,17 +28,19 @@ const CStringDictionary::TStringId FORTE_QueryService::scmDataOutputTypeIds[] = 
 const TForteInt16 FORTE_QueryService::scmEIWithIndexes[] = {0};
 const TDataIOID FORTE_QueryService::scmEIWith[] = {0, 1, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_QueryService::scmEventInputNames[] = {g_nStringIdquery};
+const CStringDictionary::TStringId FORTE_QueryService::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TDataIOID FORTE_QueryService::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_QueryService::scmEOWithIndexes[] = {0, -1};
 const CStringDictionary::TStringId FORTE_QueryService::scmEventOutputNames[] = {g_nStringIdqueried};
+const CStringDictionary::TStringId FORTE_QueryService::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_QueryService::scmAdapterInstances[] = {
 {g_nStringIdQueryServicesAdp, g_nStringIdqueryServices, true }};
 
 const SFBInterfaceSpec FORTE_QueryService::scmFBInterfaceSpec = {
-  1,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  1,  scmEventOutputNames,  scmEOWith, scmEOWithIndexes,  2,  scmDataInputNames, scmDataInputTypeIds,
+  1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  1,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,  2,  scmDataInputNames, scmDataInputTypeIds,
   1,  scmDataOutputNames, scmDataOutputTypeIds,
   1,scmAdapterInstances};
 

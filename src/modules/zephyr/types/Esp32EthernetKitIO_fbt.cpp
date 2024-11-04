@@ -37,12 +37,14 @@ const CStringDictionary::TStringId FORTE_Esp32EthernetKitIO::scmDataOutputTypeId
 const TDataIOID FORTE_Esp32EthernetKitIO::scmEIWith[] = {0, 5, 1, 2, 3, 4, scmWithListDelimiter};
 const TForteInt16 FORTE_Esp32EthernetKitIO::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_Esp32EthernetKitIO::scmEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId FORTE_Esp32EthernetKitIO::scmEventInputTypeIds[] = {g_nStringIdEInit};
 const TDataIOID FORTE_Esp32EthernetKitIO::scmEOWith[] = {0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_Esp32EthernetKitIO::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_Esp32EthernetKitIO::scmEventOutputNames[] = {g_nStringIdINITO};
+const CStringDictionary::TStringId FORTE_Esp32EthernetKitIO::scmEventOutputTypeIds[] = {g_nStringIdEInit};
 const SFBInterfaceSpec FORTE_Esp32EthernetKitIO::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   6, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

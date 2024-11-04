@@ -27,15 +27,17 @@ const CStringDictionary::TStringId FORTE_IORevPiCore::scmDataOutputTypeIds[] = {
 const TDataIOID FORTE_IORevPiCore::scmEIWith[] = {0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_IORevPiCore::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventInputTypeIds[] = {g_nStringIdEInit};
 const TDataIOID FORTE_IORevPiCore::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_IORevPiCore::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
+const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_IORevPiCore::scmAdapterInstances[] = {
   {g_nStringIdIORevPiBusAdapter, g_nStringIdBusAdapterOut, true}
 };
 const SFBInterfaceSpec FORTE_IORevPiCore::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   2, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

@@ -27,12 +27,14 @@ const CStringDictionary::TStringId FORTE_RT_E_DEMUX::scmDataOutputTypeIds[] = {g
 const TDataIOID FORTE_RT_E_DEMUX::scmEIWith[] = {0, 2, 3, 4, 5, 6, 7, 8, 9, 10, scmWithListDelimiter, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_RT_E_DEMUX::scmEIWithIndexes[] = {0, 11};
 const CStringDictionary::TStringId FORTE_RT_E_DEMUX::scmEventInputNames[] = {g_nStringIdINIT, g_nStringIdEI};
+const CStringDictionary::TStringId FORTE_RT_E_DEMUX::scmEventInputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const TDataIOID FORTE_RT_E_DEMUX::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_RT_E_DEMUX::scmEOWithIndexes[] = {0, -1, -1, -1, -1};
 const CStringDictionary::TStringId FORTE_RT_E_DEMUX::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdEO0, g_nStringIdEO1, g_nStringIdEO2, g_nStringIdEO3};
+const CStringDictionary::TStringId FORTE_RT_E_DEMUX::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_RT_E_DEMUX::scmFBInterfaceSpec = {
-  2, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  5, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  5, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   11, scmDataInputNames, scmDataInputTypeIds,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

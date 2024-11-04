@@ -27,6 +27,7 @@ class FORTE_STEST_END final : public CFunctionBlock {
     static const TEventID scmEventREQID = 0;
     static const TForteInt16 scmEIWithIndexes[];
     static const CStringDictionary::TStringId scmEventInputNames[];
+    static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
     static const SFBInterfaceSpec scmFBInterfaceSpec;
 

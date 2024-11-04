@@ -26,7 +26,9 @@
 DEFINE_GENERIC_FIRMWARE_FB(GEN_STRUCT_DEMUX, g_nStringIdGEN_STRUCT_DEMUX);
 
 const CStringDictionary::TStringId GEN_STRUCT_DEMUX::scmEventInputNames[] = { g_nStringIdREQ };
+const CStringDictionary::TStringId GEN_STRUCT_DEMUX::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const CStringDictionary::TStringId GEN_STRUCT_DEMUX::scmEventOutputNames[] = { g_nStringIdCNF };
+const CStringDictionary::TStringId GEN_STRUCT_DEMUX::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const CStringDictionary::TStringId GEN_STRUCT_DEMUX::scmDataInputNames[] = { g_nStringIdIN };
 

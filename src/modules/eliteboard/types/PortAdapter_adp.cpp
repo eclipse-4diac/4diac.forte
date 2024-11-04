@@ -31,16 +31,16 @@ const CStringDictionary::TStringId FORTE_PortAdapter::scmEventOutputNames[] = {g
 
 
 const SFBInterfaceSpec FORTE_PortAdapter::scmFBInterfaceSpecSocket = {
-  1, scmEventInputNames, 0, scmEIWithIndexes,
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, 0, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr
 };
 
 const SFBInterfaceSpec FORTE_PortAdapter::scmFBInterfaceSpecPlug = {
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
-  1, scmEventInputNames, 0, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventOutputTypeIds, 0, scmEIWithIndexes,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr, nullptr,
   0, nullptr

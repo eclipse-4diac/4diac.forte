@@ -24,16 +24,18 @@ const CStringDictionary::TStringId FORTE_ArrowheadPublish::scmDataInputTypeIds[]
 const TForteInt16 FORTE_ArrowheadPublish::scmEIWithIndexes[] = {0};
 const TDataIOID FORTE_ArrowheadPublish::scmEIWith[] = {0, 1, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_ArrowheadPublish::scmEventInputNames[] = {g_nStringIdpublish};
+const CStringDictionary::TStringId FORTE_ArrowheadPublish::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TForteInt16 FORTE_ArrowheadPublish::scmEOWithIndexes[] = {-1, -1};
 const CStringDictionary::TStringId FORTE_ArrowheadPublish::scmEventOutputNames[] = {g_nStringIdpublished};
+const CStringDictionary::TStringId FORTE_ArrowheadPublish::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_ArrowheadPublish::scmAdapterInstances[] = {
 {g_nStringIdArrowheadPublishAdp, g_nStringIdArrowheadPublishAdp, true }};
 
 const SFBInterfaceSpec FORTE_ArrowheadPublish::scmFBInterfaceSpec = {
-  1,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  1,  scmEventOutputNames,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
+  1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  1,  scmEventOutputNames, scmEventOutputTypeIds,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
   0,  0, 0,
   1,scmAdapterInstances};
 

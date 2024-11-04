@@ -31,12 +31,14 @@ const CStringDictionary::TStringId FORTE_ADS_SERVER_CONFIG::scmDataOutputTypeIds
 const TForteInt16 FORTE_ADS_SERVER_CONFIG::scmEIWithIndexes[] = { 0 };
 const TDataIOID FORTE_ADS_SERVER_CONFIG::scmEIWith[] = { 0, scmWithListDelimiter };
 const CStringDictionary::TStringId FORTE_ADS_SERVER_CONFIG::scmEventInputNames[] = { g_nStringIdINIT };
+const CStringDictionary::TStringId FORTE_ADS_SERVER_CONFIG::scmEventInputTypeIds[] = {g_nStringIdEInit};
 
 const TDataIOID FORTE_ADS_SERVER_CONFIG::scmEOWith[] = { 0, 1, scmWithListDelimiter };
 const TForteInt16 FORTE_ADS_SERVER_CONFIG::scmEOWithIndexes[] = { 0, -1 };
 const CStringDictionary::TStringId FORTE_ADS_SERVER_CONFIG::scmEventOutputNames[] = { g_nStringIdINITO };
+const CStringDictionary::TStringId FORTE_ADS_SERVER_CONFIG::scmEventOutputTypeIds[] = {g_nStringIdEInit};
 
-const SFBInterfaceSpec FORTE_ADS_SERVER_CONFIG::scmFBInterfaceSpec = { 1, scmEventInputNames, scmEIWith, scmEIWithIndexes, 1, scmEventOutputNames, scmEOWith, scmEOWithIndexes, 5, scmDataInputNames, scmDataInputTypeIds, 2, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
+const SFBInterfaceSpec FORTE_ADS_SERVER_CONFIG::scmFBInterfaceSpec = { 1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes, 1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes, 5, scmDataInputNames, scmDataInputTypeIds, 2, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
 
 void FORTE_ADS_SERVER_CONFIG::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
   switch (paEIID){

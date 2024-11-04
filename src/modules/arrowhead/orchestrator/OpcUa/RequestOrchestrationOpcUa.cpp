@@ -22,8 +22,8 @@ const SAdapterInstanceDef FORTE_RequestOrchestrationOpcUa::scmAdapterInstances[]
 {g_nStringIdOrchestratorRequestAdp, g_nStringIdrequestOrchestration, false }};
 
 const SFBInterfaceSpec FORTE_RequestOrchestrationOpcUa::scmFBInterfaceSpec = {
-  0,  0,  0,  0,
-  0,  0,   0, 0,  0,  0, 0, 
+  0,  0, nullptr,  0,  0,
+  0,  0, nullptr,   0, 0,  0,  0, 0, 
   0,  0, 0,
   1,scmAdapterInstances};
 

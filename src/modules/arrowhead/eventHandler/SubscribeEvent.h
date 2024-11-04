@@ -38,11 +38,13 @@ private:
   static const TForteInt16 scmEIWithIndexes[];
   static const TDataIOID scmEIWith[];
   static const CStringDictionary::TStringId scmEventInputNames[];
+  static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
   static const TEventID scmEventSubscribedID = 0;
   static const TEventID scmEventUnsubscribedID = 1;
   static const TForteInt16 scmEOWithIndexes[];
   static const CStringDictionary::TStringId scmEventOutputNames[];
+  static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
   static const SAdapterInstanceDef scmAdapterInstances[];
 

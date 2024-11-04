@@ -31,8 +31,10 @@ DEFINE_GENERIC_FIRMWARE_FB(GEN_VALUES2ARRAY, g_nStringIdGEN_VALUES2ARRAY)
 const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmDataOutputNames[] = { g_nStringIdOUT };
 
 const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventInputNames[] = { g_nStringIdREQ };
+const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventOutputNames[] = { g_nStringIdCNF };
+const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 GEN_VALUES2ARRAY::GEN_VALUES2ARRAY(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
     CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mDataInputNames(nullptr), mDataInputTypeIds(nullptr), mDataOutputTypeIds(nullptr), mDInputs(0), m_ValueTypeID(CStringDictionary::CStringDictionary::scmInvalidStringId){

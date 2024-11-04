@@ -30,14 +30,16 @@ const CStringDictionary::TStringId FORTE_GetArrayResponseFromJSON::scmDataOutput
 const TForteInt16 FORTE_GetArrayResponseFromJSON::scmEIWithIndexes[] = {0};
 const TDataIOID FORTE_GetArrayResponseFromJSON::scmEIWith[] = {0, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_GetArrayResponseFromJSON::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_GetArrayResponseFromJSON::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TDataIOID FORTE_GetArrayResponseFromJSON::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_GetArrayResponseFromJSON::scmEOWithIndexes[] = {0, -1};
 const CStringDictionary::TStringId FORTE_GetArrayResponseFromJSON::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_GetArrayResponseFromJSON::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_GetArrayResponseFromJSON::scmFBInterfaceSpec = {
-  1,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  1,  scmEventOutputNames,  scmEOWith, scmEOWithIndexes,  1,  scmDataInputNames, scmDataInputTypeIds,
+  1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  1,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,  1,  scmDataInputNames, scmDataInputTypeIds,
   1,  scmDataOutputNames, scmDataOutputTypeIds,
   0, 0
 };

@@ -31,10 +31,12 @@ class FORTE_IORevPiBusAdapter: public forte::core::io::IOConfigFBMultiAdapter {
     static const TDataIOID scmEIWith[];
     static const TForteInt16 scmEIWithIndexes[];
     static const CStringDictionary::TStringId scmEventInputNames[];
+    static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
     static const TDataIOID scmEOWith[];
     static const TForteInt16 scmEOWithIndexes[];
     static const CStringDictionary::TStringId scmEventOutputNames[];
+    static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     static const SFBInterfaceSpec scmFBInterfaceSpecSocket;
 

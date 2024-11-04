@@ -28,14 +28,16 @@ const CStringDictionary::TStringId FORTE_FieldsToArrowheadCloud::scmDataOutputTy
 const TForteInt16 FORTE_FieldsToArrowheadCloud::scmEIWithIndexes[] = {0};
 const TDataIOID FORTE_FieldsToArrowheadCloud::scmEIWith[] = {0, 1, 2, 6, 5, 4, 3, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_FieldsToArrowheadCloud::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_FieldsToArrowheadCloud::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TDataIOID FORTE_FieldsToArrowheadCloud::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_FieldsToArrowheadCloud::scmEOWithIndexes[] = {0, -1};
 const CStringDictionary::TStringId FORTE_FieldsToArrowheadCloud::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_FieldsToArrowheadCloud::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_FieldsToArrowheadCloud::scmFBInterfaceSpec = {
-  1,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  1,  scmEventOutputNames,  scmEOWith, scmEOWithIndexes,  7,  scmDataInputNames, scmDataInputTypeIds,
+  1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  1,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,  7,  scmDataInputNames, scmDataInputTypeIds,
   1,  scmDataOutputNames, scmDataOutputTypeIds,
   0, 0
 };

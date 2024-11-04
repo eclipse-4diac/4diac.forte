@@ -160,12 +160,14 @@ private:
   static const TForteInt16 scm_anEIWithIndexes[];
   static const TDataIOID scm_anEIWith[];
   static const CStringDictionary::TStringId scm_anEventInputNames[];
+  static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
   static const TEventID scm_nEventINITOID = 0;
   static const TEventID scm_nEventINDID = 1;
   static const TForteInt16 scm_anEOWithIndexes[];
   static const TDataIOID scm_anEOWith[];
   static const CStringDictionary::TStringId scm_anEventOutputNames[];
+  static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
   static const SFBInterfaceSpec scm_stFBInterfaceSpec;
 

@@ -26,6 +26,7 @@ class GEN_F_MUX : public CGenFunctionBlock<CFunctionBlock> {
   private:
     //we know for sure that there is one output event
     static const CStringDictionary::TStringId scmEventOutputNames[];
+    static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     static const TEventID scmEventEOID = 0;
 

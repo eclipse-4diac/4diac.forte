@@ -27,16 +27,18 @@ const CStringDictionary::TStringId FORTE_PLCnextAXLSESC::scmDataOutputTypeIds[] 
 const TDataIOID FORTE_PLCnextAXLSESC::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextAXLSESC::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_PLCnextAXLSESC::scmEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId FORTE_PLCnextAXLSESC::scmEventInputTypeIds[] = {g_nStringIdEInit};
 const TDataIOID FORTE_PLCnextAXLSESC::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextAXLSESC::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_PLCnextAXLSESC::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
+const CStringDictionary::TStringId FORTE_PLCnextAXLSESC::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_PLCnextAXLSESC::scmAdapterInstances[] = {
   {g_nStringIdPLCnextBusAdapter, g_nStringIdBusAdapterIn, false},
   {g_nStringIdPLCnextBusAdapter, g_nStringIdBusAdapterOut, true}
 };
 const SFBInterfaceSpec FORTE_PLCnextAXLSESC::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   1, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

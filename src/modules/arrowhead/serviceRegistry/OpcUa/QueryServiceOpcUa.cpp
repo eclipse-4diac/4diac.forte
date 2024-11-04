@@ -21,8 +21,8 @@ const SAdapterInstanceDef FORTE_QueryServiceOpcUa::scmAdapterInstances[] = {
 {g_nStringIdQueryServicesAdp, g_nStringIdqueryServices, false }};
 
 const SFBInterfaceSpec FORTE_QueryServiceOpcUa::scmFBInterfaceSpec = {
-  0,  0,  0,  0,
-  0,  0,   0, 0,  0,  0, 0, 
+  0,  0, nullptr,  0,  0,
+  0,  0, nullptr,   0, 0,  0,  0, 0, 
   0,  0, 0,
   1,scmAdapterInstances};
 

@@ -22,8 +22,8 @@ const SAdapterInstanceDef FORTE_PublishEventHTTP::scmAdapterInstances[] = {
 {g_nStringIdArrowheadPublishAdp, g_nStringIdpublishEvent, false }};
 
 const SFBInterfaceSpec FORTE_PublishEventHTTP::scmFBInterfaceSpec = {
-  0,  0,  0,  0,
-  0,  0,   0, 0,  0,  0, 0, 
+  0,  0, nullptr,  0,  0,
+  0,  0, nullptr,   0, 0,  0,  0, 0, 
   0,  0, 0,
   1,scmAdapterInstances};
 

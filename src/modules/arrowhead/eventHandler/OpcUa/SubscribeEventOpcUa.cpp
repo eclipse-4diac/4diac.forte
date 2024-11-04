@@ -22,8 +22,8 @@ const SAdapterInstanceDef FORTE_SubscribeEventOpcUa::scmAdapterInstances[] = {
 {g_nStringIdSubscribeEventAdp, g_nStringIdSubscribeEventAdp, false }};
 
 const SFBInterfaceSpec FORTE_SubscribeEventOpcUa::scmFBInterfaceSpec = {
-  0,  0,  0,  0,
-  0,  0,   0, 0,  0,  0, 0, 
+  0,  0, nullptr,  0,  0,
+  0,  0, nullptr,   0, 0,  0,  0, 0, 
   0,  0, 0,
   1,scmAdapterInstances};
 

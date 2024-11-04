@@ -29,16 +29,18 @@ const CStringDictionary::TStringId FORTE_EBSlave2301::scmDataOutputTypeIds[] = {
 const TDataIOID FORTE_EBSlave2301::scmEIWith[] = {1, 2, 3, 4, 5, 6, 0, scmWithListDelimiter};
 const TForteInt16 FORTE_EBSlave2301::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_EBSlave2301::scmEventInputNames[] = {g_nStringIdMAP};
+const CStringDictionary::TStringId FORTE_EBSlave2301::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TDataIOID FORTE_EBSlave2301::scmEOWith[] = {0, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_EBSlave2301::scmEOWithIndexes[] = {0, 2};
 const CStringDictionary::TStringId FORTE_EBSlave2301::scmEventOutputNames[] = {g_nStringIdMAPO, g_nStringIdIND};
+const CStringDictionary::TStringId FORTE_EBSlave2301::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_EBSlave2301::scmAdapterInstances[] = {
   {g_nStringIdEBBusAdapter, g_nStringIdBusAdapterIn, false},
   {g_nStringIdEBBusAdapter, g_nStringIdBusAdapterOut, true}
 };
 const SFBInterfaceSpec FORTE_EBSlave2301::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   8, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

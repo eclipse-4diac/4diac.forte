@@ -30,6 +30,7 @@
 DEFINE_GENERIC_FIRMWARE_FB(GEN_F_MUX, g_nStringIdGEN_F_MUX);
 
 const CStringDictionary::TStringId GEN_F_MUX::scmEventOutputNames[] = { g_nStringIdEO };
+const CStringDictionary::TStringId GEN_F_MUX::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 GEN_F_MUX::GEN_F_MUX(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
     CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId),

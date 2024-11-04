@@ -28,11 +28,13 @@ private:
 
   static const TForteInt16 scmEIWithIndexes[];
   static const CStringDictionary::TStringId scmEventInputNames[];
+  static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
   static const TEventID scmEventMAPOID = 0;
 
   static const TForteInt16 scmEOWithIndexes[];
   static const CStringDictionary::TStringId scmEventOutputNames[];
+  static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
   static const int scmPortAAdpNum = 0;
   static const int scmPortBAdpNum = 1;

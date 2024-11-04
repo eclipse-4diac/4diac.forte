@@ -38,12 +38,14 @@ const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmDa
 const TDataIOID FORTE_signalprocessing__DualHysteresis::scmEIWith[] = {0, scmWithListDelimiter, 0, 1, 2, 4, 3, scmWithListDelimiter};
 const TForteInt16 FORTE_signalprocessing__DualHysteresis::scmEIWithIndexes[] = {0, 2};
 const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventInputNames[] = {g_nStringIdINIT, g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventInputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const TDataIOID FORTE_signalprocessing__DualHysteresis::scmEOWith[] = {0, scmWithListDelimiter, 1, 2, scmWithListDelimiter};
 const TForteInt16 FORTE_signalprocessing__DualHysteresis::scmEOWithIndexes[] = {0, 2};
 const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_signalprocessing__DualHysteresis::scmFBInterfaceSpec = {
-  2, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   5, scmDataInputNames, scmDataInputTypeIds,
   3, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

@@ -29,15 +29,15 @@ const TForteInt16 FORTE_SubscribeEventAdp::scmEOWithIndexes[] = {0, 3, -1};
 const CStringDictionary::TStringId FORTE_SubscribeEventAdp::scmEventOutputNames[] = {g_nStringIdSubscribe, g_nStringIdUnsubscribe};
 
 const SFBInterfaceSpec FORTE_SubscribeEventAdp::scmFBInterfaceSpecSocket = {
-  2,  scmEventInputNames,  0,  scmEIWithIndexes,
-  2,  scmEventOutputNames,  scmEOWith, scmEOWithIndexes,  0,  0, 0, 
+  2,  scmEventInputNames, scmEventInputTypeIds, 0,  scmEIWithIndexes,
+  2,  scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,  0,  0, 0,
   2,  scmDataOutputNames, scmDataOutputTypeIds,
   0, 0
 };
 
 const SFBInterfaceSpec FORTE_SubscribeEventAdp::scmFBInterfaceSpecPlug = {
-  2,  scmEventOutputNames,  scmEOWith,  scmEOWithIndexes,
-  2,  scmEventInputNames,  0, 0,  2,  scmDataOutputNames, scmDataOutputTypeIds,
+  2,  scmEventOutputNames,  scmEventOutputTypeIds,  scmEOWith,  scmEOWithIndexes,
+  2,  scmEventInputNames,  scmEventInputTypeIds,  0, 0,  2,  scmDataOutputNames, scmDataOutputTypeIds,
   0,  0, 0,
   0, 0
 };

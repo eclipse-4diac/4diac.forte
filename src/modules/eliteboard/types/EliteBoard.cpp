@@ -23,12 +23,12 @@
 DEFINE_FIRMWARE_FB(FORTE_EliteBoard, g_nStringIdEliteBoard)
 
 const TForteInt16 FORTE_EliteBoard::scmEIWithIndexes[] = {-1};
-const CStringDictionary::TStringId FORTE_EliteBoard::scmEventInputNames[] = {
-    g_nStringIdMAP};
+const CStringDictionary::TStringId FORTE_EliteBoard::scmEventInputNames[] = {g_nStringIdMAP};
+const CStringDictionary::TStringId FORTE_EliteBoard::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TForteInt16 FORTE_EliteBoard::scmEOWithIndexes[] = {-1};
-const CStringDictionary::TStringId FORTE_EliteBoard::scmEventOutputNames[] =
-    {g_nStringIdMAPO};
+const CStringDictionary::TStringId FORTE_EliteBoard::scmEventOutputNames[] = {g_nStringIdMAPO};
+const CStringDictionary::TStringId FORTE_EliteBoard::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_EliteBoard::scmAdapterInstances[] = {
     {g_nStringIdPortAdapter, g_nStringIdPortA, true},
@@ -44,9 +44,9 @@ const SAdapterInstanceDef FORTE_EliteBoard::scmAdapterInstances[] = {
     {g_nStringIdPortAdapter, g_nStringIdPortK, true}};
 
 const SFBInterfaceSpec FORTE_EliteBoard::scmFBInterfaceSpec = {
-    1,       scmEventInputNames,
+    1,       scmEventInputNames, scmEventInputTypeIds,
     nullptr, scmEIWithIndexes,
-    1,       scmEventOutputNames,
+    1,       scmEventOutputNames, scmEventOutputTypeIds,nullptr,
     nullptr, scmEOWithIndexes,
     0,       nullptr,
     nullptr, 0,

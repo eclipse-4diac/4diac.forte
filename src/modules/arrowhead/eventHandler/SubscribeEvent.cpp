@@ -24,16 +24,18 @@ const CStringDictionary::TStringId FORTE_SubscribeEvent::scmDataInputTypeIds[] =
 const TForteInt16 FORTE_SubscribeEvent::scmEIWithIndexes[] = {0, 3};
 const TDataIOID FORTE_SubscribeEvent::scmEIWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_SubscribeEvent::scmEventInputNames[] = {g_nStringIdSubscribe, g_nStringIdUnsubscribe};
+const CStringDictionary::TStringId FORTE_SubscribeEvent::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const TForteInt16 FORTE_SubscribeEvent::scmEOWithIndexes[] = {-1, -1, -1};
 const CStringDictionary::TStringId FORTE_SubscribeEvent::scmEventOutputNames[] = {g_nStringIdSubscribed, g_nStringIdUnsubscribed};
+const CStringDictionary::TStringId FORTE_SubscribeEvent::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_SubscribeEvent::scmAdapterInstances[] = {
 {g_nStringIdSubscribeEventAdp, g_nStringIdSubscribeEventAdp, true }};
 
 const SFBInterfaceSpec FORTE_SubscribeEvent::scmFBInterfaceSpec = {
-  2,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  2,  scmEventOutputNames,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
+  2,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  2,  scmEventOutputNames, scmEventOutputTypeIds,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
   0,  0, 0,
   1,scmAdapterInstances};
 

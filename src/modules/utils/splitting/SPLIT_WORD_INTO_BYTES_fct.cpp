@@ -41,12 +41,14 @@ const CStringDictionary::TStringId FORTE_SPLIT_WORD_INTO_BYTES::scmDataOutputTyp
 const TDataIOID FORTE_SPLIT_WORD_INTO_BYTES::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_SPLIT_WORD_INTO_BYTES::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_SPLIT_WORD_INTO_BYTES::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_SPLIT_WORD_INTO_BYTES::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TDataIOID FORTE_SPLIT_WORD_INTO_BYTES::scmEOWith[] = {0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_SPLIT_WORD_INTO_BYTES::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_SPLIT_WORD_INTO_BYTES::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_SPLIT_WORD_INTO_BYTES::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_SPLIT_WORD_INTO_BYTES::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   1, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

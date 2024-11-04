@@ -28,17 +28,19 @@ const CStringDictionary::TStringId FORTE_RequestOrchestrationForm::scmDataOutput
 const TForteInt16 FORTE_RequestOrchestrationForm::scmEIWithIndexes[] = {0};
 const TDataIOID FORTE_RequestOrchestrationForm::scmEIWith[] = {0, 1, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_RequestOrchestrationForm::scmEventInputNames[] = {g_nStringIdrequestOrchestator};
+const CStringDictionary::TStringId FORTE_RequestOrchestrationForm::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TDataIOID FORTE_RequestOrchestrationForm::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_RequestOrchestrationForm::scmEOWithIndexes[] = {0, -1};
 const CStringDictionary::TStringId FORTE_RequestOrchestrationForm::scmEventOutputNames[] = {g_nStringIdresponseReceived};
+const CStringDictionary::TStringId FORTE_RequestOrchestrationForm::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_RequestOrchestrationForm::scmAdapterInstances[] = {
 {g_nStringIdOrchestratorRequestAdp, g_nStringIdrequestOrchestration, true }};
 
 const SFBInterfaceSpec FORTE_RequestOrchestrationForm::scmFBInterfaceSpec = {
-  1,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  1,  scmEventOutputNames,  scmEOWith, scmEOWithIndexes,  2,  scmDataInputNames, scmDataInputTypeIds,
+  1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  1,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,  2,  scmDataInputNames, scmDataInputTypeIds,
   1,  scmDataOutputNames, scmDataOutputTypeIds,
   1,scmAdapterInstances};
 

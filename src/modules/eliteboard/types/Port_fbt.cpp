@@ -45,11 +45,11 @@ const SAdapterInstanceDef FORTE_Port::scmAdapterInstances[] = {
 
 const SFBInterfaceSpec FORTE_Port::scmFBInterfaceSpec = {
     0,
-    nullptr,
+    nullptr, nullptr,
     nullptr,
     nullptr,
     0,
-    nullptr,
+    nullptr, nullptr,
     nullptr,
     nullptr,
     16,

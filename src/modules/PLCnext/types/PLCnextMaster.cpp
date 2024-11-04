@@ -27,15 +27,17 @@ const CStringDictionary::TStringId FORTE_PLCnextMaster::scmDataOutputTypeIds[] =
 const TDataIOID FORTE_PLCnextMaster::scmEIWith[] = {0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextMaster::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_PLCnextMaster::scmEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId FORTE_PLCnextMaster::scmEventInputTypeIds[] = {g_nStringIdEInit};
 const TDataIOID FORTE_PLCnextMaster::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextMaster::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_PLCnextMaster::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
+const CStringDictionary::TStringId FORTE_PLCnextMaster::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_PLCnextMaster::scmAdapterInstances[] = {
   {g_nStringIdPLCnextBusAdapter, g_nStringIdBusAdapterOut, true}
 };
 const SFBInterfaceSpec FORTE_PLCnextMaster::scmFBInterfaceSpec = {
-  1, scmEventInputNames, scmEIWith, scmEIWithIndexes,
-  2, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
+  2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   2, scmDataInputNames, scmDataInputTypeIds,
   2, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

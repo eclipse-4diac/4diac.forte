@@ -45,8 +45,10 @@ class CGenBitBase : public CGenFunctionBlock<CFunctionBlock> {
     static const CStringDictionary::TStringId scmDataOutputTypeIds[];
 
     static const CStringDictionary::TStringId scmEventInputNames[];
+    static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
     static const CStringDictionary::TStringId scmEventOutputNames[];
+    static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     void readInputData(TEventID paEI) override;
     void writeOutputData(TEventID paEO) override;

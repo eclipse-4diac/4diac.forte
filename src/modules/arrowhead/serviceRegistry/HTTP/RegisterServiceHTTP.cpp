@@ -22,8 +22,8 @@ const SAdapterInstanceDef FORTE_RegisterServiceHTTP::scmAdapterInstances[] = {
 {g_nStringIdRegisterServiceAdp, g_nStringIdregisterService, false }};
 
 const SFBInterfaceSpec FORTE_RegisterServiceHTTP::scmFBInterfaceSpec = {
-  0,  0,  0,  0,
-  0,  0,   0, 0,  0,  0, 0, 
+  0,  0, nullptr,  0,  0,
+  0,  0, nullptr,   0, 0,  0,  0, 0, 
   0,  0, 0,
   1,scmAdapterInstances};
 

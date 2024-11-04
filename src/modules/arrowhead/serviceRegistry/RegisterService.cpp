@@ -24,16 +24,18 @@ const CStringDictionary::TStringId FORTE_RegisterService::scmDataInputTypeIds[] 
 const TForteInt16 FORTE_RegisterService::scmEIWithIndexes[] = {0, 3};
 const TDataIOID FORTE_RegisterService::scmEIWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const CStringDictionary::TStringId FORTE_RegisterService::scmEventInputNames[] = {g_nStringIdregister, g_nStringIdunregister};
+const CStringDictionary::TStringId FORTE_RegisterService::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const TForteInt16 FORTE_RegisterService::scmEOWithIndexes[] = {-1, -1, -1};
 const CStringDictionary::TStringId FORTE_RegisterService::scmEventOutputNames[] = {g_nStringIddoneRegister, g_nStringIddoneUnregister};
+const CStringDictionary::TStringId FORTE_RegisterService::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SAdapterInstanceDef FORTE_RegisterService::scmAdapterInstances[] = {
 {g_nStringIdRegisterServiceAdp, g_nStringIdregisterService, true }};
 
 const SFBInterfaceSpec FORTE_RegisterService::scmFBInterfaceSpec = {
-  2,  scmEventInputNames,  scmEIWith,  scmEIWithIndexes,
-  2,  scmEventOutputNames,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
+  2,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
+  2,  scmEventOutputNames, scmEventOutputTypeIds,  0, 0,  2,  scmDataInputNames, scmDataInputTypeIds,
   0,  0, 0,
   1,scmAdapterInstances};
 

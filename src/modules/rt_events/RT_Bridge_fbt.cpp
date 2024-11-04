@@ -22,7 +22,9 @@
 DEFINE_GENERIC_FIRMWARE_FB(FORTE_GEN_RT_Bridge, g_nStringIdGEN_RT_Bridge)
 
 const CStringDictionary::TStringId FORTE_GEN_RT_Bridge::scmEventInputNames[] = {g_nStringIdRD, g_nStringIdWR};
+const CStringDictionary::TStringId FORTE_GEN_RT_Bridge::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const CStringDictionary::TStringId FORTE_GEN_RT_Bridge::scmEventOutputNames[] = {g_nStringIdRDO};
+const CStringDictionary::TStringId FORTE_GEN_RT_Bridge::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 
 FORTE_GEN_RT_Bridge::FORTE_GEN_RT_Bridge(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :

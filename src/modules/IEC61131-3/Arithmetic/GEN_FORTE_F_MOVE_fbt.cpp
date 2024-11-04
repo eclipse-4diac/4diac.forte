@@ -28,10 +28,12 @@ const CStringDictionary::TStringId GEN_FORTE_F_MOVE::scmDataOutputNames[] = {g_n
 const TDataIOID GEN_FORTE_F_MOVE::scmEIWith[] = {0, scmWithListDelimiter};
 const TForteInt16 GEN_FORTE_F_MOVE::scmEIWithIndexes[] = {0};
 const CStringDictionary::TStringId GEN_FORTE_F_MOVE::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId GEN_FORTE_F_MOVE::scmEventInputTypeIds[] = {g_nStringIdEvent};
 
 const TDataIOID GEN_FORTE_F_MOVE::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 GEN_FORTE_F_MOVE::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId GEN_FORTE_F_MOVE::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId GEN_FORTE_F_MOVE::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 
 GEN_FORTE_F_MOVE::GEN_FORTE_F_MOVE(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :

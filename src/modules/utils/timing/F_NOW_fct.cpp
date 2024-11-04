@@ -34,12 +34,14 @@ const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmDataOutputName
 const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmDataOutputTypeIds[] = {g_nStringIdDATE_AND_TIME};
 const TForteInt16 FORTE_utils__timing__F_NOW::scmEIWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmEventInputNames[] = {g_nStringIdREQ};
+const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmEventInputTypeIds[] = {g_nStringIdEvent};
 const TDataIOID FORTE_utils__timing__F_NOW::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_utils__timing__F_NOW::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmEventOutputNames[] = {g_nStringIdCNF};
+const CStringDictionary::TStringId FORTE_utils__timing__F_NOW::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_utils__timing__F_NOW::scmFBInterfaceSpec = {
-  1, scmEventInputNames, nullptr, scmEIWithIndexes,
-  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  1, scmEventInputNames, scmEventInputTypeIds, nullptr, scmEIWithIndexes,
+  1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,

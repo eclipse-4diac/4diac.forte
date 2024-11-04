@@ -33,14 +33,16 @@ const CStringDictionary::TStringId RevPiConfig::scm_anDataOutputTypeIds[] = {g_n
 const TForteInt16 RevPiConfig::scm_anEIWithIndexes[] = {0};
 const TDataIOID RevPiConfig::scm_anEIWith[] = {0, 29, 1, 2, 3, 4, 5, 6, 9, 8, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 255};
 const CStringDictionary::TStringId RevPiConfig::scm_anEventInputNames[] = {g_nStringIdINIT};
+const CStringDictionary::TStringId RevPiConfig::scmEventInputTypeIds[] = {g_nStringIdEInit};
 
 const TDataIOID RevPiConfig::scm_anEOWith[] = {0, 1, 255, 0, 1, 255};
 const TForteInt16 RevPiConfig::scm_anEOWithIndexes[] = {0, 3, -1};
 const CStringDictionary::TStringId RevPiConfig::scm_anEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
+const CStringDictionary::TStringId RevPiConfig::scmEventOutputTypeIds[] = {g_nStringIdEvent,g_nStringIdEvent};
 
 const SFBInterfaceSpec RevPiConfig::scm_stFBInterfaceSpec = {
-  1,  scm_anEventInputNames,  scm_anEIWith,  scm_anEIWithIndexes,
-  2,  scm_anEventOutputNames,  scm_anEOWith, scm_anEOWithIndexes,  30,  scm_anDataInputNames, scm_anDataInputTypeIds,
+  1,  scm_anEventInputNames, scmEventInputTypeIds,  scm_anEIWith,  scm_anEIWithIndexes,
+  2,  scm_anEventOutputNames, scmEventOutputTypeIds, scm_anEOWith, scm_anEOWithIndexes,  30,  scm_anDataInputNames, scm_anDataInputTypeIds,
   2,  scm_anDataOutputNames, scm_anDataOutputTypeIds,
   0, 0
 };

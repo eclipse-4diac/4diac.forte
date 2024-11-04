@@ -36,12 +36,14 @@ const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmDataOutputNames[] = {g_
 const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmDataOutputTypeIds[] = {g_nStringIdTIME};
 const TForteInt16 FORTE_E_STOPWATCH::scmEIWithIndexes[] = {-1, -1, -1, -1};
 const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmEventInputNames[] = {g_nStringIdSTART, g_nStringIdET, g_nStringIdSTOP, g_nStringIdRESET};
+const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmEventInputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const TDataIOID FORTE_E_STOPWATCH::scmEOWith[] = {0, scmWithListDelimiter, 0, scmWithListDelimiter, 0, scmWithListDelimiter};
 const TForteInt16 FORTE_E_STOPWATCH::scmEOWithIndexes[] = {0, 2, 4};
 const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmEventOutputNames[] = {g_nStringIdEO, g_nStringIdETO, g_nStringIdRESETO};
+const CStringDictionary::TStringId FORTE_E_STOPWATCH::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_E_STOPWATCH::scmFBInterfaceSpec = {
-  4, scmEventInputNames, nullptr, scmEIWithIndexes,
-  3, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
+  4, scmEventInputNames, scmEventInputTypeIds, nullptr, scmEIWithIndexes,
+  3, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
