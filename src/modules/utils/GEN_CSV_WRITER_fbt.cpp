@@ -37,7 +37,7 @@ const CStringDictionary::TStringId GEN_CSV_WRITER::scmEventInputNames[] = { g_nS
 const CStringDictionary::TStringId GEN_CSV_WRITER::scmEventInputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 
 const CStringDictionary::TStringId GEN_CSV_WRITER::scmEventOutputNames[] = { g_nStringIdINITO, g_nStringIdCNF };
-const CStringDictionary::TStringId GEN_CSV_WRITER::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId GEN_CSV_WRITER::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const CIEC_STRING GEN_CSV_WRITER::scmOK = "OK"_STRING;
 const CIEC_STRING GEN_CSV_WRITER::scmFileAlreadyOpened = "File already opened"_STRING;

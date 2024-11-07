@@ -29,7 +29,7 @@ const CStringDictionary::TStringId FORTE_SVIreceive_1::scmEventInputTypeIds[] = 
 const TDataIOID FORTE_SVIreceive_1::scmEOWith[] = { 0, scmWithListDelimiter, 0, 1, scmWithListDelimiter };
 const TForteInt16 FORTE_SVIreceive_1::scmEOWithIndexes[] = { 0, 2, -1 };
 const CStringDictionary::TStringId FORTE_SVIreceive_1::scmEventOutputNames[] = { g_nStringIdINITO, g_nStringIdCNF };
-const CStringDictionary::TStringId FORTE_SVIreceive_1::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_SVIreceive_1::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_SVIreceive_1::scmFBInterfaceSpec = { 2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes, 2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes, 2, scmDataInputNames, scmDataInputTypeIds, 2, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
 

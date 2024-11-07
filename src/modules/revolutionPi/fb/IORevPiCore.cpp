@@ -31,7 +31,7 @@ const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventInputTypeIds[] = {
 const TDataIOID FORTE_IORevPiCore::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_IORevPiCore::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
-const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_IORevPiCore::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_IORevPiCore::scmAdapterInstances[] = {
   {g_nStringIdIORevPiBusAdapter, g_nStringIdBusAdapterOut, true}
 };

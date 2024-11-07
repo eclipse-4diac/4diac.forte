@@ -31,7 +31,7 @@ const CStringDictionary::TStringId FORTE_RT_E_SPLIT::scmEventInputTypeIds[] = {g
 const TDataIOID FORTE_RT_E_SPLIT::scmEOWith[] = {0, scmWithListDelimiter};
 const TForteInt16 FORTE_RT_E_SPLIT::scmEOWithIndexes[] = {0, -1, -1};
 const CStringDictionary::TStringId FORTE_RT_E_SPLIT::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdEO1, g_nStringIdEO2};
-const CStringDictionary::TStringId FORTE_RT_E_SPLIT::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_RT_E_SPLIT::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_RT_E_SPLIT::scmFBInterfaceSpec = {
   2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
   3, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,

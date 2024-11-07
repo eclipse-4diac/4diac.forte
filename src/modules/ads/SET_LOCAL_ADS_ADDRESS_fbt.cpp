@@ -37,7 +37,7 @@ const CStringDictionary::TStringId FORTE_SET_LOCAL_ADS_ADDRESS::scmEventInputTyp
 const TDataIOID FORTE_SET_LOCAL_ADS_ADDRESS::scmEOWith[] = { 0, 1, 2, scmWithListDelimiter };
 const TForteInt16 FORTE_SET_LOCAL_ADS_ADDRESS::scmEOWithIndexes[] = { 0, -1 };
 const CStringDictionary::TStringId FORTE_SET_LOCAL_ADS_ADDRESS::scmEventOutputNames[] = { g_nStringIdINITO };
-const CStringDictionary::TStringId FORTE_SET_LOCAL_ADS_ADDRESS::scmEventOutputTypeIds[] = {g_nStringIdEInit};
+const CStringDictionary::TStringId FORTE_SET_LOCAL_ADS_ADDRESS::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_SET_LOCAL_ADS_ADDRESS::scmFBInterfaceSpec = { 1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes, 1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes, 2, scmDataInputNames, scmDataInputTypeIds, 3, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
 

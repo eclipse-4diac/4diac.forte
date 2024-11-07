@@ -32,7 +32,7 @@ const CStringDictionary::TStringId FORTE_EBBusAdapter::scmEventInputTypeIds[] = 
 const TDataIOID FORTE_EBBusAdapter::scmEOWith[] = {2, 3, 1, 0, scmWithListDelimiter};
 const TForteInt16 FORTE_EBBusAdapter::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_EBBusAdapter::scmEventOutputNames[] = {g_nStringIdINIT};
-const CStringDictionary::TStringId FORTE_EBBusAdapter::scmEventOutputTypeIds[] = {g_nStringIdEInit};
+const CStringDictionary::TStringId FORTE_EBBusAdapter::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_EBBusAdapter::scmFBInterfaceSpecSocket = {
   1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,

@@ -37,7 +37,7 @@ const CStringDictionary::TStringId fileWriter::scmEventInputTypeIds[] = {g_nStri
 const TDataIOID fileWriter::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 fileWriter::scmEOWithIndexes[] = {0, 3, -1};
 const CStringDictionary::TStringId fileWriter::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdCNF};
-const CStringDictionary::TStringId fileWriter::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId fileWriter::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SFBInterfaceSpec fileWriter::scmFBInterfaceSpec = {
   2,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,

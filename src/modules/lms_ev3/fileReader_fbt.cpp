@@ -37,7 +37,7 @@ const CStringDictionary::TStringId fileReader::scmEventInputTypeIds[] = {g_nStri
 const TDataIOID fileReader::scmEOWith[] = {0, 1, 2, scmWithListDelimiter, 0, 1, 2, scmWithListDelimiter};
 const TForteInt16 fileReader::scmEOWithIndexes[] = {0, 4, -1};
 const CStringDictionary::TStringId fileReader::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdCNF};
-const CStringDictionary::TStringId fileReader::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId fileReader::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SFBInterfaceSpec fileReader::scmFBInterfaceSpec = {
   2,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,

@@ -40,7 +40,7 @@ const CStringDictionary::TStringId PLC01A1ConfigFB::scmEventInputTypeIds[] = {g_
 const TDataIOID PLC01A1ConfigFB::scmEOWith[] = { 0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter };
 const TForteInt16 PLC01A1ConfigFB::scmEOWithIndexes[] = { 0, 3, -1 };
 const CStringDictionary::TStringId PLC01A1ConfigFB::scmEventOutputNames[] = { g_nStringIdINITO, g_nStringIdIND };
-const CStringDictionary::TStringId PLC01A1ConfigFB::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId PLC01A1ConfigFB::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec PLC01A1ConfigFB::scmFBInterfaceSpec = {
   1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
   2,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,  18,  scmDataInputNames, scmDataInputTypeIds,

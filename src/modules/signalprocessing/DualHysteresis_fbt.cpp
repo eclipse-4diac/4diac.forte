@@ -42,7 +42,7 @@ const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEv
 const TDataIOID FORTE_signalprocessing__DualHysteresis::scmEOWith[] = {0, scmWithListDelimiter, 1, 2, scmWithListDelimiter};
 const TForteInt16 FORTE_signalprocessing__DualHysteresis::scmEOWithIndexes[] = {0, 2};
 const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdCNF};
-const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_signalprocessing__DualHysteresis::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_signalprocessing__DualHysteresis::scmFBInterfaceSpec = {
   2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
   2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,

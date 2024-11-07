@@ -32,7 +32,7 @@ const CStringDictionary::TStringId FORTE_EBMaster::scmEventInputTypeIds[] = {g_n
 const TDataIOID FORTE_EBMaster::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_EBMaster::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_EBMaster::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
-const CStringDictionary::TStringId FORTE_EBMaster::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_EBMaster::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_EBMaster::scmAdapterInstances[] = {
   {g_nStringIdEBBusAdapter, g_nStringIdBusAdapterOut, true}
 };

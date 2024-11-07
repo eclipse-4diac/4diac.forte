@@ -35,7 +35,7 @@ const CStringDictionary::TStringId GPIOChipConfigFB::scmEventInputTypeIds[] = {g
 const TDataIOID GPIOChipConfigFB::scmEOWith[] = { 0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter };
 const TForteInt16 GPIOChipConfigFB::scmEOWithIndexes[] = { 0, 3, -1 };
 const CStringDictionary::TStringId GPIOChipConfigFB::scmEventOutputNames[] = { g_nStringIdINITO, g_nStringIdIND };
-const CStringDictionary::TStringId GPIOChipConfigFB::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId GPIOChipConfigFB::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SFBInterfaceSpec GPIOChipConfigFB::scmFBInterfaceSpec = {
   1,  scmEventInputNames, scmEventInputTypeIds,  scmEIWith,  scmEIWithIndexes,
   2,  scmEventOutputNames, scmEventOutputTypeIds,  scmEOWith, scmEOWithIndexes,

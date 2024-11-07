@@ -31,7 +31,7 @@ const CStringDictionary::TStringId FORTE_PLCnextAXLSEDI16::scmEventInputTypeIds[
 const TDataIOID FORTE_PLCnextAXLSEDI16::scmEOWith[] = {0, 1, scmWithListDelimiter, 0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextAXLSEDI16::scmEOWithIndexes[] = {0, 3};
 const CStringDictionary::TStringId FORTE_PLCnextAXLSEDI16::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdIND};
-const CStringDictionary::TStringId FORTE_PLCnextAXLSEDI16::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId FORTE_PLCnextAXLSEDI16::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 const SAdapterInstanceDef FORTE_PLCnextAXLSEDI16::scmAdapterInstances[] = {
   {g_nStringIdPLCnextBusAdapter, g_nStringIdBusAdapterIn, false},
   {g_nStringIdPLCnextBusAdapter, g_nStringIdBusAdapterOut, true}

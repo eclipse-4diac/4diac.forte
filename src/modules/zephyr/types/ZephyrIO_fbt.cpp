@@ -40,7 +40,7 @@ const CStringDictionary::TStringId FORTE_ZephyrIO::scmEventInputTypeIds[] = {g_n
 const TDataIOID FORTE_ZephyrIO::scmEOWith[] = {0, 1, scmWithListDelimiter};
 const TForteInt16 FORTE_ZephyrIO::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_ZephyrIO::scmEventOutputNames[] = {g_nStringIdINITO};
-const CStringDictionary::TStringId FORTE_ZephyrIO::scmEventOutputTypeIds[] = {g_nStringIdEInit};
+const CStringDictionary::TStringId FORTE_ZephyrIO::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 const SFBInterfaceSpec FORTE_ZephyrIO::scmFBInterfaceSpec = {
   1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
   1, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes,

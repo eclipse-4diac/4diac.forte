@@ -31,7 +31,7 @@ const CStringDictionary::TStringId FORTE_PLCnextBusAdapter::scmEventInputTypeIds
 const TDataIOID FORTE_PLCnextBusAdapter::scmEOWith[] = {2, 3, 1, 0, scmWithListDelimiter};
 const TForteInt16 FORTE_PLCnextBusAdapter::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_PLCnextBusAdapter::scmEventOutputNames[] = {g_nStringIdINIT};
-const CStringDictionary::TStringId FORTE_PLCnextBusAdapter::scmEventOutputTypeIds[] = {g_nStringIdEInit};
+const CStringDictionary::TStringId FORTE_PLCnextBusAdapter::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 const SFBInterfaceSpec FORTE_PLCnextBusAdapter::scmFBInterfaceSpecSocket = {
   1, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,

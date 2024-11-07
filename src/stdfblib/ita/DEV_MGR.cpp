@@ -46,7 +46,7 @@ const CStringDictionary::TStringId DEV_MGR::scmEventInputTypeIds[] = {g_nStringI
 const TDataIOID DEV_MGR::scmEOWith[] = {0, 1, scmWithListDelimiter, 2, 3, scmWithListDelimiter};
 const TForteInt16 DEV_MGR::scmEOWithIndexes[] = {0, -1, 3};
 const CStringDictionary::TStringId DEV_MGR::scmEventOutputNames[] = {g_nStringIdINITO, g_nStringIdCNF};
-const CStringDictionary::TStringId DEV_MGR::scmEventOutputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId DEV_MGR::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
 const SFBInterfaceSpec DEV_MGR::scmFBInterfaceSpec = {
   2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes,
