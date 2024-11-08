@@ -72,7 +72,6 @@ void GEN_ADD::writeOutputData(TEventID) {
 
 bool GEN_ADD::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec &paInterfaceSpec){
   const char *pcPos = strrchr(paConfigString, '_');
-
   if(nullptr != pcPos){
     pcPos++;
     //we have an underscore and it is the first underscore after AND
@@ -94,12 +93,15 @@ bool GEN_ADD::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec &
   static const std::array<CStringDictionary::TStringId, 1>anEventOutputNames = { g_nStringIdCNF };
   static const std::array<CStringDictionary::TStringId, 1>anDataOutputNames = { g_nStringIdOUT };
   static const std::array<CStringDictionary::TStringId, 1>anDataOutputTypeIds = { g_nStringIdANY_MAGNITUDE };
+  static const std::array<CStringDictionary::TStringId, 1>anEventInputTypes = { g_nStringIdEvent };
+  static const std::array<CStringDictionary::TStringId, 1>anEventOutputTypes = { g_nStringIdEvent };
 
   forte::core::util::CIfSpecBuilder isb;
   isb.mEI.setStaticEvents(anEventInputNames);
   isb.mEO.setStaticEvents(anEventOutputNames);
+  isb.mEITypes.setStaticEvents(anEventInputTypes);
+  isb.mEOTypes.setStaticEvents(anEventOutputTypes);
   isb.mDI.addDataRange("IN", static_cast<int>(mDInputs), g_nStringIdANY_MAGNITUDE);
   isb.mDO.setStaticData(anDataOutputNames, anDataOutputTypeIds);
-
   return isb.build(mIfSpecStorage, paInterfaceSpec);
 }
