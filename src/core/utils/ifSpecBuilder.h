@@ -693,7 +693,9 @@ class CAdapterDirHelper<COutputSpecTag> : public CAdapterDirHelperBase {
 class CIfSpecBuilder {
   public:
     CEventSpecBuilder<CInputSpecTag>  mEI;       ///< event inputs
+    CEventSpecBuilder<CInputSpecTag>  mEITypes;
     CEventSpecBuilder<COutputSpecTag> mEO;       ///< event outputs
+    CEventSpecBuilder<COutputSpecTag> mEOTypes;
     CDataSpecBuilder<CInputSpecTag>   mDI;       ///< data inputs
     CDataSpecBuilder<COutputSpecTag>  mDO;       ///< data outputs
     CWithSpecBuilder<CInputSpecTag>   mIWith;    ///< input withs

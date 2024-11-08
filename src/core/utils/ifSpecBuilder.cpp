@@ -250,12 +250,15 @@ bool CIfSpecBuilder::build(CMixedStorage &paStorage, SFBInterfaceSpec &paInterfa
 
   std::size_t storageSize =
     mEI.calcStorageSize() + mEO.calcStorageSize() +
+    mEITypes.calcStorageSize() + mEOTypes.calcStorageSize() +
     mDI.calcStorageSize() + mDO.calcStorageSize() +
     mIWith.calcStorageSize(mEI.getNumEvents()) + mOWith.calcStorageSize(mEO.getNumEvents()) +
     mAdapter.calcStorageSize();
   paStorage.reserve(storageSize);
   std::tie(paInterfaceSpec.mEINames, paInterfaceSpec.mNumEIs) = mEI.build(paStorage);
   std::tie(paInterfaceSpec.mEONames, paInterfaceSpec.mNumEOs) = mEO.build(paStorage);
+  std::tie(paInterfaceSpec.mEITypeNames, paInterfaceSpec.mNumEIs) = mEITypes.build(paStorage);
+  std::tie(paInterfaceSpec.mEOTypeNames, paInterfaceSpec.mNumEOs) = mEOTypes.build(paStorage);
   std::tie(
     paInterfaceSpec.mDINames, paInterfaceSpec.mDIDataTypeNames,
     paInterfaceSpec.mNumDIs
@@ -273,5 +276,5 @@ bool CIfSpecBuilder::build(CMixedStorage &paStorage, SFBInterfaceSpec &paInterfa
 }
 
 bool CIfSpecBuilder::isGood() const {
-  return mEI.isGood() && mEO.isGood() && mDI.isGood() && mDO.isGood() && mIWith.isGood() && mOWith.isGood() && mIsGood;
+  return mEI.isGood() && mEO.isGood() && mDI.isGood() && mDO.isGood() && mIWith.isGood() && mOWith.isGood() && mEOTypes.isGood() && mEITypes.isGood() && mIsGood;
 }
