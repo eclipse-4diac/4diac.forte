@@ -19,7 +19,6 @@
 
 #include <string>
 #include <vector>
-#include <optional>
 
 namespace forte::com::opc_ua::detail {
 
