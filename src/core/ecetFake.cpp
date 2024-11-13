@@ -29,7 +29,7 @@ void CFakeEventExecutionThread::triggerNextEvent(){
   if(!mProcessEventCallback.has_value()){
     return;
   }
-  mNewEventChainCallback.value()(*event);
+  mProcessEventCallback.value()(*event);
 }
 
 void CFakeEventExecutionThread::setCallbackForEventTriggering(std::optional<HandleEvent> paCallback) {
