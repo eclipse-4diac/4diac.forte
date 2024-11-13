@@ -66,11 +66,10 @@ bool GEN_E_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec
 
       if(paInterfaceSpec.mNumEIs < CFunctionBlock::scmMaxInterfaceEvents && paInterfaceSpec.mNumEIs >= 2){
         mEventInputNames = new CStringDictionary::TStringId[paInterfaceSpec.mNumEIs];
-        mEventInputTypeIds = new CStringDictionary::TStringId[paInterfaceSpec.mNumEOs];
-        const CStringDictionary::TStringId eventID = CStringDictionary::getInstance().getId("Event");
-        std::memset(mEventInputTypeIds, static_cast<int>(eventID), sizeof(*mEventInputTypeIds) * paInterfaceSpec.mNumEIs);
+        mEventInputTypeIds = new CStringDictionary::TStringId[paInterfaceSpec.mNumEIs];
+        const CStringDictionary::TStringId eventID = g_nStringIdEvent;
+        std::fill_n(mEventInputTypeIds, paInterfaceSpec.mNumEIs, eventID);
         generateGenericInterfacePointNameArray("EI", mEventInputNames, paInterfaceSpec.mNumEIs);
-
 
         paInterfaceSpec.mEINames = mEventInputNames;
         paInterfaceSpec.mNumEOs = 1;
