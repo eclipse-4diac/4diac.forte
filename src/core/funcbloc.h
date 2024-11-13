@@ -170,23 +170,13 @@ class CFunctionBlock : public forte::core::CFBContainer {
      * \param paEIID  StringId of the event name.
      * \return Returns the EventTypeID of a specific input event
      */
-    CStringDictionary::TStringId getEIType(TEventID paEIID) const {
-      if (getFBInterfaceSpec().mEITypeNames != nullptr) {
-        return getFBInterfaceSpec().mEITypeNames[paEIID];
-      }
-      return g_nStringIdEvent;
-    }
+    CStringDictionary::TStringId getEIType(TEventID paEIID) const;
 
     /*! \brief Gets the EventTypeID of a specific output event
      * \param paEOID  StringId of the event name.
      * \return Returns the EventTypeID of a specific output event
     */
-    CStringDictionary::TStringId getEOType(TEventID paEOID) const {
-      if (getFBInterfaceSpec().mEOTypeNames != nullptr) {
-        return getFBInterfaceSpec().mEOTypeNames[paEOID];
-      }
-      return g_nStringIdEvent;
-    }
+    CStringDictionary::TStringId getEOType(TEventID paEOID) const;
 
     CEventConnection* getEOConnection(CStringDictionary::TStringId paEONameId);
 

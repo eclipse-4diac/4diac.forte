@@ -63,6 +63,20 @@ CTimerHandler& CFunctionBlock::getTimer() {
   return getDevice()->getTimer();
 }
 
+CStringDictionary::TStringId CFunctionBlock::getEIType(TEventID paEIID) const {
+  if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+    return getFBInterfaceSpec().mEITypeNames[paEIID];
+  }
+  return g_nStringIdEvent;
+}
+
+CStringDictionary::TStringId CFunctionBlock::getEOType(TEventID paEOID) const {
+  if (getFBInterfaceSpec().mEOTypeNames != nullptr) {
+    return getFBInterfaceSpec().mEOTypeNames[paEOID];
+  }
+  return g_nStringIdEvent;
+}
+
 CEventConnection *CFunctionBlock::getEOConnection(CStringDictionary::TStringId paEONameId) {
   CEventConnection *retVal = nullptr;
   TPortId portId = getPortId(paEONameId, getFBInterfaceSpec().mNumEOs, getFBInterfaceSpec().mEONames);
