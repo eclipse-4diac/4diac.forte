@@ -33,12 +33,14 @@ const CStringDictionary::TStringId FORTE_TRIGGER_SERVICE_CLIENT::scmDataOutputTy
 const TForteInt16 FORTE_TRIGGER_SERVICE_CLIENT::scmEIWithIndexes[] = { 0, 4 };
 const TDataIOID FORTE_TRIGGER_SERVICE_CLIENT::scmEIWith[] = { 0, 1, 2, scmWithListDelimiter, 0, scmWithListDelimiter };
 const CStringDictionary::TStringId FORTE_TRIGGER_SERVICE_CLIENT::scmEventInputNames[] = { g_nStringIdINIT, g_nStringIdREQ };
+const CStringDictionary::TStringId FORTE_TRIGGER_SERVICE_CLIENT::scmEventInputTypeIds[] = {g_nStringIdEInit, g_nStringIdEvent};
 
 const TDataIOID FORTE_TRIGGER_SERVICE_CLIENT::scmEOWith[] = { 0, 1, scmWithListDelimiter, 0, 1, 2, 3, scmWithListDelimiter };
 const TForteInt16 FORTE_TRIGGER_SERVICE_CLIENT::scmEOWithIndexes[] = { 0, 3, -1 };
 const CStringDictionary::TStringId FORTE_TRIGGER_SERVICE_CLIENT::scmEventOutputNames[] = { g_nStringIdINITO, g_nStringIdCNF };
+const CStringDictionary::TStringId FORTE_TRIGGER_SERVICE_CLIENT::scmEventOutputTypeIds[] = {g_nStringIdEvent, g_nStringIdEvent};
 
-const SFBInterfaceSpec FORTE_TRIGGER_SERVICE_CLIENT::scmFBInterfaceSpec = { 2, scmEventInputNames, scmEIWith, scmEIWithIndexes, 2, scmEventOutputNames, scmEOWith, scmEOWithIndexes, 3, scmDataInputNames, scmDataInputTypeIds, 4, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
+const SFBInterfaceSpec FORTE_TRIGGER_SERVICE_CLIENT::scmFBInterfaceSpec = { 2, scmEventInputNames, scmEventInputTypeIds, scmEIWith, scmEIWithIndexes, 2, scmEventOutputNames, scmEventOutputTypeIds, scmEOWith, scmEOWithIndexes, 3, scmDataInputNames, scmDataInputTypeIds, 4, scmDataOutputNames, scmDataOutputTypeIds, 0, 0 };
 
 void FORTE_TRIGGER_SERVICE_CLIENT::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
   switch (paEIID){
