@@ -35,12 +35,13 @@ BOOST_AUTO_TEST_CASE(FB_TO_STRING_BUFFER_SIZE_TEST_WITH_INRENAL_VAR){
 
     class CInternalVarTestFB : public CBasicFB {
         const SFBInterfaceSpec gcEmptyInterface = {
-            0, nullptr, nullptr, nullptr,
-            0, nullptr, nullptr, nullptr,
+            0, nullptr, nullptr, nullptr, nullptr,
+            0, nullptr, nullptr, nullptr, nullptr,
             0, nullptr, nullptr,
             0, nullptr, nullptr,
             0, nullptr,
-            0, nullptr};
+            0, nullptr
+        };
 
     public:
         CInternalVarTestFB(const SInternalVarsInformation *paVarInternals) : CBasicFB(CFBContainerMock::smDefaultFBContMock, gcEmptyInterface, CStringDictionary::scmInvalidStringId, paVarInternals) {

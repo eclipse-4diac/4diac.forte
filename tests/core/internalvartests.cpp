@@ -23,8 +23,8 @@
 #endif
 
 const SFBInterfaceSpec gcEmptyInterface = {
-  0, nullptr, nullptr, nullptr, 
-  0, nullptr, nullptr, nullptr, 
+  0, nullptr, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr, nullptr, nullptr,
   0, nullptr, nullptr, 
   0, nullptr, nullptr, 
   0, nullptr, 

@@ -44,8 +44,8 @@ class CTesterDevice : public CDevice {
     forte::core::CInternalFB<EMB_RES> mResource;
 
     constexpr static SFBInterfaceSpec scTestDevSpec = {
-    0, nullptr, nullptr, nullptr,
-    0, nullptr, nullptr, nullptr,
+    0, nullptr, nullptr, nullptr, nullptr,
+    0, nullptr, nullptr, nullptr, nullptr,
     0, nullptr, nullptr,
     0, nullptr, nullptr,
     0, nullptr,
