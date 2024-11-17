@@ -73,12 +73,12 @@ namespace forte {
 
           public:
 
-            CLocalCommGroup* registerPubl(const CStringDictionary::TStringId paID, CLocalComLayer *paLayer);
-            CLocalCommGroup* registerPubl(const CStringDictionary::TStringId paID, CLocalComLayer *paLayer, CIEC_ANY **paDataPins, TPortId paNumDataPins);
-            void unregisterPubl(CLocalCommGroup *paGroup, CLocalComLayer *paLayer);
+            bool registerPubl(const CStringDictionary::TStringId paGroupID, CLocalComLayer *paLayer);
+            bool registerPubl(const CStringDictionary::TStringId paGroupID, CLocalComLayer *paLayer, CIEC_ANY **paDataPins, TPortId paNumDataPins);
+            void unregisterPubl(const CStringDictionary::TStringId paGroupID, CLocalComLayer *paLayer);
 
-            CLocalCommGroup* registerSubl(const CStringDictionary::TStringId paID, CLocalComLayer *paLayer);
-            void unregisterSubl(CLocalCommGroup *paGroup, CLocalComLayer *paLayer);
+            bool registerSubl(const CStringDictionary::TStringId paGroupID, CLocalComLayer *paLayer);
+            void unregisterSubl(const CStringDictionary::TStringId paGroupID, CLocalComLayer *paLayer);
 
             CLocalCommGroup* getComGroup(const CStringDictionary::TStringId paGroupID);
 
@@ -90,7 +90,7 @@ namespace forte {
             TLocalCommGroupList::iterator getLocalCommGroupIterator(CStringDictionary::TStringId paID);
 
             CLocalCommGroup* findOrCreateLocalCommGroup(CStringDictionary::TStringId paID, CIEC_ANY **paDataPins, TPortId paNumDataPins);
-            void removeCommGroup(CLocalCommGroup &paGroup);
+            void checkForGroupRemoval(TLocalCommGroupList::iterator comGroupIt);
 
             bool isGroupIteratorForGroup(TLocalCommGroupList::iterator iter, CStringDictionary::TStringId paID){
               return (iter != mLocalCommGroups.end() && iter->mGroupName == paID);
@@ -120,7 +120,6 @@ namespace forte {
           return smLocalCommGroupsManager;
         }
 
-        CLocalCommGroup *mLocalCommGroup;
         CStringDictionary::TStringId mGroupID;
 
       private:

@@ -149,18 +149,19 @@ EComResponse CStructMemberLocalComLayer::openConnection(char *paLayerParameter){
     return e_InitInvalidId;
   }
 
-  switch (mFb->getComServiceType()){
+  switch(mFb->getComServiceType()){
     case e_Server:
     case e_Client:
       break;
     case e_Publisher: {
-      CIEC_ANY *dummySDs[] = {dummy};
-      mLocalCommGroup = getLocalCommGroupsManager().registerPubl(groupNameID, this, dummySDs, 1);
+      CIEC_ANY *dummySDs[] = { dummy };
+      if(!getLocalCommGroupsManager().registerPubl(groupNameID, this, dummySDs, 1)) {
+        return e_InitInvalidId;
       }
+    }
       break;
     case e_Subscriber:
       break;
   }
-  
-  return (nullptr != mLocalCommGroup) ? e_InitOk : e_InitInvalidId;
+  return e_InitOk;
 }
