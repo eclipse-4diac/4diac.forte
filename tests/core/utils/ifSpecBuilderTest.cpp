@@ -140,6 +140,7 @@ BOOST_AUTO_TEST_SUITE(IfSpecBuilder_Test)
   BOOST_AUTO_TEST_CASE(IfSpecBuilder_SetStaticInputEvents) {
     CIfSpecBuilder uut;
     uut.mEI.setStaticEvents(constStringIdList1, 3);
+    uut.mEITypes.setStaticEvents(constStringIdList1, 3);
     build(uut);
     BOOST_CHECK_EQUAL(ifspec.mNumEIs, 3);
     BOOST_CHECK_EQUAL(ifspec.mEINames, constStringIdList1);
@@ -148,6 +149,7 @@ BOOST_AUTO_TEST_SUITE(IfSpecBuilder_Test)
   BOOST_AUTO_TEST_CASE(IfSpecBuilder_SetStaticOutputEvents) {
     CIfSpecBuilder uut;
     uut.mEO.setStaticEvents(constStringIdList2, 3);
+    uut.mEOTypes.setStaticEvents(constStringIdList2, 3);
     build(uut);
     BOOST_CHECK_EQUAL(ifspec.mNumEOs, 3);
     BOOST_CHECK_EQUAL(ifspec.mEONames, constStringIdList2);
@@ -156,18 +158,21 @@ BOOST_AUTO_TEST_SUITE(IfSpecBuilder_Test)
   BOOST_AUTO_TEST_CASE(IfSpecBuilder_AddInputEvents) {
     CIfSpecBuilder uut;
     add_events(uut.mEI, 2);
+    uut.mEITypes.setStaticEvents(constStringIdList2, 2);
     test_events(uut, ifspec.mNumEIs, ifspec.mEINames);
   }
 
   BOOST_AUTO_TEST_CASE(IfSpecBuilder_AddOutputEvents) {
     CIfSpecBuilder uut;
     add_events(uut.mEO, 2);
+    uut.mEOTypes.setStaticEvents(constStringIdList2, 2);
     test_events(uut, ifspec.mNumEOs, ifspec.mEONames);
   }
 
   BOOST_AUTO_TEST_CASE(IfSpecBuilder_AddEventsRange) {
     CIfSpecBuilder uut;
     auto range = uut.mEI.addEventRange("E", 2);
+    uut.mEITypes.addEventRange("E", 2);
     test_events(uut, ifspec.mNumEIs, ifspec.mEINames);
     BOOST_CHECK(range.isValid());
     BOOST_CHECK_EQUAL(*range.mFirst, 0);
