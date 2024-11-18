@@ -33,7 +33,7 @@ CZephyrTimerHandler::CZephyrTimerHandler(CDeviceExecution& paDeviceExecution) :
     return;
   }
   thread_id = k_thread_create(thread, stack, stackSize, thread_fn, this, NULL, NULL, 1, K_FP_REGS, K_FOREVER);
-  k_thread_name_set(thread_id, "forte_tiha");
+  if (thread_id) k_thread_name_set(thread_id, "forte_tiha");
 }
 
 CZephyrTimerHandler::~CZephyrTimerHandler() {
@@ -48,6 +48,9 @@ CZephyrTimerHandler::~CZephyrTimerHandler() {
 }
 
 void CZephyrTimerHandler::enableHandler() {
+  if (thread == nullptr) {
+    return;
+  }
   const auto period = K_NSEC(forte::core::constants::cNanosecondsPerSecond / getTicksPerSecond());
   k_timer_start(&timer, period, period);
   k_thread_start(thread_id);

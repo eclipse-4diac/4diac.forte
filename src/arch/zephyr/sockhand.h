@@ -17,7 +17,7 @@
 
 #include "devlog.h"
 
-#include <zephyr/net/net_ip.h>
+#include <zephyr/net/net_if.h>
 #include <zephyr/posix/arpa/inet.h>
 #include <zephyr/net/socket.h>
 #include <zephyr/kernel.h>

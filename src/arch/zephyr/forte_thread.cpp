@@ -40,7 +40,7 @@ void CZephyrThread::threadFunction(void* arg1, void* arg2, void* arg3) {
 forte::arch::CThreadBase<k_tid_t, nullptr, CZephyrThread>::TThreadHandleType CZephyrThread::createThread(long paStackSize) {
   if (thread == nullptr) return nullptr;
   auto thread_id = k_thread_create(thread, stack, paStackSize, threadFunction, this, NULL, NULL, 10, K_FP_REGS, K_NO_WAIT);
-  k_thread_name_set(thread_id, "forte_thread");
+  if (thread_id) k_thread_name_set(thread_id, "forte_thread");
   return thread_id;
 }
 
