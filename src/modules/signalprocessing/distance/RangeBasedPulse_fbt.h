@@ -8,7 +8,7 @@
  ***
  *** This file was generated using the 4DIAC FORTE Export Filter V1.0.x NG!
  ***
- *** Name: GEN_PULSE_DIST
+ *** Name: RangeBasedPulse
  *** Description: Distance based Impulse Generator
  *** Version:
  ***     1.0: 2024-10-18/Franz Höpfinger - HR Agrartechnik GmbH - initial Version
@@ -26,8 +26,8 @@
 #include "forte_array_fixed.h"
 #include "forte_array_variable.h"
 
-class FORTE_signalprocessing__distance__GEN_PULSE_DIST final : public CSimpleFB {
-  DECLARE_FIRMWARE_FB(FORTE_signalprocessing__distance__GEN_PULSE_DIST)
+class FORTE_signalprocessing__distance__RangeBasedPulse final : public CSimpleFB {
+  DECLARE_FIRMWARE_FB(FORTE_signalprocessing__distance__RangeBasedPulse)
 
   private:
     static const CStringDictionary::TStringId scmDataInputNames[];
@@ -55,6 +55,8 @@ class FORTE_signalprocessing__distance__GEN_PULSE_DIST final : public CSimpleFB 
 
     void alg_REQ(void);
 
+    void enterStateREQ(CEventChainExecutionThread *const paECET);
+
     void executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) override;
 
     void readInputData(TEventID paEIID) override;
@@ -62,7 +64,7 @@ class FORTE_signalprocessing__distance__GEN_PULSE_DIST final : public CSimpleFB 
     void setInitialValues() override;
 
   public:
-    FORTE_signalprocessing__distance__GEN_PULSE_DIST(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
+    FORTE_signalprocessing__distance__RangeBasedPulse(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
 
     CIEC_UDINT var_DIST_IN;
     CIEC_UDINT var_DIST_OFF;

@@ -14,4 +14,4 @@ forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 # Distance
 #############################################################################
 
-forte_add_sourcefile_hcpp(GEN_PULSE_DIST_fbt)
+forte_add_sourcefile_hcpp(RangeBasedPulse_fbt)
