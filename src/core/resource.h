@@ -235,7 +235,7 @@ class CResource : public CFunctionBlock{
      */
     static EMGMResponse queryAllAdapterTypes(std::string& paValue);
 
-    static void appedTypeNameList(std::string & paValue, CTypeLib::CTypeEntry *paTypeListStart);
+    static void appendTypeNameList(std::string & paValue, CTypeLib::CTypeEntry *paTypeListStart);
 
     /*!\brief Retrieve the list of FB instances
      *
