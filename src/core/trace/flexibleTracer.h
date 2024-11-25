@@ -31,6 +31,11 @@
 class CFlexibleTracer final {
 public: 
 
+    enum class AvailableTracers {
+      BareCtf,
+      Internal
+    };
+
     CFlexibleTracer(CStringDictionary::TStringId instanceName, size_t bufferSize);
 
     ~CFlexibleTracer() = default;
@@ -61,13 +66,13 @@ public:
 
     /**
      * @brief Select the tracer to use
-     * @param paTracerName An empty string to use the BarectfPlatformFORTE, any other string for the CInternalTracer
+     * @param paTracerType the type of tracer to be used
      */
-    static void setTracer(std::string paTracerName);
+    static void setTracer(AvailableTracers paTracerType);
 
 private:
 
-  static inline std::string mCurrentTracer;
+  static inline AvailableTracers mCurrentTracer{AvailableTracers::BareCtf};
 
   std::variant<std::monostate, BarectfPlatformFORTE, CInternalTracer> mTracer{};
 };

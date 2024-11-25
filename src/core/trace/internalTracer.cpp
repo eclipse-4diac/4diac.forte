@@ -28,7 +28,7 @@ void CInternalTracer::fillStringsVector(const char *const *const paIn, const uin
 {
   for (uint32_t i = 0; i < paLen; i++)
   {
-    paOut.emplace_back(paIn[i]);
+    paOut[i] = paIn[i];
   }
 }
 

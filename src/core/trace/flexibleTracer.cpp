@@ -16,14 +16,14 @@
 
 #include "flexibleTracer.h"
 
-void CFlexibleTracer::setTracer(std::string paTracerName) {
-  CFlexibleTracer::mCurrentTracer = std::move(paTracerName);
+void CFlexibleTracer::setTracer(AvailableTracers paTracerType) {
+  CFlexibleTracer::mCurrentTracer = paTracerType;
 }
 
 CFlexibleTracer::CFlexibleTracer(CStringDictionary::TStringId instanceName, size_t bufferSize) {
-  if(mCurrentTracer == ""){
+  if(mCurrentTracer == AvailableTracers::BareCtf){
     mTracer.emplace<BarectfPlatformFORTE>(instanceName, bufferSize);
-  } else {
+  } else if (mCurrentTracer == AvailableTracers::Internal) {
     mTracer.emplace<CInternalTracer>(instanceName, bufferSize);
   }
 }

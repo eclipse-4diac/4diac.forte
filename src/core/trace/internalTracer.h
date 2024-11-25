@@ -57,6 +57,15 @@ public:
     void traceOutputData(const char * const paTypeName, const char * const paInstanceName, const uint64_t paDataId, 
       const char * const paValue);
 
+    /**
+     * @brief Fills the given vector with the array of const char* information. The vector must already contain the
+     * expected amount of elements to be inserted, defined by paLen. This help performance by allocating the vector
+     * with a size that won't change while filling it 
+     * 
+     * @param paIn the input of texts that will be inserted into the vector
+     * @param paLen the length of paIn 
+     * @param paOut output where to store the passed texts
+     */
     void fillStringsVector(const char * const * const paIn, const uint32_t paLen, std::vector<std::string>& paOut);
 
     bool isEnabled();
