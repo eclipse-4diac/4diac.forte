@@ -31,6 +31,8 @@ class Config_EMB_RES : public CResource {
 
     CIEC_WSTRING var_OPCUA_Namespace;
 
+    CDataConnection *conn_opcua_namespace;
+
     static const SFBInterfaceSpec scmFBInterfaceSpec;
 
     static const CStringDictionary::TStringId scmVarInputNameIds[];
