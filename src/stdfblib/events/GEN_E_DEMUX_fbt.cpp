@@ -36,11 +36,6 @@ GEN_E_DEMUX::GEN_E_DEMUX(const CStringDictionary::TStringId paInstanceNameId, fo
     CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mEventOutputNames(nullptr){
 }
 
-GEN_E_DEMUX::~GEN_E_DEMUX(){
-  delete[] mEventOutputNames;
-  delete[] mEventOutputTypeIds;
-}
-
 void GEN_E_DEMUX::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
   if(scmEventEIID == paEIID && static_cast<CIEC_UINT::TValueType>(K()) < getFBInterfaceSpec().mNumEOs) {
     sendOutputEvent(static_cast<CIEC_UINT::TValueType>(K()), paECET); // the value of K corresponds to the output event ID;
@@ -64,17 +59,17 @@ bool GEN_E_DEMUX::createInterfaceSpec(const char *paConfigString, SFBInterfaceSp
       paInterfaceSpec.mNumEOs = static_cast<TEventID>(forte::core::util::strtoul(acPos, nullptr, 10));
 
       if(paInterfaceSpec.mNumEOs < CFunctionBlock::scmMaxInterfaceEvents){
-        mEventOutputNames = new CStringDictionary::TStringId[paInterfaceSpec.mNumEOs];
-        mEventOutputTypeIds = new CStringDictionary::TStringId[paInterfaceSpec.mNumEOs];
+        mEventOutputNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumEOs]);
+        mEventOutputTypeIds.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumEOs]);
         const CStringDictionary::TStringId eventID = CStringDictionary::getInstance().getId("Event");
-        std::memset(mEventOutputTypeIds, static_cast<int>(eventID), sizeof(*mEventOutputTypeIds) * paInterfaceSpec.mNumEOs);
-        generateGenericInterfacePointNameArray("EO", mEventOutputNames, paInterfaceSpec.mNumEOs);
+        std::fill_n(mEventOutputTypeIds.get(), paInterfaceSpec.mNumEOs, eventID);
+        generateGenericInterfacePointNameArray("EO", mEventOutputNames.get(), paInterfaceSpec.mNumEOs);
 
         paInterfaceSpec.mNumEIs = 1;
         paInterfaceSpec.mEINames = scmEventInputNames;
-        paInterfaceSpec.mEONames = mEventOutputNames;
+        paInterfaceSpec.mEONames = mEventOutputNames.get();
         paInterfaceSpec.mEITypeNames = scmEventInputTypeIds;
-        paInterfaceSpec.mEOTypeNames = mEventOutputTypeIds;
+        paInterfaceSpec.mEOTypeNames = mEventOutputTypeIds.get();
         paInterfaceSpec.mNumDIs = 1;
         paInterfaceSpec.mDINames = scmDataInputNames;
         paInterfaceSpec.mDIDataTypeNames = scmDIDataTypeIds;

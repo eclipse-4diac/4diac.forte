@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include "../../arch/forte_fileio.h"
 
+#include <memory>
+
 class GEN_CSV_WRITER : public CGenFunctionBlock<CFunctionBlock> {
     DECLARE_GENERIC_FIRMWARE_FB(GEN_CSV_WRITER)
 
@@ -84,8 +86,8 @@ class GEN_CSV_WRITER : public CGenFunctionBlock<CFunctionBlock> {
 
     decltype(forte_fopen(nullptr, nullptr)) mCSVFile;
 
-    CStringDictionary::TStringId *mDataInputNames;
-    CStringDictionary::TStringId *mDataInputTypeIds;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataInputNames;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataInputTypeIds;
 
     static const CIEC_STRING scmOK;
     static const CIEC_STRING scmFileAlreadyOpened;

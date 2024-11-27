@@ -37,13 +37,7 @@ const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventOutputNames[] = { g
 const CStringDictionary::TStringId GEN_VALUES2ARRAY::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 GEN_VALUES2ARRAY::GEN_VALUES2ARRAY(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
-    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mDataInputNames(nullptr), mDataInputTypeIds(nullptr), mDataOutputTypeIds(nullptr), mDInputs(0), m_ValueTypeID(CStringDictionary::CStringDictionary::scmInvalidStringId){
-}
-
-GEN_VALUES2ARRAY::~GEN_VALUES2ARRAY(){
-  delete[] mDataInputNames;
-  delete[] mDataInputTypeIds;
-  delete[] mDataOutputTypeIds;
+    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mDataInputNames(nullptr), mDInputs(0), m_ValueTypeID(CStringDictionary::CStringDictionary::scmInvalidStringId){
 }
 
 void GEN_VALUES2ARRAY::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
@@ -95,8 +89,8 @@ bool GEN_VALUES2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterf
 
   if(m_ValueTypeID != CStringDictionary::scmInvalidStringId && mDInputs >= 2){
     //create the data inputs
-    mDataInputNames = new CStringDictionary::TStringId[mDInputs];
-    mDataInputTypeIds = new CStringDictionary::TStringId[mDInputs];
+    mDataInputNames.reset(new CStringDictionary::TStringId[mDInputs]);
+    mDataInputTypeIds.reset(new CStringDictionary::TStringId[mDInputs]);
 
     char diNames[cgIdentifierLength] = { "IN_" };
     for(unsigned int di = 0; di < mDInputs; di = di + 1){
@@ -106,7 +100,6 @@ bool GEN_VALUES2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterf
     }
 
     //create data output type
-    mDataOutputTypeIds = new CStringDictionary::TStringId[3];
     mDataOutputTypeIds[0] = g_nStringIdARRAY;
     mDataOutputTypeIds[1] = mDInputs;
     mDataOutputTypeIds[2] = m_ValueTypeID;
@@ -117,11 +110,11 @@ bool GEN_VALUES2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterf
     paInterfaceSpec.mNumEOs = 1;
     paInterfaceSpec.mEONames = scmEventOutputNames;
     paInterfaceSpec.mNumDIs = mDInputs;
-    paInterfaceSpec.mDINames = mDataInputNames;
-    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds;
+    paInterfaceSpec.mDINames = mDataInputNames.get();
+    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds.get();
     paInterfaceSpec.mNumDOs = 1;
     paInterfaceSpec.mDONames = scmDataOutputNames;
-    paInterfaceSpec.mDODataTypeNames = mDataOutputTypeIds;
+    paInterfaceSpec.mDODataTypeNames = mDataOutputTypeIds.data();
     return true;
   }
   return false;

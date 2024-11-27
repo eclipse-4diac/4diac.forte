@@ -21,15 +21,18 @@
 #include "forte_array_fixed.h"
 #include "forte_array_variable.h"
 
+#include <array>
 
 class GEN_FORTE_F_MOVE : public CGenFunctionBlock<CFunctionBlock>  {
     DECLARE_GENERIC_FIRMWARE_FB(GEN_FORTE_F_MOVE)
 
 private:
   static const CStringDictionary::TStringId scmDataInputNames[];
+  std::array<CStringDictionary::TStringId,1> mDiDataTypeNames;
   
   static const CStringDictionary::TStringId scmDataOutputNames[];
-  
+  std::array<CStringDictionary::TStringId,1> mDoDataTypeNames;
+
   static const TEventID scmEventREQID = 0;
   
   static const TDataIOID scmEIWith[];
@@ -56,7 +59,7 @@ private:
 
 public:
   GEN_FORTE_F_MOVE(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
-  ~GEN_FORTE_F_MOVE() override;
+  ~GEN_FORTE_F_MOVE() override = default;
 
   CIEC_ANY& var_IN() {
     return *static_cast<CIEC_ANY*>(getDI(0));

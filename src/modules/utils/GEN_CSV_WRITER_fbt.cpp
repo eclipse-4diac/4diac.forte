@@ -61,12 +61,10 @@ void GEN_CSV_WRITER::executeEvent(TEventID paEIID, CEventChainExecutionThread *c
 }
 
 GEN_CSV_WRITER::GEN_CSV_WRITER(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
-    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mCSVFile(nullptr), mDataInputNames(nullptr), mDataInputTypeIds(nullptr) {
+    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mCSVFile(nullptr) {
 }
 
 GEN_CSV_WRITER::~GEN_CSV_WRITER(){
-  delete[] mDataInputNames;
-  delete[] mDataInputTypeIds;
   closeCSVFile();
 }
 
@@ -100,8 +98,8 @@ bool GEN_CSV_WRITER::createInterfaceSpec(const char *paConfigString, SFBInterfac
     acPos++;
     paInterfaceSpec.mNumDIs = static_cast<TPortId>(forte::core::util::strtoul(acPos, nullptr, 10) + 2); // we have in addition to the SDs a QI and FILE_NAME data inputs
 
-    mDataInputNames = new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs];
-    mDataInputTypeIds = new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs];
+    mDataInputNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+    mDataInputTypeIds.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
 
     mDataInputNames[0] = g_nStringIdQI;
     mDataInputTypeIds[0] = g_nStringIdBOOL;
@@ -115,8 +113,8 @@ bool GEN_CSV_WRITER::createInterfaceSpec(const char *paConfigString, SFBInterfac
     paInterfaceSpec.mEINames = scmEventInputNames;
     paInterfaceSpec.mNumEOs = 2;
     paInterfaceSpec.mEONames = scmEventOutputNames;
-    paInterfaceSpec.mDINames = mDataInputNames;
-    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds;
+    paInterfaceSpec.mDINames = mDataInputNames.get();
+    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds.get();
     paInterfaceSpec.mNumDOs = 2;
     paInterfaceSpec.mDONames = scmDataOutputNames;
     paInterfaceSpec.mDODataTypeNames = scmDataOutputTypeIds;

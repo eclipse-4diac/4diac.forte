@@ -20,6 +20,8 @@
 
 #include <genfb.h>
 
+#include <memory>
+
 class GEN_E_DEMUX : public CGenFunctionBlock<CFunctionBlock>{
   DECLARE_GENERIC_FIRMWARE_FB(GEN_E_DEMUX)
 
@@ -30,8 +32,8 @@ class GEN_E_DEMUX : public CGenFunctionBlock<CFunctionBlock>{
     static const CStringDictionary::TStringId scmEventInputNames[];
     static const CStringDictionary::TStringId scmEventInputTypeIds[];
 
-    CStringDictionary::TStringId *mEventOutputNames;
-    CStringDictionary::TStringId *mEventOutputTypeIds;
+    std::unique_ptr<CStringDictionary::TStringId[]> mEventOutputNames;
+    std::unique_ptr<CStringDictionary::TStringId[]> mEventOutputTypeIds;
 
     void executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) override;
 
@@ -46,7 +48,7 @@ class GEN_E_DEMUX : public CGenFunctionBlock<CFunctionBlock>{
 
   public:
     GEN_E_DEMUX(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
-    ~GEN_E_DEMUX() override;
+    ~GEN_E_DEMUX() override = default;
 
 };
 #endif //_GEN_E_DEMUX_H_

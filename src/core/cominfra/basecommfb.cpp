@@ -17,6 +17,9 @@
  *******************************************************************************/
 
 #include "basecommfb.h"
+#ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP
+#include "basecommfb_gen.cpp"
+#endif
 #include "comlayer.h"
 #include "comlayersmanager.h"
 #include "../resource.h"
@@ -29,6 +32,15 @@
 
 using namespace forte::com_infra;
 
+const CStringDictionary::TStringId CBaseCommFB::scmRequesterEventInputNameIds[2] = { g_nStringIdINIT, g_nStringIdREQ };
+const CStringDictionary::TStringId CBaseCommFB::scmRequesterEventOutputNameIds[2] = { g_nStringIdINITO, g_nStringIdCNF };
+
+const CStringDictionary::TStringId CBaseCommFB::scmResponderEventInputNameIds[2] = { g_nStringIdINIT, g_nStringIdRSP };
+const CStringDictionary::TStringId CBaseCommFB::scmResponderEventOutputNameIds[2] = { g_nStringIdINITO, g_nStringIdIND };
+
+const CStringDictionary::TStringId CBaseCommFB::scmEventInputTypeIds[2] = {g_nStringIdEInit, g_nStringIdEvent};
+const CStringDictionary::TStringId CBaseCommFB::scmEventOutputTypeIds[2] = {g_nStringIdEvent, g_nStringIdEvent};
+
 const char * const CBaseCommFB::scmResponseTexts[] = { "OK", "INVALID_ID", "TERMINATED", "INVALID_OBJECT", "DATA_TYPE_ERROR", "INHIBITED", "NO_SOCKET", "SEND_FAILED", "RECV_FAILED" };
 
 CBaseCommFB::CBaseCommFB(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer, forte::com_infra::EComServiceType paCommServiceType) :
@@ -40,10 +52,6 @@ CBaseCommFB::CBaseCommFB(const CStringDictionary::TStringId paInstanceNameId, fo
 
 CBaseCommFB::~CBaseCommFB() {
   closeConnection();
-  delete[](getFBInterfaceSpec().mDINames);
-  delete[](getFBInterfaceSpec().mDIDataTypeNames);
-  delete[](getFBInterfaceSpec().mDONames);
-  delete[](getFBInterfaceSpec().mDODataTypeNames);
 }
 
 EMGMResponse CBaseCommFB::changeExecutionState(EMGMCommandType paCommand) {
@@ -182,4 +190,116 @@ char *CBaseCommFB::buildIDString(const char *paPrefix, const char *paIDRoot, con
   char *RetVal = new char[idStringLength];
   snprintf(RetVal, idStringLength, "%s%s%s", paPrefix, paIDRoot, paSuffix);
   return RetVal;
+}
+
+bool CBaseCommFB::createInterfaceSpec(const char* paConfigString, SFBInterfaceSpec& paInterfaceSpec) {
+  TIdentifier tempstring;
+  const char *sParamA = nullptr;
+  const char *sParamB = nullptr;
+
+  paInterfaceSpec.mNumEIs = 2;
+  paInterfaceSpec.mNumEOs = 2;
+
+  memcpy(tempstring, paConfigString, (strlen(paConfigString) > cgIdentifierLength) ? cgIdentifierLength : strlen(paConfigString) + 1); //plus 1 for the null character
+  tempstring[cgIdentifierLength] = '\0';
+
+  size_t inlength = strlen(tempstring);
+
+  size_t i;
+  for (i = 0; i < inlength - 1; i++) { // search first underscore
+    if (tempstring[i] == '_') {
+      sParamA = sParamB = &(tempstring[i + 1]);
+      break;
+    }
+  }
+  if(nullptr != sParamA) { // search for 2nd underscore
+    for (i = i + 1; i < inlength - 1; i++) {
+      if (tempstring[i] == '_') {
+        tempstring[i] = '\0';
+        sParamB = &(tempstring[i + 1]);
+        break;
+      }
+    }
+  }
+  if (nullptr == sParamB){ // no underscore found
+    return false;
+  }
+
+  configureDIs(sParamA, paInterfaceSpec);
+  configureDOs(sParamB, paInterfaceSpec);
+
+  if (forte::com_infra::e_Requester == (forte::com_infra::e_Requester & mCommServiceType)) {
+    paInterfaceSpec.mEINames = scmRequesterEventInputNameIds;
+    paInterfaceSpec.mEONames = scmRequesterEventOutputNameIds;
+  }
+  else {
+    if (forte::com_infra::e_Responder == (forte::com_infra::e_Responder & mCommServiceType)) {
+      paInterfaceSpec.mEINames = scmResponderEventInputNameIds;
+      paInterfaceSpec.mEONames = scmResponderEventOutputNameIds;
+    }
+  }
+  paInterfaceSpec.mEITypeNames = scmEventInputTypeIds;
+  paInterfaceSpec.mEOTypeNames = scmEventOutputTypeIds;
+
+  return true;
+}
+
+void CBaseCommFB::configureDIs(const char* paDIConfigString, SFBInterfaceSpec& paInterfaceSpec) {
+  paInterfaceSpec.mNumDIs = 2;
+
+  if (forte::com_infra::e_DataInputs == (forte::com_infra::e_DataInputs & mCommServiceType)) {
+      //TODO: Check range of sParamA
+      paInterfaceSpec.mNumDIs = paInterfaceSpec.mNumDIs +
+                                  static_cast<TPortId>(forte::core::util::strtol(paDIConfigString, nullptr, 10));
+      mDiDataTypeNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+      mDiNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+
+      generateGenericDataPointArrays("SD_", &(mDiDataTypeNames[2]), &(mDiNames[2]), paInterfaceSpec.mNumDIs - 2);
+    }
+    else {
+      mDiDataTypeNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+      mDiNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+    }
+    paInterfaceSpec.mDIDataTypeNames = mDiDataTypeNames.get();
+    paInterfaceSpec.mDINames = mDiNames.get();
+
+    mDiDataTypeNames[0] = g_nStringIdBOOL;
+    mDiNames[0] = g_nStringIdQI;
+#ifdef FORTE_USE_WSTRING_DATATYPE
+    mDiDataTypeNames[1] = g_nStringIdWSTRING;
+#else //FORTE_USE_WSTRING_DATATYPE
+    mDiDataTypeNames[1] = g_nStringIdSTRING;
+#endif //FORTE_USE_WSTRING_DATATYPE
+    mDiNames[1] = g_nStringIdID;
+}
+
+void CBaseCommFB::configureDOs(const char* paDOConfigString, SFBInterfaceSpec& paInterfaceSpec) {
+  paInterfaceSpec.mNumDOs = 2;
+
+  if(forte::com_infra::e_DataOutputs == (forte::com_infra::e_DataOutputs & mCommServiceType)){
+    //TODO: Check range of sParamA
+    paInterfaceSpec.mNumDOs = paInterfaceSpec.mNumDOs +
+                                static_cast<TPortId>(forte::core::util::strtol(paDOConfigString, nullptr, 10));
+    mDoDataTypeNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDOs]);
+    mDoNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDOs]);
+
+    generateGenericDataPointArrays("RD_", &(mDoDataTypeNames[2]), &(mDoNames[2]), paInterfaceSpec.mNumDOs - 2);
+  }
+  else{
+    mDoDataTypeNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDOs]);
+    mDoNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDOs]);
+  }
+
+  paInterfaceSpec.mDONames = mDoNames.get();
+  paInterfaceSpec.mDODataTypeNames = mDoDataTypeNames.get();
+
+  mDoDataTypeNames[0] = g_nStringIdBOOL;
+  mDoNames[0] = g_nStringIdQO;
+#ifdef FORTE_USE_WSTRING_DATATYPE
+  mDoDataTypeNames[1] = g_nStringIdWSTRING;
+#else
+  mDoDataTypeNames[1] = g_nStringIdSTRING;
+#endif
+  mDoNames[1] = g_nStringIdSTATUS;
+
 }

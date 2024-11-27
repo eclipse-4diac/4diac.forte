@@ -40,11 +40,6 @@ GEN_FORTE_F_MOVE::GEN_FORTE_F_MOVE(const CStringDictionary::TStringId paInstance
     CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId) {
 }
 
-GEN_FORTE_F_MOVE::~GEN_FORTE_F_MOVE(){
-    delete[](getGenInterfaceSpec().mDIDataTypeNames);
-    delete[](getGenInterfaceSpec().mDODataTypeNames);
-}
-
 void GEN_FORTE_F_MOVE::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
   switch(paEIID) {
     case scmEventREQID:
@@ -77,10 +72,8 @@ bool GEN_FORTE_F_MOVE::createInterfaceSpec(const char *paConfigString, SFBInterf
     }
   }
 
-  CStringDictionary::TStringId *diDataTypeNames = new CStringDictionary::TStringId[1];
-  diDataTypeNames[0] = poToCreate->getTypeNameId();
-  CStringDictionary::TStringId *doDataTypeNames = new CStringDictionary::TStringId[1];
-  doDataTypeNames[0] = poToCreate->getTypeNameId();
+  mDiDataTypeNames[0] = poToCreate->getTypeNameId();
+  mDoDataTypeNames[0] = poToCreate->getTypeNameId();
 
   paInterfaceSpec.mNumEIs = 1;
   paInterfaceSpec.mEINames = scmEventInputNames;
@@ -92,10 +85,10 @@ bool GEN_FORTE_F_MOVE::createInterfaceSpec(const char *paConfigString, SFBInterf
   paInterfaceSpec.mEOWithIndexes = scmEOWithIndexes;
   paInterfaceSpec.mNumDIs = 1;
   paInterfaceSpec.mDINames = scmDataInputNames;
-  paInterfaceSpec.mDIDataTypeNames = diDataTypeNames;
+  paInterfaceSpec.mDIDataTypeNames = mDiDataTypeNames.data();
   paInterfaceSpec.mNumDOs = 1;
   paInterfaceSpec.mDONames = scmDataOutputNames;
-  paInterfaceSpec.mDODataTypeNames = doDataTypeNames;
+  paInterfaceSpec.mDODataTypeNames = mDoDataTypeNames.data();
 
   return true;
 }

@@ -18,11 +18,19 @@
 #include <genfb.h>
 #include <stdio.h>
 
+#include <memory>
+#include <array>
+
 class GEN_STRUCT_DEMUX : public CGenFunctionBlock<CFunctionBlock> {
     DECLARE_GENERIC_FIRMWARE_FB(GEN_STRUCT_DEMUX)
 
   private:
+
+    std::unique_ptr<CStringDictionary::TStringId[]> mDoDataTypeNames;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDoNames;
+
     static const CStringDictionary::TStringId scmDataInputNames[];
+    std::array<CStringDictionary::TStringId, 1> mDiDataTypeNames;
 
     static const TEventID scmEventREQID = 0;
     static const CStringDictionary::TStringId scmEventInputNames[];
@@ -51,7 +59,7 @@ class GEN_STRUCT_DEMUX : public CGenFunctionBlock<CFunctionBlock> {
 
     GEN_STRUCT_DEMUX(const GEN_STRUCT_DEMUX &paOther) = delete;
     GEN_STRUCT_DEMUX(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
-    ~GEN_STRUCT_DEMUX() override;
+    ~GEN_STRUCT_DEMUX() override = default;
 
 };
 

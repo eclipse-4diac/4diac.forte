@@ -35,12 +35,7 @@ const CStringDictionary::TStringId GEN_ARRAY2ARRAY::scmEventOutputNames[] = { g_
 const CStringDictionary::TStringId GEN_ARRAY2ARRAY::scmEventOutputTypeIds[] = {g_nStringIdEvent};
 
 GEN_ARRAY2ARRAY::GEN_ARRAY2ARRAY(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
-    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId), mDataInputTypeIds(nullptr), mDataOutputTypeIds(nullptr), m_ValueTypeID(CStringDictionary::scmInvalidStringId), mArrayLength(0){
-}
-
-GEN_ARRAY2ARRAY::~GEN_ARRAY2ARRAY(){
-  delete[] mDataInputTypeIds;
-  delete[] mDataOutputTypeIds;
+    CGenFunctionBlock<CFunctionBlock>(paContainer, paInstanceNameId) {
 }
 
 void GEN_ARRAY2ARRAY::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
@@ -87,13 +82,11 @@ bool GEN_ARRAY2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterfa
 
   if(m_ValueTypeID != CStringDictionary::scmInvalidStringId && mArrayLength >= 1){
     //create data input type
-    mDataInputTypeIds = new CStringDictionary::TStringId[3];
     mDataInputTypeIds[0] = g_nStringIdARRAY;
     mDataInputTypeIds[1] = mArrayLength;
     mDataInputTypeIds[2] = m_ValueTypeID;
 
     //create data output type
-    mDataOutputTypeIds = new CStringDictionary::TStringId[3];
     mDataOutputTypeIds[0] = g_nStringIdARRAY;
     mDataOutputTypeIds[1] = mArrayLength;
     mDataOutputTypeIds[2] = m_ValueTypeID;
@@ -105,10 +98,10 @@ bool GEN_ARRAY2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterfa
     paInterfaceSpec.mEONames = scmEventOutputNames;
     paInterfaceSpec.mNumDIs = 1;
     paInterfaceSpec.mDINames = scmDataInputNames;
-    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds;
+    paInterfaceSpec.mDIDataTypeNames = mDataInputTypeIds.data();
     paInterfaceSpec.mNumDOs = 1;
     paInterfaceSpec.mDONames = scmDataOutputNames;
-    paInterfaceSpec.mDODataTypeNames = mDataOutputTypeIds;
+    paInterfaceSpec.mDODataTypeNames = mDataOutputTypeIds.data();
     return true;
   }
 

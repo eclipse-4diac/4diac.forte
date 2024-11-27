@@ -18,15 +18,18 @@
 
 #include <genfb.h>
 
+#include <memory>
+#include <array>
+
 class GEN_VALUES2ARRAY : public CGenFunctionBlock<CFunctionBlock>{
   DECLARE_GENERIC_FIRMWARE_FB(GEN_VALUES2ARRAY)
 
   private:
-    CStringDictionary::TStringId *mDataInputNames;
-    CStringDictionary::TStringId *mDataInputTypeIds;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataInputNames;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataInputTypeIds;
 
     static const CStringDictionary::TStringId scmDataOutputNames[];
-    CStringDictionary::TStringId *mDataOutputTypeIds;
+    std::array<CStringDictionary::TStringId, 3> mDataOutputTypeIds;
 
     CIEC_ARRAY &OUT_Array(){
       return *static_cast<CIEC_ARRAY *>(getDO(0));
@@ -53,7 +56,7 @@ class GEN_VALUES2ARRAY : public CGenFunctionBlock<CFunctionBlock>{
 
   public:
     GEN_VALUES2ARRAY(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
-    ~GEN_VALUES2ARRAY() override;
+    ~GEN_VALUES2ARRAY() override = default;
 
 };
 

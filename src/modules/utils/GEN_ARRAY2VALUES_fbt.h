@@ -20,15 +20,18 @@
 
 #include <genfb.h>
 
+#include <memory>
+#include <array>
+
 class GEN_ARRAY2VALUES : public CGenFunctionBlock<CFunctionBlock> {
   DECLARE_GENERIC_FIRMWARE_FB(GEN_ARRAY2VALUES)
 
   private:
-    CStringDictionary::TStringId *mDataOutputNames;
-    CStringDictionary::TStringId *mDataOutputTypeIds;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataOutputNames;
+    std::unique_ptr<CStringDictionary::TStringId[]> mDataOutputTypeIds;
 
     static const CStringDictionary::TStringId scmDataInputNames[];
-    CStringDictionary::TStringId *mDataInputTypeIds;
+    std::array<CStringDictionary::TStringId, 3> mDataInputTypeIds;
 
     CIEC_ARRAY &IN_Array(){
       return *static_cast<CIEC_ARRAY *>(getDI(0));
@@ -44,8 +47,8 @@ class GEN_ARRAY2VALUES : public CGenFunctionBlock<CFunctionBlock> {
     static const CStringDictionary::TStringId scmEventOutputTypeIds[];
 
     //self-defined members
-    size_t mDOutputs;
-    CStringDictionary::TStringId mValueTypeID;
+    size_t mDOutputs{0};
+    CStringDictionary::TStringId mValueTypeID{CStringDictionary::scmInvalidStringId};
 
     void executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) override;
 
@@ -56,7 +59,7 @@ class GEN_ARRAY2VALUES : public CGenFunctionBlock<CFunctionBlock> {
 
   public:
     GEN_ARRAY2VALUES(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
-    ~GEN_ARRAY2VALUES() override;
+    ~GEN_ARRAY2VALUES() override = default;
 
 };
 
