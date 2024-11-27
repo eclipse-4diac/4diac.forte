@@ -159,6 +159,10 @@ forte::com_infra::EComResponse COPC_UA_ObjectStruct_Helper::createObjectNode(CAc
     if( (UA_STATUSCODE_GOOD != mHandler->initializeAction(*mCreateNodeActionInfo)) || (UA_STATUSCODE_GOOD != mHandler->executeAction(*mCreateNodeActionInfo)) ) {
       return response;
     }
+  } else {
+    if(paActionInfo.getNodePairInfo().begin()->getNodeId() != nullptr) {
+      mOpcuaObjectNamespaceIndex = paActionInfo.getNodePairInfo().begin()->getNodeId()->namespaceIndex;
+    }
   }
   return initializeMemberAction(paActionInfo, browsePath, paIsPublisher);
 }
