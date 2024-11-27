@@ -33,7 +33,7 @@ CLuaAdapterTypeEntry* CLuaAdapterTypeEntry::createLuaAdapterTypeEntry(CStringDic
     return nullptr;
   }
   //interfaceSpec
-  SFBInterfaceSpec interfaceSpec = { 0, nullptr, nullptr, nullptr, 0, nullptr, nullptr, nullptr, 0, nullptr, nullptr, 0, nullptr, nullptr, 0, nullptr, 0, nullptr};
+  SFBInterfaceSpec interfaceSpec{};
   if(!luaEngine.pushField(-1, "interfaceSpec", LUA_TTABLE)) {
     return nullptr;
   }
