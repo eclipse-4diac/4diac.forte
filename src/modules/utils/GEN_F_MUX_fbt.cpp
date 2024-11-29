@@ -157,13 +157,13 @@ bool GEN_F_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec
   //create the eventInputs
   if(mEInputs < CFunctionBlock::scmMaxInterfaceEvents && mDInputs < CFunctionBlock::scmMaxInterfaceEvents){
     //create the eventInputs
-    mEventInputNames.reset(new CStringDictionary::TStringId[mEInputs]);
+    mEventInputNames = std::make_unique<CStringDictionary::TStringId[]>(mEInputs);
 
     generateGenericInterfacePointNameArray("EI", mEventInputNames.get(),  mEInputs);
 
     //create the data inputs
-    mDataInputNames.reset(new CStringDictionary::TStringId[mDInputs]);
-    mDataInputTypeIds.reset(new CStringDictionary::TStringId[mDInputs]);
+    mDataInputNames = std::make_unique<CStringDictionary::TStringId[]>(mDInputs);
+    mDataInputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(mDInputs);
     char diNames[cgIdentifierLength] = { "IN_" };
     size_t di_posIndex = 0;
     for(size_t ei = 0; ei < mEInputs; ei++) {
@@ -177,8 +177,8 @@ bool GEN_F_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec
     }
 
     //create the data outputs
-    mDataOutputNames.reset(new CStringDictionary::TStringId[mDOutputs + 2]);
-    mDataOutputTypeIds.reset(new CStringDictionary::TStringId[mDOutputs + 2]);
+    mDataOutputNames = std::make_unique<CStringDictionary::TStringId[]>(mDOutputs + 2);
+    mDataOutputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(mDOutputs + 2);
 
     //data outputs for status and QO
     mDataOutputNames[0] = CStringDictionary::getInstance().insert("QO");

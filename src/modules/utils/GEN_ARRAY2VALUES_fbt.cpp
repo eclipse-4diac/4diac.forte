@@ -89,8 +89,8 @@ bool GEN_ARRAY2VALUES::createInterfaceSpec(const char *paConfigString, SFBInterf
 
   if(mValueTypeID != CStringDictionary::scmInvalidStringId && mDOutputs >= 2){
     //create the data outputs
-    mDataOutputNames.reset(new CStringDictionary::TStringId[mDOutputs]);
-    mDataOutputTypeIds.reset(new CStringDictionary::TStringId[mDOutputs]);
+    mDataOutputNames = std::make_unique<CStringDictionary::TStringId[]>(mDOutputs);
+    mDataOutputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(mDOutputs);
 
     char doNames[cgIdentifierLength] = { "OUT_" };
     for(size_t doIndex = 0; doIndex < mDOutputs; ++doIndex){

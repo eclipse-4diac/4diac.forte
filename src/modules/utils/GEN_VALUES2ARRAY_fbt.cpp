@@ -89,8 +89,8 @@ bool GEN_VALUES2ARRAY::createInterfaceSpec(const char *paConfigString, SFBInterf
 
   if(m_ValueTypeID != CStringDictionary::scmInvalidStringId && mDInputs >= 2){
     //create the data inputs
-    mDataInputNames.reset(new CStringDictionary::TStringId[mDInputs]);
-    mDataInputTypeIds.reset(new CStringDictionary::TStringId[mDInputs]);
+    mDataInputNames = std::make_unique<CStringDictionary::TStringId[]>(mDInputs);
+    mDataInputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(mDInputs);
 
     char diNames[cgIdentifierLength] = { "IN_" };
     for(unsigned int di = 0; di < mDInputs; di = di + 1){

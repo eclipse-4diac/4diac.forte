@@ -98,8 +98,8 @@ bool GEN_CSV_WRITER::createInterfaceSpec(const char *paConfigString, SFBInterfac
     acPos++;
     paInterfaceSpec.mNumDIs = static_cast<TPortId>(forte::core::util::strtoul(acPos, nullptr, 10) + 2); // we have in addition to the SDs a QI and FILE_NAME data inputs
 
-    mDataInputNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
-    mDataInputTypeIds.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+    mDataInputNames = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumDIs);
+    mDataInputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumDIs);
 
     mDataInputNames[0] = g_nStringIdQI;
     mDataInputTypeIds[0] = g_nStringIdBOOL;

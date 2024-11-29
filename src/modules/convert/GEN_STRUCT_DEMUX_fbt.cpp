@@ -93,7 +93,7 @@ bool GEN_STRUCT_DEMUX::createInterfaceSpec(const char *paConfigString, SFBInterf
         auto doDataTypeNames = new CStringDictionary::TStringId[GEN_STRUCT_MUX::calcStructTypeNameSize(*structInstance)];
         mDoDataTypeNames.reset(doDataTypeNames);
 
-        mDoNames.reset(new CStringDictionary::TStringId[structSize]);
+        mDoNames = std::make_unique<CStringDictionary::TStringId[]>(structSize);
 
         mDiDataTypeNames[0] = structTypeNameId;
 

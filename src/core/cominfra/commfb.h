@@ -54,6 +54,27 @@ namespace forte {
 
       EComResponse receiveData() override;
       EComResponse sendData() override;
+
+    private:
+      static const CStringDictionary::TStringId scmRequesterEventInputNameIds[];
+      static const CStringDictionary::TStringId scmRequesterEventOutputNameIds[];
+
+      static const CStringDictionary::TStringId scmResponderEventInputNameIds[];
+      static const CStringDictionary::TStringId scmResponderEventOutputNameIds[];
+
+      static const CStringDictionary::TStringId scmEventInputTypeIds[];
+      static const CStringDictionary::TStringId scmEventOutputTypeIds[];
+
+      std::unique_ptr<CStringDictionary::TStringId[]> mDiDataTypeNames;
+      std::unique_ptr<CStringDictionary::TStringId[]> mDiNames;
+      std::unique_ptr<CStringDictionary::TStringId[]> mDoDataTypeNames;
+      std::unique_ptr<CStringDictionary::TStringId[]> mDoNames;
+    
+      bool createInterfaceSpec(const char* paConfigString, SFBInterfaceSpec& paInterfaceSpec) override;
+
+      void configureDIs(const char* paDIConfigString, SFBInterfaceSpec& paInterfaceSpec);
+      void configureDOs(const char* paDOConfigString, SFBInterfaceSpec& paInterfaceSpec);
+
     };
 
   }

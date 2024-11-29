@@ -60,8 +60,8 @@ bool GEN_E_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfaceSpec
       paInterfaceSpec.mNumEIs = static_cast<TEventID>(forte::core::util::strtoul(acPos, nullptr, 10));
 
       if(paInterfaceSpec.mNumEIs < CFunctionBlock::scmMaxInterfaceEvents && paInterfaceSpec.mNumEIs >= 2){
-        mEventInputNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumEIs]);
-        mEventInputTypeIds.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumEIs]);
+        mEventInputNames = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumEIs);
+        mEventInputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumEIs);
         const CStringDictionary::TStringId eventID = g_nStringIdEvent;
         std::fill_n(mEventInputTypeIds.get(), paInterfaceSpec.mNumEIs, eventID);
         generateGenericInterfacePointNameArray("EI", mEventInputNames.get(), paInterfaceSpec.mNumEIs);

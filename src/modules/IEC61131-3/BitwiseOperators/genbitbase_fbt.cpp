@@ -68,8 +68,8 @@ bool CGenBitBase::createInterfaceSpec(const char *paConfigString, SFBInterfaceSp
   if (paInterfaceSpec.mNumDIs < CFunctionBlock::scmMaxInterfaceEvents) {
 
     //create the data inputs
-    mDataInputNames.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
-    mDataInputTypeIds.reset(new CStringDictionary::TStringId[paInterfaceSpec.mNumDIs]);
+    mDataInputNames = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumDIs);
+    mDataInputTypeIds = std::make_unique<CStringDictionary::TStringId[]>(paInterfaceSpec.mNumDIs);
 
     char diNames[cgIdentifierLength] = { "IN" };
 

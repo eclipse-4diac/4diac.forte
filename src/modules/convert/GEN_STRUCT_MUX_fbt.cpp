@@ -106,7 +106,7 @@ bool GEN_STRUCT_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfac
   auto diDataTypeNames = new CStringDictionary::TStringId[calcStructTypeNameSize(*structInstance)];
   mDiDataTypeNames.reset(diDataTypeNames);
 
-  mDiNames.reset(new CStringDictionary::TStringId[structSize]);
+  mDiNames = std::make_unique<CStringDictionary::TStringId[]>(structSize);
 
   mDoDataTypeNames[0] = structTypeNameId;
 
