@@ -11,4 +11,7 @@
 #    Martin Jobst - initial API and implementation and/or initial documentation
 # *******************************************************************************/
 
+SET(SOURCE_GROUP ${SOURCE_GROUP}\\io)
 forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+forte_add_all_sourcefiles_cpp()
