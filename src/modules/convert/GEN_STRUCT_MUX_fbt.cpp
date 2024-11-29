@@ -101,11 +101,7 @@ bool GEN_STRUCT_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfac
     return false;
   }
   
-  // we need diDataTypeNames here because we need to call fillDataPointSpec later which requires a non-const reference of the pointer
-  // wich we cannot get from the unique_ptr
-  auto diDataTypeNames = new CStringDictionary::TStringId[calcStructTypeNameSize(*structInstance)];
-  mDiDataTypeNames.reset(diDataTypeNames);
-
+  mDiDataTypeNames = std::make_unique<CStringDictionary::TStringId[]>(calcStructTypeNameSize(*structInstance));
   mDiNames = std::make_unique<CStringDictionary::TStringId[]>(structSize);
 
   mDoDataTypeNames[0] = structTypeNameId;
@@ -123,6 +119,7 @@ bool GEN_STRUCT_MUX::createInterfaceSpec(const char *paConfigString, SFBInterfac
   paInterfaceSpec.mDONames = scmDataOutputNames;
   paInterfaceSpec.mDODataTypeNames = mDoDataTypeNames.data();
 
+  auto diDataTypeNames = mDiDataTypeNames.get();
   for(decltype(paInterfaceSpec.mNumDIs) i = 0; i < paInterfaceSpec.mNumDIs; i++) {
     const auto& member = *structInstance->getMember(i);
     mDiNames[i] = structInstance->elementNames()[i];

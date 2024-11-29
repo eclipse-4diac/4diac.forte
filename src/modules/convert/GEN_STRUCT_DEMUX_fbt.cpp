@@ -88,11 +88,7 @@ bool GEN_STRUCT_DEMUX::createInterfaceSpec(const char *paConfigString, SFBInterf
       size_t structSize = structInstance->getStructSize();
       if(structSize != 0 && structSize < cgInvalidPortId) { //the structure size must be non zero and less than cgInvalidPortId (maximum number of data outputs)
        
-        // we need doDataTypeNames here because we need to call fillDataPointSpec later which requires a non-const reference of the pointer
-        // wich we cannot get from the unique_ptr
-        auto doDataTypeNames = new CStringDictionary::TStringId[GEN_STRUCT_MUX::calcStructTypeNameSize(*structInstance)];
-        mDoDataTypeNames.reset(doDataTypeNames);
-
+        mDoDataTypeNames = std::make_unique<CStringDictionary::TStringId[]>(GEN_STRUCT_MUX::calcStructTypeNameSize(*structInstance));
         mDoNames = std::make_unique<CStringDictionary::TStringId[]>(structSize);
 
         mDiDataTypeNames[0] = structTypeNameId;
@@ -110,6 +106,7 @@ bool GEN_STRUCT_DEMUX::createInterfaceSpec(const char *paConfigString, SFBInterf
         paInterfaceSpec.mDONames = mDoNames.get();
         paInterfaceSpec.mDODataTypeNames = mDoDataTypeNames.get();
 
+        auto doDataTypeNames = mDoDataTypeNames.get();
         for(size_t i = 0; i < structSize; ++i) {
           const CIEC_ANY &member = *structInstance->getMember(i);
           mDoNames[i] = structInstance->elementNames()[i];
