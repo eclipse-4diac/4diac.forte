@@ -23,12 +23,6 @@ jobs:
         echo "source-dir=$GITHUB_WORKSPACE" >> "$GITHUB_OUTPUT"
         echo "build-dir=$GITHUB_WORKSPACE/build" >> "$GITHUB_OUTPUT"
 
-    # TODO: Enable this and the POWERLINK module back when the CI is fixed: see https://github.com/eclipse-4diac/4diac-forte/issues/287
-    #- name: Install lipcap-dev
-      # libpcap-dev is required for the POWERLINK module
-      # TODO: Put this in 4diac-fortebuildcontainer
-     # run: apt-get update && apt-get install -y libpcap-dev
-
     - name: Configure CMake
       run: >
         cmake -S ${{ steps.strings.outputs.source-dir }} -B ${{ steps.strings.outputs.build-dir }}
@@ -55,7 +49,7 @@ jobs:
         -DFORTE_TESTS=ON
         -DFORTE_SYSTEM_TESTS=ON
         -DFORTE_TEST_SANITIZE=ON
-#        -DFORTE_MODULE_POWERLINK=ON
+        -DFORTE_MODULE_POWERLINK=ON
 
     - name: Build
       run: cmake --build ${{ steps.strings.outputs.build-dir }}
