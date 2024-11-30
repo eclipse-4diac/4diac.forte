@@ -1,0 +1,9 @@
+// generated with rosidl
+
+module example_message {
+  module msg {
+    struct StringDebug {
+      string data;
+    };
+  };
+};

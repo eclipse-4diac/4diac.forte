@@ -1,0 +1,29 @@
+// derived from the data types that rosidl constructs
+
+#include "unique_identifier_msgs/msg/UUID.idl"
+#include "turtlesim/action/RotateAbsolute.idl"
+#include "builtin_interfaces/msg/Time.idl"
+
+module turtlesim {
+  module action {
+    struct RotateAbsolute_SendGoal_Request {
+      unique_identifier_msgs::msg::UUID goal_id;
+      turtlesim::action::RotateAbsolute_Goal goal;
+    };
+    struct RotateAbsolute_SendGoal_Response {
+      boolean accepted;
+      builtin_interfaces::msg::Time stamp;
+    };
+    struct RotateAbsolute_GetResult_Request {
+      unique_identifier_msgs::msg::UUID goal_id;
+    };
+    struct RotateAbsolute_GetResult_Response {
+      int8 status;
+      turtlesim::action::RotateAbsolute_Result result;
+    };
+    struct RotateAbsolute_FeedbackMessage {
+      unique_identifier_msgs::msg::UUID goal_id;
+      turtlesim::action::RotateAbsolute_Feedback feedback;
+    };
+  };
+};
