@@ -1,0 +1,41 @@
+## This file conforms to ISO/IEC 5962:2021 a.k.a. SPDX-2.2.1 (lite variant)
+SPDXVersion: SPDX-2.2
+DataLicense: CC0-1.0
+SPDXID: SPDXRef-DOCUMENT
+DocumentName: Eclipse-4diac-FORTE-SBOM
+DocumentNamespace: https://eclipse.dev/4diac/
+Creator: Organization: Eclipse-4diac
+Created: 2024-11-21T14:43:43Z
+CreatorComment: <text>This file documents optional external dependencies of 4diac FORTE in a standardised machine-readable format</text>
+
+## This package
+#####################################
+PackageName: 4diac-FORTE
+SPDXID: SPDXRef-4diac-FORTE
+PackageComment: <text>4diac FORTE source code</text>
+ExternalRef: PACKAGE-MANAGER purl pkg:github/eclipse-4diac/4diac-forte@develop
+PackageVersion: develop
+PackageSupplier: Organization: Eclipse-4diac
+Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-4diac-FORTE
+PackageDownloadLocation: https://github.com/eclipse-4diac/4diac-forte/archive/develop.zip
+FilesAnalyzed: false
+PackageLicenseConcluded: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageCopyrightText: NOASSERTION
+
+## Optional dependencies
+#####################################
+PackageName: open62541
+SPDXID: SPDXRef-open62541
+PackageComment: <text>OPC-UA support library</text>
+ExternalRef: PACKAGE-MANAGER purl pkg:github/open62541/open62541@1.4.7
+PackageVersion: 1.4.7
+PackageSupplier: Organization: open62541
+Relationship: SPDXRef-open62541 OPTIONAL_DEPENDENCY_OF SPDXRef-4diac-FORTE
+PackageDownloadLocation: https://github.com/open62541/open62541/archive/refs/tags/v1.4.7.zip
+PackageChecksum: SHA256: 598889ae4bdc468d39c5c961ba76c648747b64337a9d0c0ef07b032c4819dea8
+FilesAnalyzed: false
+PackageLicenseConcluded: NOASSERTION
+PackageLicenseDeclared: NOASSERTION
+PackageCopyrightText: NOASSERTION
+
