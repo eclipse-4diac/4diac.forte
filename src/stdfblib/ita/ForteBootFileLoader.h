@@ -20,6 +20,7 @@
 
 #include <string>
 #include <functional>
+#include <optional>
 
 class CIEC_STRING;
 
@@ -40,7 +41,7 @@ class ForteBootFileLoader {
      * Constructor which uses the the default values for the boot file location
      * @param paCallback Object to be called for each command
      */
-    explicit ForteBootFileLoader(BootFileCallback paCallback);
+    explicit ForteBootFileLoader(BootFileCallback paCallback, std::optional<std::string> paPathToFile = std::nullopt);
 
     ~ForteBootFileLoader();
 
@@ -59,7 +60,7 @@ class ForteBootFileLoader {
     BootFileCallback mCallback; //for now with one callback is enough for all cases
     bool mNeedsExit{false};
 
-    bool openBootFile();
+    bool openBootFile(std::optional<std::string> paPathToFile);
     bool readLine(std::string &line);
     bool hasCommandEnded(const std::string &line) const;
 };
