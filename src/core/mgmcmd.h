@@ -266,5 +266,11 @@ enum class EMGMResponse {
     InvalidDst
 };
 
+namespace forte::mgm_cmd {
+
+  const char *getResponseText(EMGMResponse paResp);
+
+} // namespace forte::mgm_cmd
+
 /*@}*/
 #endif /*MGMCMD_H_*/

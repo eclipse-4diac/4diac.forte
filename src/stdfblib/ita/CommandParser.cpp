@@ -21,11 +21,6 @@
 
 namespace forte::command_parser {
 
-const char * const scmMGMResponseTexts[13] = { "RDY", "BAD_PARAMS", "LOCAL_TERMINATION", "SYSTEM_TERMINATION", "NOT_READY", "UNSUPPORTED_CMD", "UNSUPPORTED_TYPE", "NO_SUCH_OBJECT", "INVALID_OBJECT", "INVALID_OPERATION", "INVALID_STATE", "OVERFLOW", "INVALID_DST" };
-
-const char *getResponseText(EMGMResponse paResp) {
-    return scmMGMResponseTexts[static_cast<std::underlying_type_t<EMGMResponse>>(paResp)];
-}
 
 char *parseRequest(char *paRequestString, forte::core::SManagementCMD &paCommand){
   //first check if it is an management request
@@ -407,7 +402,7 @@ std::string generateResponse(const char *paID, EMGMResponse paResp){
   response.append("\"");
   if(EMGMResponse::Ready != paResp){
     response.append(" Reason=\"");
-    response.append(getResponseText(paResp));
+    response.append(forte::mgm_cmd::getResponseText(paResp));
     response.append("\"");
   }
   response.append(" />");
@@ -424,7 +419,7 @@ std::string generateLongResponse(EMGMResponse paResp, forte::core::SManagementCM
   response.append("\"");
   if(EMGMResponse::Ready != paResp){
     response.append(" Reason=\"");
-    response.append(getResponseText(paResp));
+    response.append(forte::mgm_cmd::getResponseText(paResp));
     response.append("\">\n  ");
   }
   else{
@@ -591,7 +586,7 @@ std::string generateMonitorResponse(EMGMResponse paResp, forte::core::SManagemen
     response.append(paCMD.mID);
     response.append("\"");
     response.append(" Reason=\"");
-    response.append(getResponseText(paResp));
+    response.append(forte::mgm_cmd::getResponseText(paResp));
     response.append("\">\n  ");
     response.append("\n</Response>");
   }else{

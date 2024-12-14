@@ -58,8 +58,6 @@ const SFBInterfaceSpec DEV_MGR::scmFBInterfaceSpec = {
   0, nullptr
 };
 
-const char * const DEV_MGR::scmMGMResponseTexts[13] = { "RDY", "BAD_PARAMS", "LOCAL_TERMINATION", "SYSTEM_TERMINATION", "NOT_READY", "UNSUPPORTED_CMD", "UNSUPPORTED_TYPE", "NO_SUCH_OBJECT", "INVALID_OBJECT", "INVALID_OPERATION", "INVALID_STATE", "OVERFLOW", "INVALID_DST" };
-
 void DEV_MGR::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
   if(scmEventINITID == paEIID){
 #ifdef FORTE_SUPPORT_BOOT_FILE
@@ -136,7 +134,7 @@ bool DEV_MGR::executeCommand(const char *const paDest, char *paCommand){
 
   EMGMResponse eResp = forte::command_parser::parseAndExecuteMGMCommand(paDest, paCommand, command, mDevice);
   if(eResp != EMGMResponse::Ready){
-    DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", DEV_MGR::getResponseText(eResp));
+    DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp));
   }
   return (eResp == EMGMResponse::Ready);
 }

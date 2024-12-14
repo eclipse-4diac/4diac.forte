@@ -23,8 +23,6 @@ class CDevice;
 
 namespace forte::command_parser {
 
-  const char *getResponseText(EMGMResponse paResp);
-
   /**
    * @brief Parse and executes a commmand on a destination in a device
    * 
