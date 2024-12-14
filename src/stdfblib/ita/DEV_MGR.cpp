@@ -65,7 +65,10 @@ void DEV_MGR::executeEvent(TEventID paEIID, CEventChainExecutionThread *const pa
 #ifdef FORTE_SUPPORT_BOOT_FILE
     if((true == QI()) && (false == QO())){
       //this is the first time init is called try to load a boot file
-      ForteBootFileLoader loader(*this);
+      ForteBootFileLoader loader(
+        [this](const char *const paDest, char *paCommand) -> bool {
+          return this->executeCommand(paDest, paCommand);
+        });
       if(loader.needsExit()){
         getDevice()->changeExecutionState(EMGMCommandType::Kill);
         return;

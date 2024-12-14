@@ -17,13 +17,12 @@
 #include <funcbloc.h>
 #include <mgmcmdstruct.h>
 #include <commfb.h>
-#include "IBootFileCallback.h"
 
 class CDevice;
 
 /*! \brief Implementation of the DEV_MGR FB.
  */
-class DEV_MGR: public forte::com_infra::CCommFB, public IBootFileCallback {
+class DEV_MGR: public forte::com_infra::CCommFB {
   DECLARE_FIRMWARE_FB(DEV_MGR)
 
   public:
@@ -32,13 +31,14 @@ class DEV_MGR: public forte::com_infra::CCommFB, public IBootFileCallback {
 
     bool initialize() override;
 
-    bool executeCommand(const char *const paDest, char *paCommand) override;
-
     static const char *getResponseText(EMGMResponse paResp) {
       return scmMGMResponseTexts[static_cast<std::underlying_type_t<EMGMResponse>>(paResp)];
     }
 
   private:
+
+    bool executeCommand(const char *const paDest, char *paCommand);
+
     /*!\brief Type for the response of MGM command messages
      *
      * TODO fully define all responses as defined in IEC 61499 inc. numbers.

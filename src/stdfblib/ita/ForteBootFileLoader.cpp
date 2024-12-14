@@ -17,14 +17,13 @@
 #include "ForteBootFileLoader.h"
 #include "../../arch/devlog.h"
 #include "../../../src/core/datatypes/forte_string.h"
-#include "IBootFileCallback.h"
 #include "mgmcmd.h"
 #include "mgmcmdstruct.h"
 #include "../../core/device.h"
 
 char* gCommandLineBootFile = nullptr;
 
-ForteBootFileLoader::ForteBootFileLoader(IBootFileCallback &paCallback) : mBootfile(nullptr), mCallback(paCallback), mNeedsExit(false){
+ForteBootFileLoader::ForteBootFileLoader(BootFileCallback paCallback) : mCallback(paCallback) {
   openBootFile();
 }
 
@@ -92,7 +91,7 @@ LoadBootResult ForteBootFileLoader::loadBootFile(){
         std::string destination(line.substr(0, sepPosition));
         char *commandBuffer = new char[command.length() + 1]{};
         strcpy(commandBuffer, command.c_str());
-        if(!mCallback.executeCommand(destination.c_str(), commandBuffer)) {
+        if(!mCallback(destination.c_str(), commandBuffer)) {
           //command was not successful
           DEVLOG_ERROR("Boot file command could not be executed. Line: %d: %s\n", nLineCount, commandBuffer);
           eResp = EXTERNAL_ERROR;

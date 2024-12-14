@@ -19,9 +19,9 @@
 #include "../../arch/forte_fileio.h"
 
 #include <string>
+#include <functional>
 
 class CIEC_STRING;
-class IBootFileCallback;
 
 enum LoadBootResult {
   LOAD_RESULT_OK,
@@ -33,11 +33,14 @@ enum LoadBootResult {
 class ForteBootFileLoader {
   public:
 
+  using BootFileCallback = std::function<bool(const char *, char *)>;
+
+
     /**
      * Constructor which uses the the default values for the boot file location
      * @param paCallback Object to be called for each command
      */
-    explicit ForteBootFileLoader(IBootFileCallback &paCallback);
+    explicit ForteBootFileLoader(BootFileCallback paCallback);
 
     ~ForteBootFileLoader();
 
@@ -52,9 +55,9 @@ class ForteBootFileLoader {
     }
 
   private:
-    decltype(forte_fopen(nullptr, nullptr)) mBootfile;
-    IBootFileCallback &mCallback; //for now with one callback is enough for all cases
-    bool mNeedsExit;
+    decltype(forte_fopen(nullptr, nullptr)) mBootfile{nullptr};
+    BootFileCallback mCallback; //for now with one callback is enough for all cases
+    bool mNeedsExit{false};
 
     bool openBootFile();
     bool readLine(std::string &line);
