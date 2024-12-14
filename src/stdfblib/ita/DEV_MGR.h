@@ -177,7 +177,6 @@ class DEV_MGR: public forte::com_infra::CCommFB, public IBootFileCallback {
       return *static_cast<CIEC_STRING*>(getDO(3));
     };
 
-    forte::core::SManagementCMD mCommand;
   };
 
 #endif /*DEV_MGR_H_*/

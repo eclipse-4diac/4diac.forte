@@ -14,7 +14,7 @@
 #ifndef _MGMCMD_H_
 #define _MGMCMD_H_
 
-#include <cstdint>
+#include <forte_config.h>
 
 /**  \ingroup CORE \defgroup MGMCommands Management Commands Internal Representation
  * \brief In this section the FORTE representation of the management commands is described.
