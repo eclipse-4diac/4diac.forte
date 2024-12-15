@@ -17,7 +17,6 @@
 #include "criticalregion.h"
 #include "resource.h"
 
-#include "../../stdfblib/ita/DEV_MGR.h"
 #include "device.h"
 
 DEFINE_FIRMWARE_FB(FORTE_EC_KILL_ELEM, g_nStringIdEC_KILL_ELEM)

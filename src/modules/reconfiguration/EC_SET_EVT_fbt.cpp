@@ -19,7 +19,6 @@
 
 #include "device.h"
 #include "mgmcmdstruct.h"
-#include "../../stdfblib/ita/DEV_MGR.h"
 
 DEFINE_FIRMWARE_FB(FORTE_EC_SET_EVT, g_nStringIdEC_SET_EVT)
 

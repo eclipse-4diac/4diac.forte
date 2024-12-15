@@ -18,7 +18,6 @@
 #include "resource.h"
 
 #include "device.h"
-#include "../../stdfblib/ita/DEV_MGR.h"
 
 DEFINE_FIRMWARE_FB(FORTE_EC_STOP_ELEM, g_nStringIdEC_STOP_ELEM)
 

@@ -19,7 +19,6 @@
 
 #include "device.h"
 #include "mgmcmdstruct.h"
-#include "../../stdfblib/ita/DEV_MGR.h"
 
 DEFINE_FIRMWARE_FB(FORTE_ST_CREATE_FB, g_nStringIdST_CREATE_FB)
 

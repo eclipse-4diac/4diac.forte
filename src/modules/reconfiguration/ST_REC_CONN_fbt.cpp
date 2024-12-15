@@ -18,7 +18,6 @@
 #include "resource.h"
 
 #include "device.h"
-#include "../../stdfblib/ita/DEV_MGR.h"
 
 DEFINE_FIRMWARE_FB(FORTE_ST_REC_CONN, g_nStringIdST_REC_CONN)
 
