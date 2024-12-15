@@ -312,10 +312,6 @@ SET(FORTE_IPLayerRecvBufferSize "1500" CACHE STRING "FORTE IP layer recv buffer 
 endif(FORTE_DYNAMIC_TYPE_LOAD)
 mark_as_advanced(FORTE_IPLayerRecvBufferSize)
 
-SET(FORTE_MGMCOMMANDPROTOCOL "DEV_MGR" CACHE STRING "FORTE management command protocol")
-set_property(CACHE FORTE_MGMCOMMANDPROTOCOL PROPERTY STRINGS DEV_MGR)
-mark_as_advanced(FORTE_MGMCOMMANDPROTOCOL)
-
 SET(FORTE_MGM_MAX_SUPPORTED_NAME_HIERACHY "30" CACHE STRING "Max supported hierarchy that can be provided in a management commands")
 mark_as_advanced(FORTE_MGM_MAX_SUPPORTED_NAME_HIERACHY)
 

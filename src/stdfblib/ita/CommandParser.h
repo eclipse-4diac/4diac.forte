@@ -94,13 +94,13 @@ namespace forte::command_parser {
   std::string generateMonitorResponse(EMGMResponse paResp, forte::core::SManagementCMD &paCMD);
 #endif //FORTE_SUPPORT_MONITORING
 
-  /*! \brief set the RESP output of the DEV_MGR according to the given response data
+  /*! \brief Generate a response string according to the given response data
     *
     * \param paID id of the response
     * \param paResp qualifier of the response
     */
   std::string generateResponse(const char *paID, EMGMResponse paResp);
-  /*! \brief set the RESP output of the DEV_MGR according to the given response data
+  /*! \brief Generate a response string according to the given response data
     *
     * \param paID id of the response
     * \param paResp qualifier of the response

@@ -44,14 +44,6 @@ const unsigned int cgCommunicationInterruptQueueSize = ${FORTE_CommunicationInte
  */
 const unsigned int cgIPLayerRecvBufferSize = ${FORTE_IPLayerRecvBufferSize};
 
-/*! \brief Define the management encapsulation protocol
- *
- * Currently two protocols are supported:
- *   # DEV_MGR for FBDK compliant XML encoded commands
- *   # WBXML_DEV_MGR for WAP Binary XML encoded commands
- */
-#define FORTE_MGM_COMMAND_PROTOCOL   ${FORTE_MGMCOMM-ANDPROTOCOL}
-
 //! Max supported hierarchy that can be provided in a management commands
 #define FORTE_MGM_MAX_SUPPORTED_NAME_HIERARCHY   ${FORTE_MGM_MAX_SUPPORTED_NAME_HIERACHY}
 
