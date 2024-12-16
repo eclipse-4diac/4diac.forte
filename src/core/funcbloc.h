@@ -414,6 +414,16 @@ class CFunctionBlock : public forte::core::CFBContainer {
     virtual void traceInstanceData() {}
 #endif //FORTE_TRACE_CTF
 
+    void addInputEventConnection(TEventID paEIID) {
+      mInputEventConnectionCount[paEIID]++;
+    }
+
+    void removeInputEventConnection(TEventID paEIID) {
+      if (mInputEventConnectionCount[paEIID] > 0) {
+        mInputEventConnectionCount[paEIID]--;
+      }
+    }
+
   protected:
 
     /*!\brief The main constructor for a function block.
@@ -506,6 +516,17 @@ class CFunctionBlock : public forte::core::CFBContainer {
       }
     }
 #endif //FORTE_TRACE_CTF
+    /* !\brief checks if an input event pin is connected
+     *
+     */
+    [[nodiscard]] bool isConnected(TEventID paEIID) const {
+      return mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0;
+    }
+
+    /* !\brief This function will trigger unconnected event ports of type EInit
+     *
+    */
+    void triggerEInitEvents();
 
     /*!\brief Set the initial values of data inputs, outputs, and internal vars.
      *
@@ -671,6 +692,11 @@ class CFunctionBlock : public forte::core::CFBContainer {
      * If the runnable object is declared in a device or resource specification it must be set to false.
      */
     bool mDeletable;
+
+    /*!\brief Stores the number of input connections for each event pin
+    */
+    std::unique_ptr<size_t[]> mInputEventConnectionCount;
+
 
 #ifdef FORTE_SUPPORT_MONITORING
     friend class forte::core::CMonitoringHandler;
