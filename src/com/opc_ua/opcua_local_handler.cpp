@@ -104,8 +104,11 @@ void COPC_UA_Local_Handler::run() {
             CCriticalRegion criticalRegion(mServerAccessMutex);
             timeToSleepMs = UA_Server_run_iterate(mUaServer, false);
           }
+
           if(timeToSleepMs < scmMinimumIterationWaitTime) {
             timeToSleepMs = scmMinimumIterationWaitTime;
+          } else if (timeToSleepMs > scmMaximumIterationWaitTime) {
+            timeToSleepMs = scmMaximumIterationWaitTime;
           }
 
           mServerNeedsIteration.timedWait(static_cast<TForteUInt64>(timeToSleepMs) * 1000000ULL);

@@ -352,6 +352,9 @@ class COPC_UA_Local_Handler : public COPC_UA_HandlerAbstract, public CThread {
      */
     static const UA_UInt16 scmMinimumIterationWaitTime = 1;
 
+    static const UA_UInt16 scmMaximumIterationWaitTime = 10;
+
+
     /**
      * This class is used to store who is the parent of each method. This need comes from the fact when creating objects that have methods,
      * the method nodeId of every instance is the same as the method nodeID of the Object type. We can then use a CREATE_METHOD action pointing to this instance of the method,
