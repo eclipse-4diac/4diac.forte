@@ -43,6 +43,7 @@ const char *const COPC_UA_Local_Handler::mEnglishLocaleForNodes = "en-US";
 const char *const COPC_UA_Local_Handler::mDefaultDescriptionForVariableNodes = "Digital port of Function Block";
 
 TForteUInt16 gOpcuaServerPort = FORTE_COM_OPC_UA_PORT;
+TForteUInt16 gOpcuaServerMaxIterationInterval = FORTE_COM_OPC_UA_SERVER_MAX_ITERATION_INTERVAL;
 
 using namespace forte::com_infra;
 using namespace std::string_literals;
@@ -107,8 +108,9 @@ void COPC_UA_Local_Handler::run() {
 
           if(timeToSleepMs < scmMinimumIterationWaitTime) {
             timeToSleepMs = scmMinimumIterationWaitTime;
-          } else if (timeToSleepMs > scmMaximumIterationWaitTime) {
-            timeToSleepMs = scmMaximumIterationWaitTime;
+          }
+          else if(timeToSleepMs > gOpcuaServerMaxIterationInterval) {
+            timeToSleepMs = gOpcuaServerMaxIterationInterval;
           }
 
           mServerNeedsIteration.timedWait(static_cast<TForteUInt64>(timeToSleepMs) * 1000000ULL);
