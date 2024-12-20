@@ -156,12 +156,12 @@ class COPC_UA_ObjectStruct_Helper {
      static char smEmptyString[];
 
     /**
-     * Pointer to ActionInfo for created OPC UA Struct Object Node
+     * ActionInfos of created Struct objects
      */
-    std::shared_ptr<CActionInfo> mCreateNodeActionInfo;
+    std::vector<std::shared_ptr<CActionInfo>> mStructObjectActionInfos;
 
     /**
-     * ActionInfos of Struct members 
+     * ActionInfos of Struct member variables 
     */
     std::vector<std::shared_ptr<CActionInfo>> mStructMemberActionInfos;
 

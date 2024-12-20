@@ -988,6 +988,7 @@ UA_StatusCode COPC_UA_Local_Handler::createObjectNode(const CCreateObjectInfo &p
     DEVLOG_ERROR("[OPC UA LOCAL]: Could not addObjectNode. Error: %s\n", UA_StatusCode_name(retVal));
   }
   UA_NodeId_clear(&requestedNodeId);
+  UA_NodeId_clear(&parentNodeId);
   UA_ObjectAttributes_clear(&oAttr);
 
   return retVal;
