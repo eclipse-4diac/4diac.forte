@@ -62,12 +62,16 @@ EComResponse COPC_UA_Layer::openConnection(char *paLayerParameter) {
       } else {
         return response;
       }
-      
       CActionInfo::UA_ActionType action = mActionInfo->getAction();
       mStructObjectHelper = std::make_unique<COPC_UA_ObjectStruct_Helper>(*this, mHandler);
-      if(COPC_UA_ObjectStruct_Helper::isStructType(*this, isPublisher) && mStructObjectHelper->checkStructTypeConnection(*mActionInfo, isPublisher) && (CActionInfo::eWrite == action || CActionInfo::eRead == action) ) {
+      if(COPC_UA_ObjectStruct_Helper::isStructType(*this, isPublisher) && (CActionInfo::eWrite == action || CActionInfo::eRead == action) ) {
         mIsObjectNodeStruct = true;
-        response = mStructObjectHelper->createObjectNode(*mActionInfo, isPublisher);
+        CIEC_ANY** apoDataPorts = isPublisher ? getCommFB()->getSDs() : getCommFB()->getRDs();
+        CIEC_STRUCT& structType = static_cast<CIEC_STRUCT&>(apoDataPorts[0]->unwrap());
+        if(!mStructObjectHelper->checkStructTypeConnection(*mActionInfo, structType)) {
+          return response;
+        }
+        response = mStructObjectHelper->createObjectNode(*mActionInfo, structType);
         if(!isPublisher && (response == e_InitOk)) {
           CCriticalRegion criticalRegion(mRDBufferMutex);
           mRDBuffer = mStructObjectHelper->initializeRDBuffer();

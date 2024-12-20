@@ -15,9 +15,9 @@
 
 #include "opcua_layer.h"
 #include <memory>
+#include "opcua_action_info.h"
 
 class COPC_UA_HandlerAbstract;
-class CActionInfo;
 
 namespace forte {
   namespace com_infra {
@@ -39,20 +39,19 @@ class COPC_UA_ObjectStruct_Helper {
 
     /**
      * Check that the Struct Object type of the SDs is valid
-     * NOTE: Supports only one connected Struct Type and SDs currently
      * @param paActionInfo The ActionInfo of the request
-     * @param paIsPublisher True if the FB is a Publisher, false othewise
+     * @param paStructType The StructType
      * @return True if Struct Object Type is valid, false otherwise
      */
-    bool checkStructTypeConnection(CActionInfo &paActionInfo, bool paIsPublisher);
+    bool checkStructTypeConnection(CActionInfo &paActionInfo, CIEC_STRUCT &paStructType);
 
     /**
      * Create an OPC UA Object Node from Struct Type, if it is not present
      * @param paActionInfo The ActionInfo to create the Object Node from
-     * @param paIsPublisher True if the FB is a Publisher, false othewise
+     * @param paStructType The Struct Type
      * @return e_InitOk if Object Node was created successfully, e_InitTerminated otherwise
     */
-    forte::com_infra::EComResponse createObjectNode(CActionInfo& paActionInfo, bool paIsPublisher);
+    forte::com_infra::EComResponse createObjectNode(CActionInfo& paActionInfo, CIEC_STRUCT &paStructType);
 
     /**
      * Get Object Struct member from ActionInfo browsepath
@@ -168,39 +167,40 @@ class COPC_UA_ObjectStruct_Helper {
 
     /**
      * Check if Object Node Struct is present in OPC UA server
-     * @param paBrowsePath The BrowsePath to the Object Node
+     * @param paNodePair The NodePair of the OPC UA Object Node
      * @return true, if Object Node already exists, false otherwise
     */
-    bool isOPCUAObjectPresent(std::string &paBrowsePath);
+    bool isOPCUAObjectPresent(CActionInfo::CNodePairInfo &paNodePair);
 
     /**
      * Get the ActionInfo to create the OPC UA Object Node for Struct Type.
      * Supports only one connected Struct Type currently
      * @param paActionInfo The ActionInfo to create the Object Node from
      * @param paBrowsePath BrowsePath to the Struct Object Node
-     * @param paIsPublisher True if the FB is a Publisher, false othewise
+     * @param paStructType The Struct Type
      * @return The ActionInfo for creating OPC UA Object Node
     */
-    std::shared_ptr<CActionInfo> getCreateObjectActionInfo(CActionInfo &paActionInfo, std::string &paBrowsePath, bool paIsPublisher);
+    std::shared_ptr<CActionInfo> getCreateObjectActionInfo(CActionInfo &paActionInfo, std::string &paBrowsePath, CIEC_STRUCT &paStructType);
 
 
     /**
      * Create a OPC UA Basic Object Type from the Struct Type and Name
      * @param paActionInfo The ActionInfo to create the Object Node from
+     * @param paTypeNodeId The NodeId of the new type
      * @param paStructTypeName The name of the Struct Type
      * @param paStructType The Struct Type
      * 
     */
-    bool createOPCUAStructType(CActionInfo &paActionInfo, const std::string &paStructTypeName, CIEC_STRUCT &paStructType);
+    bool createOPCUAStructType(CActionInfo &paActionInfo, UA_NodeId &paTypeNodeId, const std::string &paStructTypeName, CIEC_STRUCT &paStructType);
 
     /**
      * Perform initialization for Object Struct Members
      * @param paActionInfo The ActionInfo to create the Object Node from
      * @param paBrowsePath The browsepath to the Object Struct
-     * @param paIsPublisher True if the FB is a Publisher, false othewise
+     * @param paStructType The Struct Type
      * @return e_InitOk if initialization was successful, e_InitTerminated otherwise
      */
-    forte::com_infra::EComResponse initializeMemberAction(CActionInfo& paActionInfo, std::string &paBrowsePath, bool paIsPublisher);
+    forte::com_infra::EComResponse initializeMemberAction(CActionInfo& paActionInfo, std::string &paBrowsePath, CIEC_STRUCT &paStructType);
     
     /**
      * Check if OPC UA namespace is given by the Resource configuration. 
@@ -210,11 +210,20 @@ class COPC_UA_ObjectStruct_Helper {
     void checkOPCUANamespace();
 
     /**
+     * Check if OPC UA Struct Type exists and return its NodeId. If it does not exists the Struct Type
+     * is created.
+     * @param paActionInfo The ActionInfo of the request
+     * @param paStructType The StructType
+     * @return The NodeId of the OPC UA Struct Type
+     */
+    UA_NodeId checkAndCreateOPCUAStructType(CActionInfo &paActionInfo, CIEC_STRUCT &paStructType);
+
+    /**
      * Get the BrowsePath to the OPC UA Struct Object Type from the local Struct Type
      * @param paPathPrefix The BrowsePath directory with namespace (e.g. /Objects/1:)
-     * @param paIsPublisher True if the FB is a Publisher, false othewise
+     * @param paStructNameId NameId of the Struct
      */
-    std::string getStructBrowsePath(const std::string &paPathPrefix, bool paIsPublisher);
+    std::string getStructBrowsePath(const std::string &paPathPrefix, CStringDictionary::TStringId paStructNameId);
 
     /**
      * @param paIsPublisher True if the FB is a Publisher, false othewise
@@ -246,6 +255,16 @@ class COPC_UA_ObjectStruct_Helper {
     bool defineOPCUAStructTypeNode(UA_Server *paServer, UA_NodeId &paNodeId, const std::string &paStructTypeName, bool defaultCase);
 
     /**
+     * Creates the members for the OPC UA Struct Type Object Node with the given Struct Member Name
+     * @param paServer The OPC UA server
+     * @param paParentNodeId The NodeId of the Struct Type Object Node
+     * @param paStructName The name of the Struct
+     * @param paStructMember The Struct Member
+     * @param paStructMemberNameId The id of the Struct Member name
+    */
+    bool addOPCUAStructTypeComponents(UA_Server *paServer, UA_NodeId &paParentNodeId, CIEC_STRUCT &paStructType, const std::string &paStructTypeName/*UA_Server *paServer, UA_NodeId &paParentNodeId, const std::string &paStructName, CIEC_ANY *paStructMember, const CStringDictionary::TStringId paStructMemberNameId*/);
+
+    /**
      * Creates the member variable for the OPC UA Struct Type Object Node with the given Struct Member Name
      * @param paServer The OPC UA server
      * @param paParentNodeId The NodeId of the Struct Type Object Node
@@ -253,7 +272,19 @@ class COPC_UA_ObjectStruct_Helper {
      * @param paStructMember The Struct Member
      * @param paStructMemberNameId The id of the Struct Member name
     */
-    bool addOPCUAStructTypeComponent(UA_Server *paServer, UA_NodeId &paParentNodeId, const std::string &paStructName, CIEC_ANY *paStructMember, const CStringDictionary::TStringId paStructMemberNameId);
+    bool addOPCUAStructTypeVariableComponent(UA_Server *paServer, UA_NodeId &paParentNodeId, const std::string &paStructName, CIEC_ANY *paStructMember, const CStringDictionary::TStringId paStructMemberNameId);
+
+    /**
+     * Creates the member object for the OPC UA Struct Type Object Node with the given Struct Member Name
+     * @param paServer The OPC UA server
+     * @param paParentNodeId The NodeId of the Struct Type Object Node
+     * @param paStructName The name of the Struct
+     * @param paStructMember The Struct Member
+     * @param paStructMemberNameId The id of the Struct Member name
+     * @param paMemberTypeNodeId The NodeId of the member type
+    */
+    bool addOPCUAStructTypeObjectComponent(UA_Server *paServer, UA_NodeId &paParentNodeId, const std::string &paStructName, CIEC_STRUCT &paStructMember, 
+      const CStringDictionary::TStringId paStructMemberNameId, UA_NodeId &paMemberTypeNodeId);
 
     /**
      * Returns the namespace index of the Object Struct Instance from the given browsepath
