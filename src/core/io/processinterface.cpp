@@ -43,6 +43,9 @@ bool ProcessInterface::initialise(bool paIsInput, CEventChainExecutionThread *co
   if(paIsInput && (getFBInterfaceSpec().mNumDOs < 3)) {
     mType = CIEC_ANY::e_Max; //we assume that any FB which has no "IN" Output must be a EVENT-Only FB.
   }
+  else if(!paIsInput && (getFBInterfaceSpec()->mNumDIs < 3)) {
+    mType = CIEC_ANY::e_Max; //we assume that any FB which has no "OUT" Input must be a EVENT-Only FB.
+  }
   else {
     //as it has a index 2 here, we safely can do this
     mType = (paIsInput ? getDO(2) : getDI(2))->getDataTypeID();
@@ -153,8 +156,8 @@ bool ProcessInterface::write() {
     mHandle->set(OUT_L());
       break;
     case CIEC_ANY::e_Max:
-      // we are an event only IO FB
-      return true; //it has no "OUT" ...
+    mHandle->set(QI()); //DUMMY, TODO what is right here ??!!??
+    break;
     default:
       return false;
   }
