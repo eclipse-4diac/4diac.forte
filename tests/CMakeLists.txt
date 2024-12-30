@@ -225,13 +225,13 @@ if(FORTE_BUILD_STATIC_LIBRARY)
   endif(FORTE_C_INTERFACE)
 endif(FORTE_BUILD_STATIC_LIBRARY)
 
-# Currently not working in windows
-if(FORTE_BUILD_SHARED_LIBRARY AND NOT WIN32)
+if(FORTE_BUILD_SHARED_LIBRARY)
   if(FORTE_C_INTERFACE)
     #######################################################################################
     # Link test to C shared library
     #######################################################################################
-    create_c_library_test("forte_c_shared_test" ${FORTE_SHARED_LIBRARY_NAME})
+    SET(FORTE_SHARED_TEST_NAME "forte_c_shared_test")
+    create_c_library_test(${FORTE_SHARED_TEST_NAME} ${FORTE_SHARED_LIBRARY_NAME})
   else()
     #######################################################################################
     # Test if main can link to forte-shared
@@ -241,6 +241,17 @@ if(FORTE_BUILD_SHARED_LIBRARY AND NOT WIN32)
     add_executable(${FORTE_SHARED_TEST_NAME} ${SOURCE_EXECUTABLE_CPP})
     target_include_directories(${FORTE_SHARED_TEST_NAME} PRIVATE ${INCLUDE_DIRECTORIES})
     target_link_libraries(${FORTE_SHARED_TEST_NAME} ${FORTE_SHARED_LIBRARY_NAME})
+    SET_TARGET_PROPERTIES(${FORTE_SHARED_TEST_NAME} PROPERTIES LINKER_LANGUAGE CXX)
     add_dependencies(${FORTE_SHARED_TEST_NAME} ${FORTE_SHARED_LIBRARY_NAME})
   endif(FORTE_C_INTERFACE)
-endif(FORTE_BUILD_SHARED_LIBRARY AND NOT WIN32)
+
+  # in windows we need the shared libraries to be in the same folder as the executable
+  if(WIN32)
+    add_custom_command(TARGET "${FORTE_SHARED_TEST_NAME}" POST_BUILD 
+        COMMAND "${CMAKE_COMMAND}" -E copy
+        $<TARGET_FILE:${FORTE_SHARED_LIBRARY_NAME}>
+        $<TARGET_FILE_DIR:${FORTE_SHARED_TEST_NAME}>
+      )
+  endif(WIN32)
+
+endif(FORTE_BUILD_SHARED_LIBRARY)
