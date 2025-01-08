@@ -435,7 +435,6 @@ EMGMResponse CFunctionBlock::changeExecutionState(EMGMCommandType paCommand){
       if((E_FBStates::Idle == mFBState) || (E_FBStates::Stopped == mFBState)){
         mFBState = E_FBStates::Running;
         nRetVal = EMGMResponse::Ready;
-        triggerEInitEvents();
       }
       break;
     case EMGMCommandType::Stop:
@@ -675,11 +674,11 @@ size_t CFunctionBlock::getToStringBufferSize() const {
 
 }
 
-void CFunctionBlock::triggerEInitEvents() {
+void CFunctionBlock::triggerEventsOfType(TEventTypeID paEventTypeId) {
   //most of the FBs will only have the basic event type -> mEITypes == nullptr
   if (getFBInterfaceSpec().mEITypeNames != nullptr) {
-    for (TEventID eventId= 0; eventId < getFBInterfaceSpec().mNumEIs; eventId++) {
-      if (getEIType(eventId) == g_nStringIdEInit && !isInputEventConnected(eventId)) {
+    for (TEventID eventId = 0; eventId < getFBInterfaceSpec().mNumEIs; eventId++) {
+      if (getEIType(eventId) == paEventTypeId && !isInputEventConnected(eventId)) {
         getResource()->getResourceEventExecution()->startEventChain(CConnectionPoint(this, eventId));
       }
     }

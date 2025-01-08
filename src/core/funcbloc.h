@@ -63,6 +63,8 @@ typedef CAdapter *TAdapterPtr;
 
 typedef TPortId TDataIOID; //!< \ingroup CORE Type for holding an data In- or output ID
 
+typedef CStringDictionary::TStringId TEventTypeID;
+
 /*!\ingroup CORE\brief Structure to hold all data of adapters instantiated in the function block.
  */
 struct SAdapterInstanceDef {
@@ -426,6 +428,11 @@ class CFunctionBlock : public forte::core::CFBContainer {
       }
     }
 
+    /*!\brief This function will trigger unconnected event ports of a certain EventType
+    * \param paEventTypeId ID of event type to be triggered
+    */
+    void triggerEventsOfType(TEventTypeID paEventTypeId);
+
   protected:
 
     /*!\brief The main constructor for a function block.
@@ -524,11 +531,6 @@ class CFunctionBlock : public forte::core::CFBContainer {
     [[nodiscard]] bool isInputEventConnected(TEventID paEIID) const {
       return mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0;
     }
-
-    /* !\brief This function will trigger unconnected event ports of type EInit
-     *
-    */
-    void triggerEInitEvents();
 
     /*!\brief Set the initial values of data inputs, outputs, and internal vars.
      *
