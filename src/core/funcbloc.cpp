@@ -50,7 +50,9 @@ bool CFunctionBlock::initialize() {
 #ifdef  FORTE_SUPPORT_MONITORING
   setupEventMonitoringData();
 #endif //FORTE_SUPPORT_MONITORING
-  mInputEventConnectionCount = std::make_unique<size_t[]>(getFBInterfaceSpec().mNumEIs);
+  if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+    mInputEventConnectionCount = std::make_unique<size_t[]>(getFBInterfaceSpec().mNumEIs);
+  }
   return true;
 }
 
@@ -677,7 +679,7 @@ void CFunctionBlock::triggerEInitEvents() {
   //most of the FBs will only have the basic event type -> mEITypes == nullptr
   if (getFBInterfaceSpec().mEITypeNames != nullptr) {
     for (TEventID eventId= 0; eventId < getFBInterfaceSpec().mNumEIs; eventId++) {
-      if (getEIType(eventId) == g_nStringIdEInit && !isConnected(eventId)) {
+      if (getEIType(eventId) == g_nStringIdEInit && !isInputEventConnected(eventId)) {
         getResource()->getResourceEventExecution()->startEventChain(CConnectionPoint(this, eventId));
       }
     }

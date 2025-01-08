@@ -415,11 +415,13 @@ class CFunctionBlock : public forte::core::CFBContainer {
 #endif //FORTE_TRACE_CTF
 
     void addInputEventConnection(TEventID paEIID) {
-      mInputEventConnectionCount[paEIID]++;
+      if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+        mInputEventConnectionCount[paEIID]++;
+      }
     }
 
     void removeInputEventConnection(TEventID paEIID) {
-      if (mInputEventConnectionCount[paEIID] > 0) {
+      if (mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0) {
         mInputEventConnectionCount[paEIID]--;
       }
     }
@@ -519,7 +521,7 @@ class CFunctionBlock : public forte::core::CFBContainer {
     /* !\brief checks if an input event pin is connected
      *
      */
-    [[nodiscard]] bool isConnected(TEventID paEIID) const {
+    [[nodiscard]] bool isInputEventConnected(TEventID paEIID) const {
       return mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0;
     }
 
