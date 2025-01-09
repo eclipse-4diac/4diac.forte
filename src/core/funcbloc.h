@@ -41,8 +41,6 @@ class CAdapter;
 class CTimerHandler;
 class CDevice;
 
-typedef CFunctionBlock *TFunctionBlockPtr;
-
 namespace forte {
   namespace core {
     class CFBContainer;
