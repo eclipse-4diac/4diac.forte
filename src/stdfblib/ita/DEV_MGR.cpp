@@ -88,25 +88,13 @@ void DEV_MGR::executeEvent(TEventID paEIID, CEventChainExecutionThread *const pa
 }
 
 void DEV_MGR::executeRQST(){
-  forte::core::SManagementCMD command;
-
   char *request = new char[RQST().length() + 1];
   strcpy(request, RQST().getStorage().c_str());
 
-  EMGMResponse resp = forte::command_parser::parseAndExecuteMGMCommand(DST().getStorage().c_str(), request, command, mDevice);
-  RESP().clear();
+  forte::command_parser::Parser commandParser;
 
-#ifdef FORTE_SUPPORT_MONITORING
-  if (0 != command.mMonitorResponse.length()) {
-    RESP() = CIEC_STRING(forte::command_parser::generateMonitorResponse(resp, command));
-  } else
-#endif //FORTE_SUPPORT_MONITORING
-  if(0 < command.mAdditionalParams.length()){
-    RESP() = CIEC_STRING(forte::command_parser::generateLongResponse(resp, command));
-  }
-  else{
-    RESP() = CIEC_STRING(forte::command_parser::generateResponse(command.mID, resp));
-  }
+  commandParser.parseAndExecuteMGMCommand(DST().getStorage().c_str(), request, mDevice);
+  RESP() = CIEC_STRING(commandParser.generateResponse());
 
   delete[](request);
 }
@@ -130,9 +118,9 @@ DEV_MGR::~DEV_MGR(){
 }
 
 bool DEV_MGR::executeCommand(const char *const paDest, char *paCommand){
-  forte::core::SManagementCMD command;
+  forte::command_parser::Parser commandParser;
 
-  EMGMResponse eResp = forte::command_parser::parseAndExecuteMGMCommand(paDest, paCommand, command, mDevice);
+  EMGMResponse eResp = commandParser.parseAndExecuteMGMCommand(paDest, paCommand, mDevice);
   if(eResp != EMGMResponse::Ready){
     DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp));
   }
