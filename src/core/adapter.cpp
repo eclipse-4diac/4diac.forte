@@ -34,10 +34,12 @@ bool CAdapter::initialize() {
     return false;
   }
   setupEventEntryList();
+  mLocalDIs = mDIs;
   return true;
 }
 
 CAdapter::~CAdapter(){
+  mDIs = mLocalDIs;
   if (mIsPlug) {
     if (mAdapterConn != nullptr) {
       delete mAdapterConn;
