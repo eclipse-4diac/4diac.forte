@@ -122,7 +122,7 @@ bool DEV_MGR::executeCommand(const char *const paDest, char *paCommand){
 
   EMGMResponse eResp = commandParser.parseAndExecuteMGMCommand(paDest, paCommand);
   if(eResp != EMGMResponse::Ready){
-    DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp));
+    DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp).c_str());
   }
   return (eResp == EMGMResponse::Ready);
 }
