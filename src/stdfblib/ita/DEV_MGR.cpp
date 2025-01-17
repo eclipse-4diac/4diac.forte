@@ -91,9 +91,9 @@ void DEV_MGR::executeRQST(){
   char *request = new char[RQST().length() + 1];
   strcpy(request, RQST().getStorage().c_str());
 
-  forte::command_parser::Parser commandParser;
+  forte::ita::CommandParser commandParser(mDevice);
 
-  commandParser.parseAndExecuteMGMCommand(DST().getStorage().c_str(), request, mDevice);
+  commandParser.parseAndExecuteMGMCommand(DST().getStorage().c_str(), request);
   RESP() = CIEC_STRING(commandParser.generateResponse());
 
   delete[](request);
@@ -118,9 +118,9 @@ DEV_MGR::~DEV_MGR(){
 }
 
 bool DEV_MGR::executeCommand(const char *const paDest, char *paCommand){
-  forte::command_parser::Parser commandParser;
+  forte::ita::CommandParser commandParser(mDevice);
 
-  EMGMResponse eResp = commandParser.parseAndExecuteMGMCommand(paDest, paCommand, mDevice);
+  EMGMResponse eResp = commandParser.parseAndExecuteMGMCommand(paDest, paCommand);
   if(eResp != EMGMResponse::Ready){
     DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp));
   }

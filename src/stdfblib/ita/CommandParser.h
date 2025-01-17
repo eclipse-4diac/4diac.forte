@@ -21,11 +21,13 @@
 
 class CDevice;
 
-namespace forte::command_parser {
+namespace forte::ita {
 
-  class Parser {
+  class CommandParser {
 
   public:
+
+    CommandParser(CDevice& paDevice);
 
     /**
      * @brief Parse and executes a commmand on a destination in a device
@@ -35,7 +37,7 @@ namespace forte::command_parser {
      * @param paDevice device where to execute the command
      * @return EMGMResponse response of the execution of the command
      */
-    EMGMResponse parseAndExecuteMGMCommand(const char *const paDest, char *paCommand, CDevice& paDevice);
+    EMGMResponse parseAndExecuteMGMCommand(const char *const paDest, char *paCommand);
 
     /*! \brief Generate a response string according to the previous executed command
      *
@@ -48,6 +50,8 @@ namespace forte::command_parser {
     forte::core::SManagementCMD mCommand;
 
     EMGMResponse mLastResponse{EMGMResponse::InvalidObject};
+
+    CDevice& mDevice;
 
     /*! \brief Parse the given request header to determine the ID and the requested command
       *
@@ -131,6 +135,6 @@ namespace forte::command_parser {
 
   };
 
-} // namespace forte::command_parser
+} // namespace forte::ita
 
 #endif /*_COMMAND_PARSER_H*/

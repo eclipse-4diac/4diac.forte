@@ -19,9 +19,13 @@
 #include "core/device.h"
 
 
-namespace forte::command_parser {
+namespace forte::ita {
 
-EMGMResponse Parser::parseAndExecuteMGMCommand(const char *const paDest, char *paCommand, CDevice& paDevice){
+CommandParser::CommandParser(CDevice& paDevice) : mDevice{paDevice}{
+
+}
+
+EMGMResponse CommandParser::parseAndExecuteMGMCommand(const char *const paDest, char *paCommand){
   mCommand.mAdditionalParams.reserve(255);
 
   mLastResponse = EMGMResponse::InvalidObject;
@@ -73,7 +77,7 @@ EMGMResponse Parser::parseAndExecuteMGMCommand(const char *const paDest, char *p
       }
 
       if(EMGMCommandType::INVALID != mCommand.mCMD) {
-          mLastResponse = paDevice.executeMGMCommand(mCommand);
+          mLastResponse = mDevice.executeMGMCommand(mCommand);
       }
     }
     else {
@@ -84,7 +88,7 @@ EMGMResponse Parser::parseAndExecuteMGMCommand(const char *const paDest, char *p
 }
 
 
-std::string Parser::generateResponse(){
+std::string CommandParser::generateResponse(){
 #ifdef FORTE_SUPPORT_MONITORING
   if (0 != mCommand.mMonitorResponse.length()) {
     return generateMonitorResponse();
@@ -98,7 +102,7 @@ std::string Parser::generateResponse(){
   return generateShortResponse();
 }
 
-std::string Parser::generateShortResponse(){
+std::string CommandParser::generateShortResponse(){
   std::string response;
   response.append("<Response ID=\"");
   if (nullptr != mCommand.mID) {
@@ -114,7 +118,7 @@ std::string Parser::generateShortResponse(){
   return response;
 }
 
-std::string Parser::generateLongResponse(){
+std::string CommandParser::generateLongResponse(){
   std::string response;
   response.reserve(static_cast<TForteUInt16>(255 + (mCommand.mAdditionalParams.length())));
   response.append("<Response ID=\"");
@@ -194,7 +198,7 @@ std::string Parser::generateLongResponse(){
   return response;
 }
 
-char* Parser::parseRequest(char *paRequestString){
+char* CommandParser::parseRequest(char *paRequestString){
   //first check if it is an management request
   char *acCommandStart = nullptr;
   static const int scnCommandLength[] = {7, 7, 6, 5, 5, 6, 5, 6, 6};
@@ -252,7 +256,7 @@ char* Parser::parseRequest(char *paRequestString){
 }
 
 #ifdef FORTE_DYNAMIC_TYPE_LOAD
-bool Parser::parseXType(char *paRequestPartLeft, const char *paRequestType) {
+bool CommandParser::parseXType(char *paRequestPartLeft, const char *paRequestType) {
   bool retVal = false;
   size_t nReqLength = strlen(paRequestType);
   if(!strncmp(paRequestType, paRequestPartLeft, nReqLength)){
@@ -274,7 +278,7 @@ bool Parser::parseXType(char *paRequestPartLeft, const char *paRequestType) {
 }
 #endif // FORTE_DYNAMIC_TYPE_LOAD
 
-bool Parser::parseFBData(char *paRequestPartLeft){
+bool CommandParser::parseFBData(char *paRequestPartLeft){
   bool retVal = false;
 
   if(!strncmp("FB Name=\"", paRequestPartLeft, 9)){
@@ -311,7 +315,7 @@ bool Parser::parseFBData(char *paRequestPartLeft){
   return retVal;
 }
 
-int Parser::parseIdentifier(char *paIdentifierStart, forte::core::TNameIdentifier &paIdentifier){
+int CommandParser::parseIdentifier(char *paIdentifierStart, forte::core::TNameIdentifier &paIdentifier){
   for(char *runner = paIdentifierStart, *start = paIdentifierStart; '\0' != *runner; ++runner){
     if('.' == *runner){
       *runner = '\0';
@@ -332,7 +336,7 @@ int Parser::parseIdentifier(char *paIdentifierStart, forte::core::TNameIdentifie
   return -1;
 }
 
-bool Parser::parseConnectionData(char *paRequestPartLeft){
+bool CommandParser::parseConnectionData(char *paRequestPartLeft){
   bool bRetVal = false;
   if(!strncmp("Connection Source=\"", paRequestPartLeft, sizeof("Connection Source=\"") - 1)){
     int i = parseIdentifier(&(paRequestPartLeft[19]), mCommand.mFirstParam);
@@ -347,7 +351,7 @@ bool Parser::parseConnectionData(char *paRequestPartLeft){
   return bRetVal;
 }
 
-bool Parser::parseWriteConnectionData(char *paRequestPartLeft){
+bool CommandParser::parseWriteConnectionData(char *paRequestPartLeft){
   bool retVal = false;
   if(!strncmp("Connection Source=\"", paRequestPartLeft, sizeof("Connection Source=\"") - 1)){
     paRequestPartLeft = &(paRequestPartLeft[19]);
@@ -371,7 +375,7 @@ bool Parser::parseWriteConnectionData(char *paRequestPartLeft){
   return retVal;
 }
 
-void Parser::parseCreateData(char *paRequestPartLeft){
+void CommandParser::parseCreateData(char *paRequestPartLeft){
   mCommand.mCMD = EMGMCommandType::INVALID;
   if(nullptr != paRequestPartLeft){
       switch (paRequestPartLeft[0]){
@@ -410,7 +414,7 @@ void Parser::parseCreateData(char *paRequestPartLeft){
   }
 }
 
-void Parser::parseDeleteData(char *paRequestPartLeft){
+void CommandParser::parseDeleteData(char *paRequestPartLeft){
   mCommand.mCMD = EMGMCommandType::INVALID;
   if(nullptr != paRequestPartLeft){
     switch (paRequestPartLeft[0]){
@@ -437,14 +441,14 @@ void Parser::parseDeleteData(char *paRequestPartLeft){
   }
 }
 
-void Parser::parseAdditionalStateCommandData(char *paRequestPartLeft){
+void CommandParser::parseAdditionalStateCommandData(char *paRequestPartLeft){
   if(nullptr != paRequestPartLeft && '/' != paRequestPartLeft[0] && //if we have an additional xml token parse if it is an FB definition
     !parseFBData(paRequestPartLeft)) {
     mCommand.mCMD = EMGMCommandType::INVALID;
   }
 }
 
-void Parser::parseReadData(char *paRequestPartLeft){
+void CommandParser::parseReadData(char *paRequestPartLeft){
   mCommand.mCMD = EMGMCommandType::INVALID;
   if(nullptr != paRequestPartLeft){
 #ifdef FORTE_SUPPORT_MONITORING
@@ -458,7 +462,7 @@ void Parser::parseReadData(char *paRequestPartLeft){
   }
 }
 
-void Parser::parseWriteData(char *paRequestPartLeft){
+void CommandParser::parseWriteData(char *paRequestPartLeft){
   //We need an additional xml connection token parse if it is an connection definition
   mCommand.mCMD = EMGMCommandType::INVALID;
   if(nullptr != paRequestPartLeft && parseWriteConnectionData(paRequestPartLeft)){
@@ -486,7 +490,7 @@ void Parser::parseWriteData(char *paRequestPartLeft){
 }
 
 #ifdef FORTE_SUPPORT_QUERY_CMD
-void Parser::parseQueryData(char *paRequestPartLeft){
+void CommandParser::parseQueryData(char *paRequestPartLeft){
   mCommand.mCMD = EMGMCommandType::INVALID;
   if(nullptr != paRequestPartLeft){
     switch (paRequestPartLeft[0]){
@@ -543,7 +547,7 @@ void Parser::parseQueryData(char *paRequestPartLeft){
   }
 }
 
-bool Parser::parseTypeListData(char *paRequestPartLeft){
+bool CommandParser::parseTypeListData(char *paRequestPartLeft){
   bool retVal = true;
 
   if (!strncmp("DataType Name=\"", paRequestPartLeft, sizeof("DataType Name=\"") - 1)) {
@@ -566,7 +570,7 @@ bool Parser::parseTypeListData(char *paRequestPartLeft){
 #endif
 
 
-void Parser::appendIdentifierName(std::string& paDest, forte::core::TNameIdentifier& paIdentifier) {
+void CommandParser::appendIdentifierName(std::string& paDest, forte::core::TNameIdentifier& paIdentifier) {
   if(!paIdentifier.isEmpty()){
     for(forte::core::TNameIdentifier::CIterator runner(paIdentifier.begin());
         runner != paIdentifier.end(); ++runner){
@@ -579,7 +583,7 @@ void Parser::appendIdentifierName(std::string& paDest, forte::core::TNameIdentif
 
 #ifdef FORTE_SUPPORT_MONITORING
 
-bool Parser::parseMonitoringData(char *paRequestPartLeft){
+bool CommandParser::parseMonitoringData(char *paRequestPartLeft){
   bool bRetVal = false;
   if(!strncmp("Watch Source=\"", paRequestPartLeft, sizeof("Watch Source=\"") - 1)){
     int i = parseIdentifier(&(paRequestPartLeft[14]), mCommand.mFirstParam);
@@ -594,7 +598,7 @@ bool Parser::parseMonitoringData(char *paRequestPartLeft){
   return bRetVal;
 }
 
-std::string Parser::generateMonitorResponse(){
+std::string CommandParser::generateMonitorResponse(){
   std::string response; 
   if(EMGMResponse::Ready != mLastResponse){
     response.append("<Response ID=\"");
@@ -626,4 +630,4 @@ std::string Parser::generateMonitorResponse(){
 
 #endif // FORTE_SUPPORT_MONITORING
 
-} // namespace forte::command_parser
+} // namespace forte::ita

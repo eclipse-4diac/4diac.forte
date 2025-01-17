@@ -16,6 +16,8 @@
 
 #include <forte_config.h>
 
+#include <string>
+
 /**  \ingroup CORE \defgroup MGMCommands Management Commands Internal Representation
  * \brief In this section the FORTE representation of the management commands is described.
  */
@@ -268,7 +270,7 @@ enum class EMGMResponse {
 
 namespace forte::mgm_cmd {
 
-  const char *getResponseText(EMGMResponse paResp);
+  const std::string& getResponseText(EMGMResponse paResp);
 
 } // namespace forte::mgm_cmd
 

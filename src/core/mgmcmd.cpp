@@ -21,9 +21,23 @@ namespace forte::mgm_cmd {
   *
   * TODO fully define all responses as defined in IEC 61499 inc. numbers.
   */
-  const char * const scmMGMResponseTexts[13] = { "RDY", "BAD_PARAMS", "LOCAL_TERMINATION", "SYSTEM_TERMINATION", "NOT_READY", "UNSUPPORTED_CMD", "UNSUPPORTED_TYPE", "NO_SUCH_OBJECT", "INVALID_OBJECT", "INVALID_OPERATION", "INVALID_STATE", "OVERFLOW", "INVALID_DST" };
+  const std::string scmMGMResponseTexts[] = {
+    "RDY",
+    "BAD_PARAMS",
+    "LOCAL_TERMINATION",
+    "SYSTEM_TERMINATION",
+    "NOT_READY",
+    "UNSUPPORTED_CMD",
+    "UNSUPPORTED_TYPE",
+    "NO_SUCH_OBJECT",
+    "INVALID_OBJECT",
+    "INVALID_OPERATION",
+    "INVALID_STATE",
+    "OVERFLOW",
+    "INVALID_DST"
+  };
 
-  const char *getResponseText(EMGMResponse paResp) {
+  const std::string& getResponseText(EMGMResponse paResp) {
     return scmMGMResponseTexts[static_cast<std::underlying_type_t<EMGMResponse>>(paResp)];
   }
 
