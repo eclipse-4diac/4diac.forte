@@ -195,9 +195,57 @@ file(REMOVE ${CMAKE_BINARY_DIR}/core/ecetFactory_new.cpp)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/core/ecetFactory.h.in ${CMAKE_BINARY_DIR}/core/ecetFactory_new.h)
 forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/core/ecetFactory_new.h ${CMAKE_BINARY_DIR}/core/ecetFactory.h)
 file(REMOVE ${CMAKE_BINARY_DIR}/core/ecetFactory_new.h)
+
+######################################################################################
+# Available Devices 
+######################################################################################
+forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/deviceFactory.cpp) # created file
+
+GET_PROPERTY(DEVICE_CLASSES GLOBAL PROPERTY FORTE_DEVICE_CLASSES)
+GET_PROPERTY(DEVICE_FILENAMES GLOBAL PROPERTY FORTE_DEVICE_FILENAMES)
+GET_PROPERTY(DEVICE_NAMES GLOBAL PROPERTY FORTE_DEVICE_NAMES)
+
+set(FORTE_DEVICE_DEFAULT "RMT_DEV" CACHE STRING "The default device to use")
+
+if(NOT "${FORTE_DEVICE_DEFAULT}" IN_LIST DEVICE_NAMES)
+  message(FATAL_ERROR "${FORTE_DEVICE_DEFAULT} is not a valid device. Choose one of the following: ${DEVICE_NAMES}")
+endif()
+
+LIST(LENGTH DEVICE_CLASSES DEVICE_CLASSES_LEN)
+math(EXPR DEVICE_CLASSES_LEN  ${DEVICE_CLASSES_LEN}-1)
+
+SET(DEVICE_INCLUDE "")
+SET(DEVICE_CREATE "")
+SET(DEVICE_ENUM "")
+
+FOREACH(POS RANGE ${DEVICE_CLASSES_LEN})
+  LIST(GET DEVICE_CLASSES     ${POS} CLASS) 
+  LIST(GET DEVICE_FILENAMES   ${POS} FILENAME)
+  LIST(GET DEVICE_NAMES   ${POS} DEVICE_NAME)
+
+  SET(DEVICE_INCLUDE  "${DEVICE_INCLUDE}#include \"${FILENAME}\"\n")
+
+  SET(DEVICE_ENUM  "${DEVICE_ENUM}\n     ${DEVICE_NAME},")
+
+  SET(DEVICE_STRING_TO_ENUM  "${DEVICE_STRING_TO_ENUM}  if(paDevice == \"${DEVICE_NAME}\") {\n    deviceToCreate = AvailableDevices::${DEVICE_NAME};\n    return true;\n  }\n")
+
+
+  SET(DEVICE_CREATE "${DEVICE_CREATE}  if(deviceToCreate == AvailableDevices::${DEVICE_NAME})\n    return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>();\n")
+  math(EXPR ECET_ID           ${ECET_ID}+1)
+ENDFOREACH(POS)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.cpp.in ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
+forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/deviceFactory_new.cpp ${CMAKE_BINARY_DIR}/deviceFactory.cpp)
+file(REMOVE ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
+
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.h.in ${CMAKE_BINARY_DIR}/deviceFactory_new.h)
+forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/deviceFactory_new.h ${CMAKE_BINARY_DIR}/deviceFactory.h)
+file(REMOVE ${CMAKE_BINARY_DIR}/deviceFactory_new.h)
+
 #############################################################################
 # Configure startuphook
 #############################################################################
+
 GET_PROPERTY(STARTUP_HOOK_FUNCTIONS GLOBAL PROPERTY FORTE_STARTUP_HOOK_FUNCTIONS)
 LIST(APPEND STARTUP_HOOK_FUNCTIONS_LIST ${STARTUP_HOOK_FUNCTIONS})
 
@@ -295,16 +343,6 @@ set(FORTE_ARCHITECTURE "None" CACHE STRING "Architecture to build FORTE on")
 GET_PROPERTY(architectures GLOBAL PROPERTY FORTE_ARCHITECTURES)
 list(SORT architectures)
 set_property(CACHE FORTE_ARCHITECTURE PROPERTY STRINGS None ${architectures})
-
-######################################################################################
-# Device to be used in this 4diac FORTE instance
-######################################################################################
-set(FORTE_DEVICE "RMT_DEV" CACHE STRING "Device to be used in this 4diac FORTE instance")
-GET_PROPERTY(devices GLOBAL PROPERTY FORTE_DEVICES)
-list(SORT devices)
-set_property(CACHE FORTE_DEVICE PROPERTY STRINGS None ${devices})
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/forte_device_config.h.in ${CMAKE_BINARY_DIR}/forte_device_config.h)
 
 #######################################################################################
 # Create Files

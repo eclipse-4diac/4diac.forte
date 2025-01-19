@@ -1,4 +1,0 @@
-#include "${FORTE_DEVICE}.h"
-
-using FORTE_DEVICE = ${FORTE_DEVICE};
-

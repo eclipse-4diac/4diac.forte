@@ -81,7 +81,7 @@ FORTE_STATUS forteStartInstanceGeneric(int argc, char *argv[], TForteInstance* p
   }
 
   const auto ipPort = parseCommandLineArguments(argc, argv);
-  if((0 == strlen(ipPort)) || (nullptr == strchr(ipPort, ':'))){
+  if((ipPort == nullptr) || (0 == strlen(ipPort)) || (nullptr == strchr(ipPort, ':'))){
     listHelp();
     return FORTE_WRONG_PARAMETERS;
   }
