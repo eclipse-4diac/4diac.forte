@@ -17,6 +17,7 @@
 #include <funcbloc.h>
 #include <mgmcmdstruct.h>
 #include <commfb.h>
+#include "CommandParser.h"
 
 class CDevice;
 
@@ -60,6 +61,8 @@ class DEV_MGR: public forte::com_infra::CCommFB {
 
     //! The device the block is contained in
     CDevice &mDevice;
+
+    forte::ita::CommandParser mCommandParser;
 
     void executeRQST();
 

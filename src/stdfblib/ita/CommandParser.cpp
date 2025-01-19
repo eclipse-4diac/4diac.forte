@@ -22,24 +22,26 @@
 namespace forte::ita {
 
 CommandParser::CommandParser(CDevice& paDevice) : mDevice{paDevice}{
-
+  mCommand.mAdditionalParams.reserve(255);
 }
 
 EMGMResponse CommandParser::parseAndExecuteMGMCommand(const char *const paDest, char *paCommand){
-  mCommand.mAdditionalParams.reserve(255);
-
   mLastResponse = EMGMResponse::InvalidObject;
+ 
   if(nullptr != strchr(paCommand, '>')){
-    mCommand.mDestination = (strlen(paDest) != 0) ? CStringDictionary::getInstance().insert(paDest) : CStringDictionary::scmInvalidStringId;
+    mCommand.mID = nullptr;
+    mCommand.mAdditionalParams.clear();
     mCommand.mFirstParam.clear();
     mCommand.mSecondParam.clear();
+#ifdef FORTE_SUPPORT_MONITORING
+    mCommand.mMonitorResponse.clear();
+#endif // FORTE_SUPPORT_MONITORING
+
+    mCommand.mDestination = (strlen(paDest) != 0) ? CStringDictionary::getInstance().insert(paDest) : CStringDictionary::scmInvalidStringId;
     if ( 255 <= mCommand.mAdditionalParams.capacity()) {
       mCommand.mAdditionalParams.reserve(255);
     }
-    mCommand.mID=nullptr;
-#ifdef FORTE_SUPPORT_MONITORING
-  mCommand.mMonitorResponse.clear();
-#endif // FORTE_SUPPORT_MONITORING
+
     char *acRequestPartLeft = parseRequest(paCommand);
     if(nullptr != acRequestPartLeft){
       acRequestPartLeft = strchr(acRequestPartLeft, '<');
@@ -624,7 +626,6 @@ std::string CommandParser::generateMonitorResponse(){
     }
     response.append("\n</Response>");
   }
-  mCommand.mMonitorResponse.clear();
   return response;
 }
 

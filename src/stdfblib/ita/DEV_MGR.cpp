@@ -27,8 +27,6 @@
 #include <stdlib.h>
 #include "ForteBootFileLoader.h"
 #include "../../core/utils/string_utils.h"
-#include "CommandParser.h"
-
 
 DEFINE_FIRMWARE_FB(DEV_MGR, g_nStringIdDEV_MGR)
 
@@ -91,17 +89,15 @@ void DEV_MGR::executeRQST(){
   char *request = new char[RQST().length() + 1];
   strcpy(request, RQST().getStorage().c_str());
 
-  forte::ita::CommandParser commandParser(mDevice);
-
-  commandParser.parseAndExecuteMGMCommand(DST().getStorage().c_str(), request);
-  RESP() = CIEC_STRING(commandParser.generateResponse());
+  mCommandParser.parseAndExecuteMGMCommand(DST().getStorage().c_str(), request);
+  RESP() = CIEC_STRING(mCommandParser.generateResponse());
 
   delete[](request);
 }
 
 DEV_MGR::DEV_MGR(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
     CCommFB(paInstanceNameId, paContainer, forte::com_infra::e_Server),
-    mDevice(*paContainer.getDevice()) {
+    mDevice(*paContainer.getDevice()), mCommandParser(mDevice) {
   getGenInterfaceSpec() = scmFBInterfaceSpec;
 }
 
@@ -118,9 +114,7 @@ DEV_MGR::~DEV_MGR(){
 }
 
 bool DEV_MGR::executeCommand(const char *const paDest, char *paCommand){
-  forte::ita::CommandParser commandParser(mDevice);
-
-  EMGMResponse eResp = commandParser.parseAndExecuteMGMCommand(paDest, paCommand);
+  EMGMResponse eResp = mCommandParser.parseAndExecuteMGMCommand(paDest, paCommand);
   if(eResp != EMGMResponse::Ready){
     DEVLOG_ERROR("Boot file error. DEV_MGR says error is %s\n", forte::mgm_cmd::getResponseText(eResp).c_str());
   }
