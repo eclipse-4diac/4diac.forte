@@ -148,7 +148,6 @@ FOREACH(POS RANGE ${TIMERHANDLER_CLASS_LEN})
   SET(TIMERHANDLER_ENUM  "${TIMERHANDLER_ENUM}    ${NAME_},\n")
   
   SET(TIMERHANDLER_CREATE "${TIMERHANDLER_CREATE}  if(timerHandlerToCreate == AvailableTimers::${NAME_}) return new ${CLASS}(paDeviceExecution);\n")
-  math(EXPR TIMERHANDLER_ID           ${TIMERHANDLER_ID}+1)
 ENDFOREACH(POS)
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/arch/timerHandlerFactory.h.in ${CMAKE_BINARY_DIR}/arch/timerHandlerFactory_new.h)
@@ -185,7 +184,6 @@ FOREACH(POS RANGE ${ECET_CLASS_LEN})
   SET(ECET_ENUM  "${ECET_ENUM}\n    ${NAME_},")
 
   SET(ECET_CREATE "${ECET_CREATE}  if(ecetToCreate == AvailableEcets::${NAME_}) return new ${CLASS}();\n")
-  math(EXPR ECET_ID           ${ECET_ID}+1)
 ENDFOREACH(POS)
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/core/ecetFactory.cpp.in ${CMAKE_BINARY_DIR}/core/ecetFactory_new.cpp)
@@ -231,7 +229,6 @@ FOREACH(POS RANGE ${DEVICE_CLASSES_LEN})
 
 
   SET(DEVICE_CREATE "${DEVICE_CREATE}  if(deviceToCreate == AvailableDevices::${DEVICE_NAME})\n    return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>();\n")
-  math(EXPR ECET_ID           ${ECET_ID}+1)
 ENDFOREACH(POS)
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.cpp.in ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
