@@ -341,16 +341,16 @@ EMGMResponse CResource::readValue(forte::core::TNameIdentifier &paNameList, std:
 #ifdef FORTE_SUPPORT_QUERY_CMD
 
 EMGMResponse CResource::queryAllFBTypes(std::string & paValue){
-  appedTypeNameList(paValue, CTypeLib::getFBLibStart());
+  appendTypeNameList(paValue, CTypeLib::getFBLibStart());
   return EMGMResponse::Ready;
 }
 
 EMGMResponse CResource::queryAllAdapterTypes(std::string & paValue){
-  appedTypeNameList(paValue, CTypeLib::getAdapterLibStart());
+  appendTypeNameList(paValue, CTypeLib::getAdapterLibStart());
   return EMGMResponse::Ready;
 }
 
-void CResource::appedTypeNameList(std::string & paValue, CTypeLib::CTypeEntry *paTypeListStart) {
+void CResource::appendTypeNameList(std::string & paValue, CTypeLib::CTypeEntry *paTypeListStart) {
   if(paTypeListStart != nullptr) {
     for(; paTypeListStart != nullptr; paTypeListStart = paTypeListStart->mNext) {
       paValue += paTypeListStart->getTypeName();

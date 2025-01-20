@@ -50,6 +50,9 @@ bool CFunctionBlock::initialize() {
 #ifdef  FORTE_SUPPORT_MONITORING
   setupEventMonitoringData();
 #endif //FORTE_SUPPORT_MONITORING
+  if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+    mInputEventConnectionCount = std::make_unique<size_t[]>(getFBInterfaceSpec().mNumEIs);
+  }
   return true;
 }
 
@@ -670,6 +673,18 @@ size_t CFunctionBlock::getToStringBufferSize() const {
    return bufferSize;
 
 }
+
+void CFunctionBlock::triggerEventsOfType(TEventTypeID paEventTypeId) {
+  //most of the FBs will only have the basic event type -> mEITypes == nullptr
+  if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+    for (TEventID eventId = 0; eventId < getFBInterfaceSpec().mNumEIs; eventId++) {
+      if (getEIType(eventId) == paEventTypeId && !isInputEventConnected(eventId)) {
+        getResource()->getResourceEventExecution()->startEventChain(CConnectionPoint(this, eventId));
+      }
+    }
+  }
+}
+
 
 //********************************** below here are CTF Tracing specific functions **********************************************************
 #ifdef FORTE_TRACE_CTF
