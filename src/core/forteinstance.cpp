@@ -13,11 +13,11 @@
  *******************************************************************************/
 
 #include "forteinstance.h"
-#include "forte_device_config.h"
+#include "deviceFactory.h"
 
 
 std::unique_ptr<CDevice> C4diacFORTEInstance::createDev(const std::string &paMGRID) {
-  std::unique_ptr<FORTE_DEVICE> dev = (paMGRID.length() != 0) ? std::make_unique<FORTE_DEVICE>(paMGRID) : std::make_unique<FORTE_DEVICE>();
+  auto dev = DeviceFactory::createDevice(paMGRID);
   dev->initialize();
   return dev;
 }
