@@ -10,8 +10,15 @@
  *    Jose Cabral - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
+#ifndef FORTE_DEVICE_FACTORY_H
+#define FORTE_DEVICE_FACTORY_H
+
+#include <forte_config.h>
+
 #include <memory>
 #include <string>
+
+#if FORTE_MULTIPLE_DEVICES
 
 class CDevice;
 
@@ -30,3 +37,18 @@ namespace DeviceFactory {
 
 };
 
+#else // FORTE_MULTIPLE_DEVICES
+
+${SINGLE_DEVICE_INCLUDE}
+
+namespace DeviceFactory {
+
+  std::unique_ptr<CDevice> createDevice(const std::string &paMGRID) {
+  ${SINGLE_DEVICE_CREATE}
+  }
+
+}
+#endif // FORTE_MULTIPLE_DEVICES
+
+
+#endif // FORTE_DEVICE_FACTORY_H

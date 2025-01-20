@@ -197,44 +197,61 @@ file(REMOVE ${CMAKE_BINARY_DIR}/core/ecetFactory_new.h)
 ######################################################################################
 # Available Devices 
 ######################################################################################
-forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/deviceFactory.cpp) # created file
 
 GET_PROPERTY(DEVICE_CLASSES GLOBAL PROPERTY FORTE_DEVICE_CLASSES)
 GET_PROPERTY(DEVICE_FILENAMES GLOBAL PROPERTY FORTE_DEVICE_FILENAMES)
 GET_PROPERTY(DEVICE_NAMES GLOBAL PROPERTY FORTE_DEVICE_NAMES)
 
-set(FORTE_DEVICE_DEFAULT "RMT_DEV" CACHE STRING "The default device to use")
-
-if(NOT "${FORTE_DEVICE_DEFAULT}" IN_LIST DEVICE_NAMES)
-  message(FATAL_ERROR "${FORTE_DEVICE_DEFAULT} is not a valid device. Choose one of the following: ${DEVICE_NAMES}")
-endif()
-
 LIST(LENGTH DEVICE_CLASSES DEVICE_CLASSES_LEN)
-math(EXPR DEVICE_CLASSES_LEN  ${DEVICE_CLASSES_LEN}-1)
 
-SET(DEVICE_INCLUDE "")
-SET(DEVICE_CREATE "")
-SET(DEVICE_ENUM "")
+IF(${DEVICE_CLASSES_LEN} EQUAL 1)
+  # only one device present
+  forte_add_custom_configuration("#define FORTE_MULTIPLE_DEVICES 0")
 
-FOREACH(POS RANGE ${DEVICE_CLASSES_LEN})
-  LIST(GET DEVICE_CLASSES     ${POS} CLASS) 
-  LIST(GET DEVICE_FILENAMES   ${POS} FILENAME)
-  LIST(GET DEVICE_NAMES   ${POS} DEVICE_NAME)
+  LIST(GET DEVICE_CLASSES     0 CLASS) 
+  LIST(GET DEVICE_FILENAMES   0 FILENAME)
 
-  SET(DEVICE_INCLUDE  "${DEVICE_INCLUDE}#include \"${FILENAME}\"\n")
+  SET(SINGLE_DEVICE_INCLUDE "#include \"${FILENAME}\"\n")
+  SET(SINGLE_DEVICE_CREATE "  return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>(); ")
 
-  SET(DEVICE_ENUM  "${DEVICE_ENUM}\n     ${DEVICE_NAME},")
+ELSE()
+  forte_add_custom_configuration("#define FORTE_MULTIPLE_DEVICES 1")
 
-  SET(DEVICE_STRING_TO_ENUM  "${DEVICE_STRING_TO_ENUM}  if(paDevice == \"${DEVICE_NAME}\") {\n    deviceToCreate = AvailableDevices::${DEVICE_NAME};\n    return true;\n  }\n")
+  forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/deviceFactory.cpp) # created file
+
+  set(FORTE_DEVICE_DEFAULT "RMT_DEV" CACHE STRING "The default device to use")
+
+  if(NOT "${FORTE_DEVICE_DEFAULT}" IN_LIST DEVICE_NAMES)
+    message(FATAL_ERROR "${FORTE_DEVICE_DEFAULT} is not a valid device. Choose one of the following: ${DEVICE_NAMES}")
+  endif()
+
+  math(EXPR DEVICE_CLASSES_LEN  ${DEVICE_CLASSES_LEN}-1)
+
+  SET(DEVICE_INCLUDE "")
+  SET(DEVICE_CREATE "")
+  SET(DEVICE_ENUM "")
+
+  FOREACH(POS RANGE ${DEVICE_CLASSES_LEN})
+    LIST(GET DEVICE_CLASSES     ${POS} CLASS) 
+    LIST(GET DEVICE_FILENAMES   ${POS} FILENAME)
+    LIST(GET DEVICE_NAMES   ${POS} DEVICE_NAME)
+
+    SET(DEVICE_INCLUDE  "${DEVICE_INCLUDE}#include \"${FILENAME}\"\n")
+
+    SET(DEVICE_ENUM  "${DEVICE_ENUM}\n     ${DEVICE_NAME},")
+
+    SET(DEVICE_STRING_TO_ENUM  "${DEVICE_STRING_TO_ENUM}  if(paDevice == \"${DEVICE_NAME}\") {\n    deviceToCreate = AvailableDevices::${DEVICE_NAME};\n    return true;\n  }\n")
 
 
-  SET(DEVICE_CREATE "${DEVICE_CREATE}  if(deviceToCreate == AvailableDevices::${DEVICE_NAME})\n    return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>();\n")
-ENDFOREACH(POS)
+    SET(DEVICE_CREATE "${DEVICE_CREATE}  if(deviceToCreate == AvailableDevices::${DEVICE_NAME})\n    return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>();\n")
+  ENDFOREACH(POS)
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.cpp.in ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
-forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/deviceFactory_new.cpp ${CMAKE_BINARY_DIR}/deviceFactory.cpp)
-file(REMOVE ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
+  CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.cpp.in ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
+  forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/deviceFactory_new.cpp ${CMAKE_BINARY_DIR}/deviceFactory.cpp)
+  file(REMOVE ${CMAKE_BINARY_DIR}/deviceFactory_new.cpp)
+ENDIF()
 
+# configure the deviceFactory header for single and multiple devices
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/deviceFactory.h.in ${CMAKE_BINARY_DIR}/deviceFactory_new.h)
 forte_replacefile_if_changed(${CMAKE_BINARY_DIR}/deviceFactory_new.h ${CMAKE_BINARY_DIR}/deviceFactory.h)
 file(REMOVE ${CMAKE_BINARY_DIR}/deviceFactory_new.h)
