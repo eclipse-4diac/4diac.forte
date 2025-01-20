@@ -18,7 +18,6 @@ if(FORTE_FAKE_TIME)
   forte_add_sourcefile_hcpp(faketimerha)
 
   forte_add_sourcefile_cpp(forte_architecture_time.cpp)
-  forte_set_default_timerhandler("fakeTimer")
 
   forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 

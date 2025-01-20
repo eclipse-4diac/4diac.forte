@@ -1,5 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2018 fortiss GmbH
+ *               2024 Primetals Technologies Austria GmbH
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -9,15 +10,22 @@
  * Contributors:
  *   Tarik Terzimehic
  *    - initial API and implementation and/or initial documentation
+ *   Ernst Blecha
+ *    - add command line option to enable fakeTimer
  *******************************************************************************/
 
 #include <forte_config.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../arch/devlog.h"
 
 #ifdef FORTE_TRACE_CTF
 #include <string>
+#endif
+
+#ifdef FORTE_FAKE_TIME
+#include "arch/timerHandlerFactory.h"
 #endif
 
 /*!\brief Lists the help for FORTE
@@ -43,6 +51,9 @@ void listHelp(){
 #endif //FORTE_COM_HTTP
 #ifdef FORTE_TRACE_CTF
   printf("%-20s Set the output directory for TRACE_CTF\n", "  -t <directory>");
+#endif //FORTE_TRACE_CTF
+#ifdef FORTE_FAKE_TIME
+  printf("%-20s Enable simulated realtime using the fakeTimer\n", "  -F");
 #endif //FORTE_TRACE_CTF
 }
 
@@ -94,6 +105,13 @@ const char *parseCommandLineArguments(int argc, char *arg[]){
             barectfSetup(arg[i + 1] ?: "");
             break;
 #endif //FORTE_TRACE_CTF
+#ifdef FORTE_FAKE_TIME
+          case 'F':
+            TimerHandlerFactory::setTimeHandlerNameToCreate(TimerHandlerFactory::AvailableTimers::fakeTimer);
+            DEVLOG_INFO("[FAKETIME]: fakeTimer enabled\n");
+            i -= 1; // there is no argument to this command line option!
+            break;
+#endif
           default: //! Unknown parameter or -h -> Lists the help for FORTE
             return "";
         }
