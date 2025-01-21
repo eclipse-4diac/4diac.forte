@@ -18,22 +18,20 @@
 SET(SOURCE_GROUP ${SOURCE_GROUP}\\ita)
 forte_add_sourcefile_hcpp(DEV_MGR EMB_RES RMT_DEV RMT_RES CommandParser)
 
-forte_add_device(RMT_DEV)
+forte_add_device(RMT_DEV "stdfblib/ita/RMT_DEV" "RMT_DEV")
 
 if (FORTE_COM_OPC_UA)
-  forte_add_sourcefile_hcpp(Config_EMB_RES)
-  
-  forte_add_device(OPCUA_DEV)
-  if("${FORTE_DEVICE}" STREQUAL "OPCUA_DEV")
+  set(FORTE_DISABLE_OPCUA_DEV FALSE CACHE BOOL "Do not compile the OPCUA Device")
+  if(NOT ${FORTE_DISABLE_OPCUA_DEV})
+    forte_add_device(OPCUA_DEV "stdfblib/ita/OPCUA_DEV" "OPCUA_DEV")
     forte_add_sourcefile_hcpp(OPCUA_DEV OPCUA_MGR)
   endif()
+  forte_add_sourcefile_hcpp(Config_EMB_RES)
 endif ()
 
 if(FORTE_FAKE_TIME)
-  forte_add_device(FakeTimeDev)
-  if("${FORTE_DEVICE}" STREQUAL "FakeTimeDev")
-    forte_add_sourcefile_hcpp(FakeTimeDev)
-  endif()
+  forte_add_device(FakeTimeDev "stdfblib/ita/FakeTimeDev" "FakeTimeDev")
+  forte_add_sourcefile_hcpp(FakeTimeDev)
 endif()
 
 forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})

@@ -1,0 +1,52 @@
+/*******************************************************************************
+ * Copyright (c) 2025 Jose Cabral
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    Jose Cabral - initial API and implementation and/or initial documentation
+ *******************************************************************************/
+
+#ifndef FORTE_DEVICE_FACTORY_H
+#define FORTE_DEVICE_FACTORY_H
+
+#include <memory>
+#include <string>
+
+#ifdef FORTE_MULTIPLE_DEVICES
+
+class CDevice;
+
+namespace DeviceFactory {
+
+  enum class AvailableDevices {${DEVICE_ENUM}
+  };
+
+  std::unique_ptr<CDevice> createDevice(const std::string &paMGRID);
+
+  void setDeviceToCreate(AvailableDevices paDevice);
+
+  bool setDeviceToCreate(std::string paDevice);
+
+  std::string getAvailableDevices();
+
+};
+
+#else // FORTE_MULTIPLE_DEVICES
+
+${SINGLE_DEVICE_INCLUDE}
+
+namespace DeviceFactory {
+
+  std::unique_ptr<CDevice> createDevice(const std::string &paMGRID) {
+  ${SINGLE_DEVICE_CREATE}
+  }
+
+}
+#endif // FORTE_MULTIPLE_DEVICES
+
+
+#endif // FORTE_DEVICE_FACTORY_H

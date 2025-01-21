@@ -51,7 +51,7 @@ int main(int argc, char *arg[]){
   hookSignals();
 
   const char *ipPort = parseCommandLineArguments(argc, arg);
-  if((0 == strlen(ipPort)) || (nullptr == strchr(ipPort, ':'))) {
+  if((ipPort == nullptr) || (0 == strlen(ipPort)) || (nullptr == strchr(ipPort, ':'))) {
     //! Lists the help for FORTE
     listHelp();
     return -1;

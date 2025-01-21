@@ -16,6 +16,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifdef FORTE_MULTIPLE_DEVICES
+#include "deviceFactory.h"
+#endif // FORTE_MULTIPLE_DEVICES
+
 #ifdef FORTE_TRACE_CTF
 #include <string>
 #endif
@@ -28,6 +32,9 @@ void listHelp(){
   printf("Options:\n");
   printf("%-20s Display this information\n", "  -h");
   printf("%-20s Set the listening IP and port for the incoming connections\n", "  -c <IP>:<port>");
+#ifdef FORTE_MULTIPLE_DEVICES
+  printf("%-20s Set the device to be used\n", "  -d DEVICE_NAME");
+#endif // FORTE_MULTIPLE_DEVICES
 #ifdef FORTE_SUPPORT_BOOT_FILE
   printf("%-20s Set the boot-file where to read from to load the applications\n", "  -f <file>");
 #endif
@@ -60,6 +67,14 @@ const char *parseCommandLineArguments(int argc, char *arg[]){
           case 'c': //! sets the destination for the connection
             pIpPort = arg[i + 1];
             break;
+#ifdef FORTE_MULTIPLE_DEVICES
+          case 'd': //! sets the device to be used
+            if(!DeviceFactory::setDeviceToCreate(arg[i + 1])){
+              printf("The selected device '%s' is not valid. Select one of the following: %s\n", arg[i + 1], DeviceFactory::getAvailableDevices().c_str());
+              return nullptr;
+            }
+            break;
+#endif // FORTE_MULTIPLE_DEVICES
 #ifdef FORTE_SUPPORT_BOOT_FILE
           case 'f': //! sets the boot-file to be used
             gCommandLineBootFile = arg[i + 1];
