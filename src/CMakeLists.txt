@@ -206,7 +206,6 @@ LIST(LENGTH DEVICE_CLASSES DEVICE_CLASSES_LEN)
 
 IF(${DEVICE_CLASSES_LEN} EQUAL 1)
   # only one device present
-  forte_add_custom_configuration("#define FORTE_MULTIPLE_DEVICES 0")
 
   LIST(GET DEVICE_CLASSES     0 CLASS) 
   LIST(GET DEVICE_FILENAMES   0 FILENAME)
@@ -215,7 +214,7 @@ IF(${DEVICE_CLASSES_LEN} EQUAL 1)
   SET(SINGLE_DEVICE_CREATE "  return (paMGRID.length() != 0) ? std::make_unique<${CLASS}>(paMGRID) : std::make_unique<${CLASS}>(); ")
 
 ELSE()
-  forte_add_custom_configuration("#define FORTE_MULTIPLE_DEVICES 1")
+  forte_add_definition("-DFORTE_MULTIPLE_DEVICES")
 
   forte_add_sourcefile_with_path_cpp(${CMAKE_BINARY_DIR}/deviceFactory.cpp) # created file
 

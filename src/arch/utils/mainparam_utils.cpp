@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#if FORTE_MULTIPLE_DEVICES
+#ifdef FORTE_MULTIPLE_DEVICES
 #include "deviceFactory.h"
 #endif // FORTE_MULTIPLE_DEVICES
 
@@ -32,7 +32,7 @@ void listHelp(){
   printf("Options:\n");
   printf("%-20s Display this information\n", "  -h");
   printf("%-20s Set the listening IP and port for the incoming connections\n", "  -c <IP>:<port>");
-#if FORTE_MULTIPLE_DEVICES
+#ifdef FORTE_MULTIPLE_DEVICES
   printf("%-20s Set the device to be used\n", "  -d DEVICE_NAME");
 #endif // FORTE_MULTIPLE_DEVICES
 #ifdef FORTE_SUPPORT_BOOT_FILE
@@ -67,7 +67,7 @@ const char *parseCommandLineArguments(int argc, char *arg[]){
           case 'c': //! sets the destination for the connection
             pIpPort = arg[i + 1];
             break;
-#if FORTE_MULTIPLE_DEVICES
+#ifdef FORTE_MULTIPLE_DEVICES
           case 'd': //! sets the device to be used
             if(!DeviceFactory::setDeviceToCreate(arg[i + 1])){
               printf("The selected device '%s' is not valid. Select one of the following: %s\n", arg[i + 1], DeviceFactory::getAvailableDevices().c_str());

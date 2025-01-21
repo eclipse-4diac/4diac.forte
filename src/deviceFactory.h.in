@@ -13,12 +13,10 @@
 #ifndef FORTE_DEVICE_FACTORY_H
 #define FORTE_DEVICE_FACTORY_H
 
-#include <forte_config.h>
-
 #include <memory>
 #include <string>
 
-#if FORTE_MULTIPLE_DEVICES
+#ifdef FORTE_MULTIPLE_DEVICES
 
 class CDevice;
 
