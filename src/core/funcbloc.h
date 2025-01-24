@@ -41,8 +41,6 @@ class CAdapter;
 class CTimerHandler;
 class CDevice;
 
-typedef CFunctionBlock *TFunctionBlockPtr;
-
 namespace forte {
   namespace core {
     class CFBContainer;
@@ -62,6 +60,8 @@ namespace forte {
 typedef CAdapter *TAdapterPtr;
 
 typedef TPortId TDataIOID; //!< \ingroup CORE Type for holding an data In- or output ID
+
+typedef CStringDictionary::TStringId TEventTypeID;
 
 /*!\ingroup CORE\brief Structure to hold all data of adapters instantiated in the function block.
  */
@@ -414,6 +414,23 @@ class CFunctionBlock : public forte::core::CFBContainer {
     virtual void traceInstanceData() {}
 #endif //FORTE_TRACE_CTF
 
+    void addInputEventConnection(TEventID paEIID) {
+      if (getFBInterfaceSpec().mEITypeNames != nullptr) {
+        mInputEventConnectionCount[paEIID]++;
+      }
+    }
+
+    void removeInputEventConnection(TEventID paEIID) {
+      if (mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0) {
+        mInputEventConnectionCount[paEIID]--;
+      }
+    }
+
+    /*!\brief This function will trigger unconnected event ports of a certain EventType
+    * \param paEventTypeId ID of event type to be triggered
+    */
+    void triggerEventsOfType(TEventTypeID paEventTypeId);
+
   protected:
 
     /*!\brief The main constructor for a function block.
@@ -506,6 +523,12 @@ class CFunctionBlock : public forte::core::CFBContainer {
       }
     }
 #endif //FORTE_TRACE_CTF
+    /* !\brief checks if an input event pin is connected
+     *
+     */
+    [[nodiscard]] bool isInputEventConnected(TEventID paEIID) const {
+      return mInputEventConnectionCount != nullptr && mInputEventConnectionCount[paEIID] > 0;
+    }
 
     /*!\brief Set the initial values of data inputs, outputs, and internal vars.
      *
@@ -671,6 +694,11 @@ class CFunctionBlock : public forte::core::CFBContainer {
      * If the runnable object is declared in a device or resource specification it must be set to false.
      */
     bool mDeletable;
+
+    /*!\brief Stores the number of input connections for each event pin
+    */
+    std::unique_ptr<size_t[]> mInputEventConnectionCount;
+
 
 #ifdef FORTE_SUPPORT_MONITORING
     friend class forte::core::CMonitoringHandler;

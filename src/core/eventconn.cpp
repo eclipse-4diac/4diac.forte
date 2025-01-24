@@ -27,6 +27,7 @@ EMGMResponse CEventConnection::connect(CFunctionBlock *paDstFB, CStringDictionar
 
   if(cgInvalidEventID != nEIID){
     retval = CConnection::addDestination(CConnectionPoint(paDstFB, nEIID));
+    paDstFB->addInputEventConnection(nEIID);
   }
   return retval;
 }
@@ -48,6 +49,7 @@ EMGMResponse CEventConnection::disconnect(CFunctionBlock *paDstFB, CStringDictio
 
   if(cgInvalidEventID != nEIID){
     retval = CConnection::removeDestination(CConnectionPoint(paDstFB, nEIID));
+    paDstFB->removeInputEventConnection(nEIID);
   }
   return retval;
 }
